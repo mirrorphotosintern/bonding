@@ -12,71 +12,45 @@ import { useFocusEffect } from "expo-router";
 import { colors, spacing, typography, borderRadius, modeColor, modeBgColor } from "../../src/theme";
 import { matchActivities } from "../../src/lib/matcher";
 import { getJSON, STORAGE_KEYS } from "../../src/lib/storage";
-import type { Moment, AgeBand, Energy, Place, Mess, Noise, DurationBucket } from "../../src/types";
-
-const ENERGY_OPTIONS: { value: Energy; label: string; emoji: string }[] = [
-  { value: "empty", label: "Running on empty", emoji: "🪫" },
-  { value: "steady", label: "Steady", emoji: "☕" },
-  { value: "energetic", label: "Energetic", emoji: "⚡" },
-];
-
-const PLACE_OPTIONS: { value: Place; label: string }[] = [
-  { value: "home", label: "At home" },
-  { value: "outside", label: "Outside" },
-  { value: "travel", label: "In the car" },
-  { value: "waiting", label: "Waiting" },
-  { value: "bedtime", label: "Winding down" },
-];
-
-const DURATION_OPTIONS: { value: DurationBucket; label: string }[] = [
-  { value: "2-5", label: "2–5 min" },
-  { value: "5-10", label: "5–10 min" },
-  { value: "10-20", label: "10–20 min" },
-  { value: "20-45", label: "20–45 min" },
-  { value: "45+", label: "45+ min" },
-];
+import type { Moment, AgeBand } from "../../src/types";
 
 export default function TodayScreen() {
   const router = useRouter();
-  const [ageBands, setAgeBands] = useState<AgeBand[]>([]);
-  const [energy, setEnergy] = useState<Energy>("steady");
-  const [place, setPlace] = useState<Place>("home");
-  const [duration, setDuration] = useState<DurationBucket>("5-10");
   const [recommendation, setRecommendation] = useState<ReturnType<typeof matchActivities>[0] | null>(null);
   const [swapIndex, setSwapIndex] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
       loadAndMatch();
-    }, [energy, place, duration])
+    }, [])
   );
 
-  async function loadAndMatch() {
+  async function loadAndMatch(index = swapIndex) {
     const bands = await getJSON<AgeBand[]>(STORAGE_KEYS.childAgeBands) || [];
-    setAgeBands(bands);
 
     const moment: Moment = {
       childProfileIds: bands,
       adultCount: 1,
-      durationBucket: duration,
-      adultEnergy: energy,
+      durationBucket: "5-10",
+      adultEnergy: "steady",
       childState: "unspecified",
-      place,
-      messTolerance: energy === "empty" ? "none" : "contained",
-      noiseTolerance: place === "bedtime" ? "quiet" : "normal",
+      place: "home",
+      messTolerance: "contained",
+      noiseTolerance: "normal",
     };
 
     const matches = matchActivities(moment);
     if (matches.length > 0) {
-      setRecommendation(matches[swapIndex % matches.length]);
+      setRecommendation(matches[index % matches.length]);
     } else {
       setRecommendation(null);
     }
   }
 
   const handleSwap = () => {
-    setSwapIndex((i) => i + 1);
-    loadAndMatch();
+    const nextIndex = swapIndex + 1;
+    setSwapIndex(nextIndex);
+    loadAndMatch(nextIndex);
   };
 
   const handleStart = () => {
@@ -91,52 +65,6 @@ export default function TodayScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        {/* Quick context selectors */}
-        <View style={styles.contextSection}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipRow}>
-            {ENERGY_OPTIONS.map((opt) => (
-              <TouchableOpacity
-                key={opt.value}
-                style={[styles.chip, energy === opt.value && styles.chipActive]}
-                onPress={() => setEnergy(opt.value)}
-              >
-                <Text style={styles.chipEmoji}>{opt.emoji}</Text>
-                <Text style={[styles.chipText, energy === opt.value && styles.chipTextActive]}>
-                  {opt.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipRow}>
-            {PLACE_OPTIONS.map((opt) => (
-              <TouchableOpacity
-                key={opt.value}
-                style={[styles.chip, place === opt.value && styles.chipActive]}
-                onPress={() => setPlace(opt.value)}
-              >
-                <Text style={[styles.chipText, place === opt.value && styles.chipTextActive]}>
-                  {opt.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.chipRow}>
-            {DURATION_OPTIONS.map((opt) => (
-              <TouchableOpacity
-                key={opt.value}
-                style={[styles.chip, duration === opt.value && styles.chipActive]}
-                onPress={() => setDuration(opt.value)}
-              >
-                <Text style={[styles.chipText, duration === opt.value && styles.chipTextActive]}>
-                  {opt.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-
         {/* Recommendation card */}
         {recommendation ? (
           <View style={styles.cardContainer}>
@@ -198,7 +126,7 @@ export default function TodayScreen() {
           <View style={styles.emptyCard}>
             <Text style={styles.emptyTitle}>No perfect match right now</Text>
             <Text style={styles.emptyText}>
-              Try adjusting your time or energy level, or check out Talk Now for zero-prop games.
+              Try another activity, or check out Talk Now for a zero-prop game.
             </Text>
           </View>
         )}
@@ -225,39 +153,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     padding: spacing.md,
-  },
-  contextSection: {
-    marginBottom: spacing.lg,
-  },
-  chipRow: {
-    marginBottom: spacing.sm,
-  },
-  chip: {
-    flexDirection: "row",
-    alignItems: "center",
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: borderRadius.full,
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginRight: spacing.sm,
-  },
-  chipActive: {
-    borderColor: colors.primary,
-    backgroundColor: colors.primaryLight,
-  },
-  chipEmoji: {
-    fontSize: 14,
-    marginRight: 4,
-  },
-  chipText: {
-    ...typography.callout,
-    color: colors.text,
-  },
-  chipTextActive: {
-    color: colors.primary,
-    fontWeight: "600",
   },
   cardContainer: {
     backgroundColor: colors.surface,
