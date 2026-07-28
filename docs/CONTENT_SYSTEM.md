@@ -134,7 +134,7 @@ editorial:
   oneLinePromise: string
   mode: make | move | think | talk | help | perform
   mechanics: [string]
-  whyFamiliesLikeIt: string
+  theIdea: string
   provenance:
     inspirationUrls: [url]
     author: string

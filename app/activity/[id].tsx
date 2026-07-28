@@ -134,10 +134,10 @@ export default function ActivityDetailScreen() {
           </View>
         </View>
 
-        {/* Why families like it */}
+        {/* Plain-language activity concept */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Why families like it</Text>
-          <Text style={styles.bodyText}>{activity.whyFamiliesLikeIt}</Text>
+          <Text style={styles.sectionTitle}>The idea</Text>
+          <Text style={styles.bodyText}>{activity.theIdea}</Text>
         </View>
 
         {/* Safety warning */}

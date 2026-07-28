@@ -96,7 +96,7 @@ export interface Activity {
   oneLinePromise: string;
   mode: ActivityMode;
   mechanics: string[];
-  whyFamiliesLikeIt: string;
+  theIdea: string;
 
   ageBands: AgeBand[];
   durationPrepMinutes: number;
