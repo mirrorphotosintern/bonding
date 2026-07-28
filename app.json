@@ -20,7 +20,11 @@
     },
     "android": {
       "package": "com.mirrorphotos.handful",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -31,6 +35,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ec3fc398-53c6-40a2-91fb-b56bc67d714f"
+      }
+    },
+    "owner": "mirrorphotos"
   }
 }
