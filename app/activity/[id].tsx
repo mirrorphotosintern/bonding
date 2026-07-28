@@ -106,34 +106,6 @@ export default function ActivityDetailScreen() {
           <Text style={styles.promise}>{activity.oneLinePromise}</Text>
         </View>
 
-        {/* Quick facts */}
-        <View style={styles.factsRow}>
-          <View style={styles.fact}>
-            <Text style={styles.factValue}>
-              {activity.durationPlayMin}–{activity.durationPlayMax}
-            </Text>
-            <Text style={styles.factLabel}>minutes</Text>
-          </View>
-          <View style={styles.fact}>
-            <Text style={styles.factValue}>
-              {activity.materials.length === 0 ? "None" : activity.materials.length}
-            </Text>
-            <Text style={styles.factLabel}>materials</Text>
-          </View>
-          <View style={styles.fact}>
-            <Text style={styles.factValue}>
-              {activity.mess === "none" ? "None" : activity.mess}
-            </Text>
-            <Text style={styles.factLabel}>mess</Text>
-          </View>
-          <View style={styles.fact}>
-            <Text style={styles.factValue}>
-              {activity.ageBands.join(", ")}
-            </Text>
-            <Text style={styles.factLabel}>ages</Text>
-          </View>
-        </View>
-
         {/* Plain-language activity concept */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>The idea</Text>
@@ -304,29 +276,6 @@ const styles = StyleSheet.create({
   promise: {
     ...typography.body,
     color: colors.textSecondary,
-  },
-  factsRow: {
-    flexDirection: "row",
-    backgroundColor: colors.surface,
-    borderRadius: borderRadius.md,
-    padding: spacing.md,
-    marginBottom: spacing.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  fact: {
-    flex: 1,
-    alignItems: "center",
-  },
-  factValue: {
-    ...typography.headline,
-    color: colors.text,
-    fontSize: 14,
-  },
-  factLabel: {
-    ...typography.caption,
-    color: colors.textTertiary,
-    marginTop: 2,
   },
   section: {
     marginBottom: spacing.lg,
