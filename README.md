@@ -6,9 +6,18 @@ The consumer name is not final. **Bonding** is the internal codename, and **Hand
 
 ## Status
 
-The repository currently contains the implementation-ready product, content, research, design, and Cloudflare architecture specifications. Application scaffolding is the next step.
+The repository contains the Expo application plus product, content, research, design, and Cloudflare architecture specifications.
 
 Start with the [documentation index](docs/README.md).
+
+## Run the app
+
+```bash
+npm install
+npm run ios
+```
+
+The default iOS command opens the app in Expo Go on the iOS simulator. Use `npm run ios:native` only after adding a capability that requires a custom native build.
 
 ## Product boundary
 
