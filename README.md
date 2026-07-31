@@ -9,7 +9,7 @@ The repository contains the Expo application plus product, content, research, de
 
 Start with the [documentation index](docs/README.md).
 
-## Run the app
+## Run the native app
 
 ```bash
 npm install
@@ -17,6 +17,27 @@ npm run ios
 ```
 
 The default iOS command opens the app in Expo Go on the iOS simulator. Use `npm run ios:native` only after adding a capability that requires a custom native build.
+
+## Run the website
+
+The production marketing site is a standalone Next.js application in `web/`.
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+`npm run check` performs the same type and production-build checks used by CI.
+Production deploys target the `trythis-fun` Cloudflare Pages project.
+
+### Website CI/CD
+
+- Pull requests and pushes to `main` run the production build.
+- Changes under `web/` deploy automatically from `main`.
+- GitHub Actions requires the `CLOUDFLARE_API_TOKEN` repository secret with
+  Cloudflare Pages write access.
+- `CLOUDFLARE_ACCOUNT_ID` is stored as a non-secret repository variable.
 
 ## Product boundary
 
@@ -26,9 +47,11 @@ This is a standalone global product. It is not a Shaale extension and has no Kan
 
 ```text
 Bonding/
+├── app/        Expo Router native application
+├── src/        Native components, data, services, and theme
+├── web/        Next.js marketing site for trythis.fun
 ├── docs/       Product, research, content, design, and technical specifications
-├── README.md   Repository entry point
-└── .gitignore  Local and generated-file exclusions
+└── .github/    Build verification and Cloudflare deployment workflows
 ```
 
 ## Implementation constraints
