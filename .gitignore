@@ -20,6 +20,9 @@ ios/
 # Tests and generated output
 coverage/
 *.log
+**/.next/
+**/out/
+**/*.tsbuildinfo
 
 # Editors and operating systems
 .DS_Store
