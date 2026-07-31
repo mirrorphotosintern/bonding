@@ -1,4 +1,4 @@
-# Handful — Design Context
+# Try This — Design Context
 
 > Status: working design context informed by founder direction, competitor review, `ParentLinks.csv`, and the requested Shaale-like mobile stack. The proposed visual thesis awaits founder confirmation in `COMPETITIVE_VISUAL_STRATEGY.md`.
 
@@ -33,7 +33,7 @@ Three words: **resourceful, warm, spirited**.
 - A single recommended activity dominates the home screen. Browsing is secondary.
 - Color should separate modes—Make, Move, Think, Talk, Help, Perform—without turning the UI into a rainbow grid.
 - Typography should feel practical and human, like a good museum family guide. Final font selection must follow a catalog review; do not default to Inter, DM Sans, Fraunces, Syne, or the other common AI-design reflexes.
-- Motion is used for the transition from phone mode to Together Mode, timers, turn-taking, and completion. No bounce, casino-like reward effects, or ambient animation that competes with the child.
+- Motion is used for the transition from phone mode to the playable idea page, timers, turn-taking, and completion. No bounce, casino-like reward effects, or ambient animation that competes with the child.
 - The child should never need to stare at the phone to participate. Large, glanceable prompts and optional audio are essential.
 
 ### Anti-references
@@ -50,7 +50,7 @@ Three words: **resourceful, warm, spirited**.
 ### Design Principles
 
 1. **One good answer beats a feed.** Default to a single match with one-tap swaps.
-2. **Design for the handoff.** Every screen should move the family toward putting the phone down.
+2. **Make starting feel natural.** Give the family what they need without instructing them how to hold or abandon the phone.
 3. **Make the child capable.** Give the child roles, choices, and room to alter the rules.
 4. **Respect the adult's actual energy.** “Barely functioning” is a legitimate input, not a failure state.
 5. **Show reality, not aspiration.** Ordinary materials, imperfect results, different homes, bodies, and family structures.

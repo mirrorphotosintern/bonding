@@ -1,135 +1,306 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
-  View,
   Text,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
+  View,
 } from "react-native";
+import { SymbolView } from "expo-symbols";
 import { useRouter } from "expo-router";
-import { colors, spacing, typography, borderRadius, modeColor, modeBgColor } from "../../src/theme";
-import { activities } from "../../src/data/activities";
+import { colors, spacing, typography, borderRadius } from "../../src/theme";
+import { ideas, type IdeaSummary } from "../../src/data/ideas";
 import type { ActivityMode } from "../../src/types";
 
-const MODES: { value: ActivityMode | "all"; label: string; color: string }[] = [
-  { value: "all", label: "All", color: colors.primary },
-  { value: "make", label: "Make", color: colors.make },
-  { value: "move", label: "Move", color: colors.move },
-  { value: "think", label: "Think", color: colors.think },
-  { value: "talk", label: "Talk", color: colors.talk },
-  { value: "help", label: "Help", color: colors.help },
-  { value: "perform", label: "Perform", color: colors.perform },
+type Filter =
+  | "all"
+  | "no-materials"
+  | "move"
+  | "make"
+  | "talk"
+  | "imagine"
+  | "help";
+
+const FILTERS: {
+  value: Filter;
+  label: string;
+  matches: (idea: IdeaSummary) => boolean;
+}[] = [
+  { value: "all", label: "All ideas", matches: () => true },
+  {
+    value: "no-materials",
+    label: "No materials",
+    matches: (idea) => idea.materialCount === 0,
+  },
+  {
+    value: "move",
+    label: "Get moving",
+    matches: (idea) => idea.mode === "move",
+  },
+  {
+    value: "make",
+    label: "Make something",
+    matches: (idea) => idea.mode === "make",
+  },
+  {
+    value: "talk",
+    label: "Talk, sing & tell",
+    matches: (idea) => idea.mode === "talk",
+  },
+  {
+    value: "imagine",
+    label: "Imagine & guess",
+    matches: (idea) => idea.mode === "think" || idea.mode === "perform",
+  },
+  {
+    value: "help",
+    label: "Do a family job",
+    matches: (idea) => idea.mode === "help",
+  },
 ];
+
+const markerByMode: Record<ActivityMode, { color: string; symbol: string }> = {
+  make: { color: colors.sun, symbol: "scissors" },
+  move: { color: colors.coral, symbol: "figure.run" },
+  think: { color: colors.lavender, symbol: "lightbulb.fill" },
+  talk: { color: colors.mint, symbol: "quote.bubble.fill" },
+  help: { color: colors.sun, symbol: "hands.sparkles.fill" },
+  perform: { color: colors.cobalt, symbol: "wand.and.stars" },
+};
+
+function IdeaMarker({ mode }: { mode: ActivityMode }) {
+  const marker = markerByMode[mode];
+  return (
+    <View style={[styles.marker, { backgroundColor: marker.color }]}>
+      <SymbolView
+        name={marker.symbol as never}
+        style={styles.markerIcon}
+        tintColor={mode === "perform" ? colors.surface : colors.text}
+      />
+    </View>
+  );
+}
 
 export default function ExploreScreen() {
   const router = useRouter();
-  const [selectedMode, setSelectedMode] = useState<ActivityMode | "all">("all");
+  const [selectedFilter, setSelectedFilter] = useState<Filter>("all");
 
-  const filtered = selectedMode === "all"
-    ? activities.filter((a) => a.status === "published")
-    : activities.filter((a) => a.mode === selectedMode && a.status === "published");
+  const counts = useMemo(
+    () =>
+      Object.fromEntries(
+        FILTERS.map((filter) => [
+          filter.value,
+          ideas.filter(filter.matches).length,
+        ])
+      ) as Record<Filter, number>,
+    []
+  );
+
+  const filtered = useMemo(() => {
+    const active = FILTERS.find((filter) => filter.value === selectedFilter);
+    return active ? ideas.filter(active.matches) : ideas;
+  }, [selectedFilter]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.filterRow}>
-          {MODES.map((mode) => (
+    <ScrollView
+      contentInsetAdjustmentBehavior="automatic"
+      style={styles.container}
+      contentContainerStyle={styles.scroll}
+    >
+      <View style={styles.introBlock}>
+        <Text style={styles.eyebrow}>PICK YOUR OWN</Text>
+        <Text style={styles.intro}>What fits the moment?</Text>
+      </View>
+
+      <View style={styles.filterRow}>
+        {FILTERS.map((filter) => {
+          const selected = selectedFilter === filter.value;
+          return (
             <TouchableOpacity
-              key={mode.value}
-              style={[
-                styles.filterChip,
-                selectedMode === mode.value && { backgroundColor: mode.color, borderColor: mode.color },
-              ]}
-              onPress={() => setSelectedMode(mode.value)}
+              key={filter.value}
+              style={[styles.filterChip, selected && styles.filterChipActive]}
+              onPress={() => setSelectedFilter(filter.value)}
             >
+              <Text style={[styles.filterText, selected && styles.filterTextActive]}>
+                {filter.label}
+              </Text>
               <Text
                 style={[
-                  styles.filterText,
-                  selectedMode === mode.value && styles.filterTextActive,
+                  styles.filterCount,
+                  selected && styles.filterCountActive,
                 ]}
               >
-                {mode.label}
+                {counts[filter.value]}
               </Text>
             </TouchableOpacity>
-          ))}
-        </ScrollView>
+          );
+        })}
+      </View>
 
-        {filtered.map((activity) => (
-          <TouchableOpacity
-            key={activity.id}
-            style={styles.card}
-            onPress={() => router.push(`/activity/${activity.id}`)}
-          >
+      <Text style={styles.resultCount}>
+        {filtered.length} GOOD {filtered.length === 1 ? "IDEA" : "IDEAS"}
+      </Text>
+
+      {filtered.map((idea) => (
+        <TouchableOpacity
+          key={idea.id}
+          activeOpacity={0.82}
+          style={styles.card}
+          onPress={() => router.push(`/activity/${idea.id}`)}
+        >
+          <IdeaMarker mode={idea.mode} />
+          <View style={styles.cardBody}>
             <View style={styles.cardHeader}>
-              <View style={[styles.modeBadge, { backgroundColor: modeBgColor(activity.mode) }]}>
-                <Text style={[styles.modeBadgeText, { color: modeColor(activity.mode) }]}>
-                  {activity.mode.toUpperCase()}
-                </Text>
-              </View>
               <Text style={styles.cardDuration}>
-                {activity.durationPlayMin}–{activity.durationPlayMax} min
+                {idea.durationMin}–{idea.durationMax} MIN
               </Text>
+              {idea.materialCount === 0 && (
+                <Text style={styles.zeroPrep}>NOTHING NEEDED</Text>
+              )}
             </View>
-            <Text style={styles.cardTitle}>{activity.title}</Text>
+            <Text style={styles.cardTitle}>{idea.title}</Text>
             <Text style={styles.cardPromise} numberOfLines={2}>
-              {activity.oneLinePromise}
+              {idea.promise}
             </Text>
-            <View style={styles.cardMeta}>
-              <Text style={styles.cardMetaText}>
-                {activity.materials.length === 0 ? "No materials" : `${activity.materials.length} materials`}
-              </Text>
-              <Text style={styles.cardMetaDot}>·</Text>
-              <Text style={styles.cardMetaText}>
-                {activity.mess === "none" ? "No mess" : activity.mess}
-              </Text>
+            <View style={styles.cardAction}>
+              <Text style={styles.cardActionText}>See the idea</Text>
+              <SymbolView
+                name="arrow.up.right"
+                style={styles.arrow}
+                tintColor={colors.cobalt}
+              />
             </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  scroll: { padding: spacing.md },
-  filterRow: { marginBottom: spacing.md },
+  scroll: { padding: spacing.md, paddingBottom: spacing.xxl },
+  introBlock: { marginBottom: spacing.md },
+  eyebrow: {
+    ...typography.caption,
+    color: colors.cobalt,
+    fontWeight: "900",
+    letterSpacing: 1.4,
+  },
+  intro: {
+    fontSize: 30,
+    lineHeight: 35,
+    fontWeight: "900",
+    letterSpacing: -1,
+    color: colors.text,
+    marginTop: 3,
+  },
+  filterRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.sm,
+    paddingBottom: spacing.lg,
+  },
   filterChip: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    paddingLeft: spacing.md,
+    paddingRight: 8,
+    paddingVertical: 10,
     borderRadius: borderRadius.full,
     backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginRight: spacing.sm,
+    borderWidth: 1.5,
+    borderColor: colors.text,
   },
-  filterText: { ...typography.callout, color: colors.text },
-  filterTextActive: { color: "#FFFFFF", fontWeight: "600" },
+  filterChipActive: {
+    backgroundColor: colors.text,
+  },
+  filterText: { ...typography.callout, color: colors.text, fontWeight: "700" },
+  filterTextActive: { color: colors.surface },
+  filterCount: {
+    minWidth: 24,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: borderRadius.full,
+    overflow: "hidden",
+    textAlign: "center",
+    fontSize: 11,
+    fontWeight: "900",
+    color: colors.text,
+    backgroundColor: colors.surfaceWarm,
+  },
+  filterCountActive: {
+    color: colors.text,
+    backgroundColor: colors.sun,
+  },
+  resultCount: {
+    ...typography.caption,
+    color: colors.textTertiary,
+    fontWeight: "800",
+    letterSpacing: 1,
+    marginBottom: spacing.sm,
+  },
   card: {
     backgroundColor: colors.surface,
-    borderRadius: borderRadius.md,
-    padding: spacing.md,
-    marginBottom: spacing.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderRadius: borderRadius.lg,
+    padding: 12,
+    marginBottom: spacing.md,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+    flexDirection: "row",
+    gap: spacing.md,
   },
+  marker: {
+    width: 72,
+    height: 72,
+    borderRadius: 22,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    transform: [{ rotate: "-3deg" }],
+  },
+  markerIcon: { width: 32, height: 32 },
+  cardBody: { flex: 1, paddingVertical: 5, paddingRight: 4 },
   cardHeader: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    flexWrap: "wrap",
+    gap: 6,
+    marginBottom: 5,
+  },
+  cardDuration: {
+    fontSize: 10,
+    color: colors.textTertiary,
+    fontWeight: "800",
+    letterSpacing: 0.5,
+  },
+  zeroPrep: {
+    fontSize: 10,
+    color: colors.cobalt,
+    fontWeight: "900",
+    letterSpacing: 0.4,
+  },
+  cardTitle: {
+    fontSize: 20,
+    lineHeight: 23,
+    fontWeight: "900",
+    letterSpacing: -0.5,
+    color: colors.text,
+    marginBottom: 3,
+  },
+  cardPromise: {
+    fontSize: 13,
+    lineHeight: 17,
+    color: colors.textSecondary,
+  },
+  cardAction: {
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: spacing.sm,
+    gap: 5,
+    marginTop: 7,
   },
-  modeBadge: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 2,
-    borderRadius: borderRadius.sm,
-  },
-  modeBadgeText: { ...typography.caption, fontWeight: "700", letterSpacing: 1 },
-  cardDuration: { ...typography.caption, color: colors.textTertiary },
-  cardTitle: { ...typography.headline, color: colors.text, marginBottom: spacing.xs },
-  cardPromise: { ...typography.body, color: colors.textSecondary, marginBottom: spacing.sm },
-  cardMeta: { flexDirection: "row", alignItems: "center" },
-  cardMetaText: { ...typography.caption, color: colors.textTertiary },
-  cardMetaDot: { ...typography.caption, color: colors.textTertiary, marginHorizontal: spacing.sm },
+  cardActionText: { fontSize: 12, color: colors.cobalt, fontWeight: "800" },
+  arrow: { width: 11, height: 11 },
 });

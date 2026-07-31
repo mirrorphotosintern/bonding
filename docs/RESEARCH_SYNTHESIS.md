@@ -1,4 +1,4 @@
-# Handful — Research Synthesis
+# Try This — Research Synthesis
 
 **Research date:** 2026-07-26  
 **Input:** `ParentLinks.csv`  
@@ -18,7 +18,7 @@ Hearty, Whimsy, Kida, Kiddoz, PlayKin, Goodlings, and newer parent-assistance pr
 
 ### Zero-prop conversation is the strongest initial wedge
 
-The additional report makes a convincing product argument even where its developmental language overreaches: cars, restaurants, queues, and bedtime create recurring moments in which preparation-heavy activities cannot work. Oral games can start in seconds, stop on interruption, adapt across ages, and repeat without a feed. Handful should use **Talk Now** to validate repeat utility before investing in the entire hands-on catalog.
+The additional report makes a convincing product argument even where its developmental language overreaches: cars, restaurants, queues, and bedtime create recurring moments in which preparation-heavy activities cannot work. Oral games can start in seconds, stop on interruption, adapt across ages, and repeat without a feed. Try This should rank them highly in those moments without separating them from the rest of the catalog.
 
 ### The strongest source material is participatory
 
@@ -35,7 +35,7 @@ Magic tricks, movement games, household contribution, crafts, conversation games
 
 One source summarizes the premise well: companionship is not merely sitting next to a child in front of a screen; it is moving, playing, laughing, and connecting. The Temple word-learning experiment offers a narrower, credible mechanism: an interrupted parent-child teaching interaction impaired the toddlers' learning of the word even though exposure was matched.
 
-Handful should not turn that finding into fear-based marketing. It should use it as a design constraint: once a shared activity begins, reduce competing phone interaction.
+Try This should not turn that finding into fear-based marketing. It should use it as a design constraint: once a shared activity begins, reduce competing phone interaction.
 
 ### Source quality varies dramatically
 
@@ -91,20 +91,20 @@ Its current [US App Store listing](https://apps.apple.com/us/app/hearty-app-ever
 - Development language risks overclaiming unless each claim is carefully sourced.
 - The opportunity is not “more categories”; it is higher confidence that one recommendation fits now.
 
-### What Handful should learn, not copy
+### What Try This should learn, not copy
 
 | Learn | Extend |
 | --- | --- |
 | Age-tailored content | Add current time, energy, place, participants, materials, mess, noise, and access needs |
 | Broad caregiver audience | Add guest caregiver links and explicit intergenerational roles |
-| Offline fun | Build a true offline Together Mode |
+| Offline fun | Build a true offline the playable idea page |
 | Simple materials | Maintain a material graph and safe substitutions |
 | Conversations + projects | Add capability paths and family remixes |
 | Personalized discovery | Default to one answer, not a catalog |
 
 ## 3. Current market map
 
-| Product | Current promise | Lesson for Handful |
+| Product | Current promise | Lesson for Try This |
 | --- | --- | --- |
 | [Hearty](https://hearty-app.com/) | Age-tailored offline bonding ideas across categories | Baseline competitor; do not clone |
 | [Whimsy](https://getwhimsy.app/) | One low-prep idea for the parent's current moment and energy | Moment context is table stakes |
@@ -118,7 +118,7 @@ Its current [US App Store listing](https://apps.apple.com/us/app/hearty-app-ever
 
 ### Defensible wedge
 
-Handful should own:
+Try This should own:
 
 > **The fastest, safest path from “we have a few minutes” to “we did something together,” with the phone deliberately leaving the interaction.**
 
@@ -126,7 +126,7 @@ Features that support that wedge:
 
 - one recommendation;
 - prep confidence;
-- Together Mode;
+- the playable idea page;
 - multi-age roles;
 - child-led remixes;
 - family-specific success memory;
@@ -153,7 +153,7 @@ Product implications:
 
 - protect the short interaction window;
 - cache instructions before starting;
-- avoid prompts, upsells, or browsing during Together Mode;
+- avoid prompts, upsells, or browsing during the playable idea page;
 - do not generalize one study into sweeping claims about all phone use.
 
 ### Guided play
@@ -178,7 +178,7 @@ Product implications:
 
 ### Evidence standard
 
-Handful should use a three-level claim system:
+Try This should use a three-level claim system:
 
 1. **Observable:** “practices taking turns” — generally safe.
 2. **Research-informed:** “guided play can support…” — source note required.
@@ -234,7 +234,7 @@ Reliable mechanic families:
 
 Product changes:
 
-1. Add a two-tap Talk Now route.
+1. Make zero-prop conversation games eligible in the same two-tap recommendation flow.
 2. Store situation constraints such as volume and interruptibility.
 3. Use a smaller conversation-game schema instead of forcing every oral game into a materials-based activity object.
 4. Make defaults cooperative and non-eliminating.
@@ -242,7 +242,7 @@ Product changes:
 6. Create driver-safe audio behavior.
 7. Validate organic cross-context return before assuming subscription demand.
 
-The report frequently describes games as building neurological infrastructure, regulating behavior, or directly enhancing executive function. Its references include blogs, Wikipedia, YouTube, commercial pages, and Reddit, so those statements are hypotheses or secondary summaries rather than an adequate claims base. Its suggested pricing, return thresholds, ad budget, and competitor-ad inference are also hypotheses. Handful can adopt the games without adopting inflated claims.
+The report frequently describes games as building neurological infrastructure, regulating behavior, or directly enhancing executive function. Its references include blogs, Wikipedia, YouTube, commercial pages, and Reddit, so those statements are hypotheses or secondary summaries rather than an adequate claims base. Its suggested pricing, return thresholds, ad budget, and competitor-ad inference are also hypotheses. Try This can adopt the games without adopting inflated claims.
 
 ## 6. Harmful or unsupported patterns rejected
 
@@ -276,7 +276,7 @@ Disposition codes:
 6. [Hands-faster-than-eyes magic](https://x.com/jaamilaresti/status/2055901935979676066?s=20) — **Seed.** Learn, practice, reveal, and teach.
 7. [Responsibility sticker](https://x.com/RRR0BYN/status/2055731106595672350?s=20) — **Unavailable.** Blank/removed post; do not reconstruct from label alone.
 8. [Child orders for the family](https://x.com/EstieMaddie/status/2055261185621074128?s=20) — **Seed.** Real-world confidence and contribution with an opt-out for anxiety or communication differences.
-9. [Recommended educational AI tools](https://x.com/mackenzieprice/status/2055386887875858714?s=20) — **Market/Principle.** Mastery and interest-led learning are relevant; Handful should not become an edtech aggregator.
+9. [Recommended educational AI tools](https://x.com/mackenzieprice/status/2055386887875858714?s=20) — **Market/Principle.** Mastery and interest-led learning are relevant; Try This should not become an edtech aggregator.
 10. [Resilience over constant happiness](https://x.com/newstart_2024/status/2055144809556320717?s=20) — **Principle/Caution.** Normalize frustration and avoid rescuing, while not offering mental-health treatment.
 11. [Family color photo hunt](https://x.com/vlucasrocha/status/2051344525969240364?s=20) — **Seed.** Each person notices and captures one color; optional camera-free collection variant.
 
@@ -350,7 +350,7 @@ Disposition codes:
 68. [Ten active home games](https://x.com/GoalLoaded/status/2008913572143759390?s=20) — **Seed.** Strong situation pack; individual safety review required.
 69. [Collect three bottles](https://x.com/itsme_urstruly/status/2008523685020553678?s=20) — **Seed.** Relay/collection mechanic; use clean, empty, safe objects.
 70. [Japanese craft that delights a child](https://x.com/coolpan967/status/2008330805035024890?s=20) — **Caution.** Page lacks an English mechanical description; inspect and recreate only after testing.
-71. [Math YouTube channels](https://x.com/LivingTricks_/status/2008247105358623161?s=20) — **Market/Caution.** Shows learning-content demand but conflicts with Handful's real-world wedge.
+71. [Math YouTube channels](https://x.com/LivingTricks_/status/2008247105358623161?s=20) — **Market/Caution.** Shows learning-content demand but conflicts with Try This's real-world wedge.
 72. [Sound memory/listening game](https://x.com/CadioArena/status/2008228411123347890?s=20) — **Seed.** Excellent no/low-material listening activity with visual/tactile alternative.
 73. [Strengths, boredom, and good-deeds lists](https://x.com/tomerlondon/status/2008392339308552605?s=20) — **Seed.** Co-created artifacts that become family tools; avoid forced positivity.
 74. [First-three-years interaction summary](https://x.com/ShiningScience/status/2008015723667566867?s=20) — **Principle/Caution.** Supports warm interaction; use linked primary research, not broad social-media claims.
@@ -373,7 +373,7 @@ These were included even though they are not part of the 81-URL count.
 
 Original idea: make a face based on an adjective, photograph it, and have AI judge who did better.
 
-Handful adaptation:
+Try This adaptation:
 
 - no photo required;
 - one person draws an adjective;
@@ -391,7 +391,7 @@ Use ordinary family sentences—“Let’s go to the restaurant,” “Khushi is
 1. Build for **ages 3–10**, not Hearty's full 0–12 spread.
 2. Lead with **current moment**, not category.
 3. Show **one recommendation**, not a feed.
-4. Make **Together Mode** the signature.
+4. Make **the playable idea page** the signature.
 5. Use **original content with provenance**, not embedded social clips.
 6. Focus on **roles, remixes, and teach-back** to create repeatability.
 7. Treat **grandparents and multiple children** as first-class.

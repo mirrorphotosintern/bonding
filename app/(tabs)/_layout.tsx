@@ -1,10 +1,11 @@
 import { Tabs } from "expo-router";
-import { Text, StyleSheet } from "react-native";
+import { SymbolView } from "expo-symbols";
+import { StyleSheet } from "react-native";
 import { colors } from "../../src/theme";
 
-function TabIcon({ symbol, focused }: { symbol: string; focused: boolean }) {
+function TabIcon({ symbol, color }: { symbol: string; color: string }) {
   return (
-    <Text style={[styles.icon, focused && styles.iconFocused]}>{symbol}</Text>
+    <SymbolView name={symbol as never} style={styles.icon} tintColor={color} />
   );
 }
 
@@ -12,50 +13,52 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
+        tabBarActiveTintColor: colors.cobalt,
         tabBarInactiveTintColor: colors.textTertiary,
+        tabBarLabelStyle: { fontSize: 11, fontWeight: "700" },
         tabBarStyle: {
           backgroundColor: colors.surface,
           borderTopColor: colors.border,
+          height: 84,
+          paddingTop: 8,
         },
         headerStyle: { backgroundColor: colors.background },
+        headerShadowVisible: false,
         headerTintColor: colors.text,
-        headerTitleStyle: { fontWeight: "600" },
+        headerTitleStyle: { fontWeight: "800" },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Today",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon symbol="◉" focused={focused} />
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <TabIcon symbol="sparkles" color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="explore"
         options={{
-          title: "Explore",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon symbol="◈" focused={focused} />
-          ),
+          href: null,
         }}
       />
       <Tabs.Screen
         name="our-things"
         options={{
-          title: "Our Things",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon symbol="♡" focused={focused} />
+          title: "Saved",
+          tabBarIcon: ({ color }) => (
+            <TabIcon symbol="heart.fill" color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="grown-ups"
         options={{
-          title: "Grown-ups",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon symbol="⚙" focused={focused} />
+          title: "Profile",
+          tabBarIcon: ({ color }) => (
+            <TabIcon symbol="person.crop.circle.fill" color={color} />
           ),
         }}
       />
@@ -64,11 +67,5 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    fontSize: 22,
-    color: colors.textTertiary,
-  },
-  iconFocused: {
-    color: colors.primary,
-  },
+  icon: { width: 23, height: 23 },
 });

@@ -6,18 +6,29 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  Alert,
+  Linking,
 } from "react-native";
+import { SymbolView } from "expo-symbols";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { colors, spacing, typography, borderRadius, modeColor, modeBgColor } from "../../src/theme";
+import { colors, spacing, typography, borderRadius } from "../../src/theme";
 import { getActivityById } from "../../src/data/activities";
+import { getGameById } from "../../src/data/conversation-games";
+import {
+  getSourceIdeaById,
+  getSourceIdeaPlaybook,
+} from "../../src/data/source-ideas";
 import { setJSON, getJSON, STORAGE_KEYS } from "../../src/lib/storage";
-import type { TogetherSession } from "../../src/types";
+import { IdeaArtwork } from "../../src/components/idea-artwork";
 
 export default function ActivityDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const activity = getActivityById(id || "");
+  const game = getGameById(id || "");
+  const sourceIdea = getSourceIdeaById(id || "");
+  const sourcePlaybook = sourceIdea
+    ? getSourceIdeaPlaybook(sourceIdea)
+    : null;
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -25,8 +36,13 @@ export default function ActivityDetailScreen() {
   }, [id]);
 
   async function checkSaved() {
-    const saved = await getJSON<string[]>(STORAGE_KEYS.savedActivityIds) || [];
-    setIsSaved(saved.includes(id || ""));
+    const savedIdeas =
+      (await getJSON<string[]>(STORAGE_KEYS.savedActivityIds)) || [];
+    const legacySavedGames =
+      (await getJSON<string[]>(STORAGE_KEYS.savedGameIds)) || [];
+    setIsSaved(
+      savedIdeas.includes(id || "") || legacySavedGames.includes(id || "")
+    );
   }
 
   async function toggleSave() {
@@ -38,11 +54,11 @@ export default function ActivityDetailScreen() {
     setIsSaved(!isSaved);
   }
 
-  if (!activity) {
+  if (!activity && !game && !sourceIdea) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>Activity not found</Text>
+          <Text style={styles.errorText}>Idea not found</Text>
           <TouchableOpacity onPress={() => router.back()}>
             <Text style={styles.errorLink}>Go back</Text>
           </TouchableOpacity>
@@ -51,59 +67,151 @@ export default function ActivityDetailScreen() {
     );
   }
 
-  const handleStartTogether = async () => {
-    const sessionId = `session_${Date.now()}`;
-    const session: TogetherSession = {
-      id: sessionId,
-      activityId: activity.id,
-      conversationGameId: null,
-      momentSnapshot: {
-        childProfileIds: [],
-        adultCount: 1,
-        durationBucket: "5-10",
-        adultEnergy: "steady",
-        childState: "unspecified",
-        place: "home",
-        messTolerance: "contained",
-        noiseTolerance: "normal",
-      },
-      startedAt: Date.now(),
-      completedAt: null,
-      fit: null,
-      swapReason: null,
-      completionMode: "completed",
-    };
+  if (sourceIdea) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <View style={styles.artFrame}>
+            <IdeaArtwork id={sourceIdea.id} title={sourceIdea.title} />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.quickLabel}>TRY THIS</Text>
+            <Text style={styles.title}>{sourceIdea.title}</Text>
+            <Text style={styles.promise}>{sourcePlaybook?.summary}</Text>
+            <TouchableOpacity style={styles.inlineSave} onPress={toggleSave}>
+              <SymbolView
+                name={isSaved ? "heart.fill" : "heart"}
+                style={styles.saveIcon}
+                tintColor={colors.cobalt}
+              />
+              <Text style={styles.inlineSaveText}>{isSaved ? "Saved" : "Save"}</Text>
+            </TouchableOpacity>
+          </View>
 
-    // Save session
-    const sessions = await getJSON<TogetherSession[]>(STORAGE_KEYS.sessions) || [];
-    sessions.push(session);
-    await setJSON(STORAGE_KEYS.sessions, sessions);
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>How to play</Text>
+            {sourcePlaybook?.steps.map((step, index) => (
+              <View key={step} style={styles.stepRow}>
+                <View style={styles.stepNumber}>
+                  <Text style={styles.stepNumberText}>{index + 1}</Text>
+                </View>
+                <Text style={styles.stepText}>{step}</Text>
+              </View>
+            ))}
+          </View>
 
-    router.push(`/together/${sessionId}`);
-  };
+          {sourceIdea.sourceUrl && (
+            <View style={styles.sourceCard}>
+              <Text style={styles.sourceEyebrow}>ORIGINAL DEMONSTRATION</Text>
+              <Text style={styles.sourceTitle}>Watch how it&apos;s done</Text>
+              <Text style={styles.sourceText}>
+                This idea depends on a visual technique, so the original
+                demonstration is part of the instructions.
+              </Text>
+              <TouchableOpacity
+                style={styles.sourceButton}
+                onPress={() => void Linking.openURL(sourceIdea.sourceUrl!)}
+              >
+                <Text style={styles.sourceButtonText}>Open demonstration</Text>
+                <SymbolView
+                  name="arrow.up.right"
+                  style={styles.sourceIcon}
+                  tintColor={colors.surface}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Try another way</Text>
+            <Text style={styles.bodyText}>{sourcePlaybook?.remix}</Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  if (game) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <View style={styles.artFrame}>
+            <IdeaArtwork id={game.id} title={game.title} />
+          </View>
+          <View style={styles.header}>
+            <Text style={styles.quickLabel}>TRY THIS</Text>
+            <Text style={styles.title}>{game.title}</Text>
+            <Text style={styles.promise}>{game.oneBreathRule}</Text>
+            <TouchableOpacity style={styles.inlineSave} onPress={toggleSave}>
+              <SymbolView
+                name={isSaved ? "heart.fill" : "heart"}
+                style={styles.saveIcon}
+                tintColor={colors.cobalt}
+              />
+              <Text style={styles.inlineSaveText}>{isSaved ? "Saved" : "Save"}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>How to start</Text>
+            <Text style={styles.introLine}>&quot;{game.firstPrompt}&quot;</Text>
+            <Text style={styles.bodyText}>{game.adultModel}</Text>
+          </View>
+
+          <View style={styles.rolesRow}>
+            <View style={styles.roleCard}>
+              <Text style={styles.roleLabel}>Make it easier</Text>
+              <Text style={styles.roleText}>{game.easier}</Text>
+            </View>
+            <View style={styles.roleCard}>
+              <Text style={styles.roleLabel}>Make it harder</Text>
+              <Text style={styles.roleText}>{game.harder}</Text>
+            </View>
+          </View>
+
+          <View style={[styles.section, { marginTop: spacing.lg }]}>
+            <Text style={styles.sectionTitle}>Make it yours</Text>
+            <View style={styles.remixRow}>
+              <Text style={styles.remixBullet}>↻</Text>
+              <Text style={styles.remixText}>{game.childRemix}</Text>
+            </View>
+            <View style={styles.remixRow}>
+              <Text style={styles.remixBullet}>↻</Text>
+              <Text style={styles.remixText}>{game.mixedAges}</Text>
+            </View>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>When you&apos;re done</Text>
+            <Text style={styles.bodyText}>{game.closeLine}</Text>
+          </View>
+
+          <View style={styles.spacer} />
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
+  if (!activity) return null;
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        {/* Header */}
+        <View style={styles.artFrame}>
+          <IdeaArtwork id={activity.id} title={activity.title} />
+        </View>
         <View style={styles.header}>
-          <View
-            style={[
-              styles.modeBadge,
-              { backgroundColor: modeBgColor(activity.mode) },
-            ]}
-          >
-            <Text
-              style={[
-                styles.modeBadgeText,
-                { color: modeColor(activity.mode) },
-              ]}
-            >
-              {activity.mode.toUpperCase()}
-            </Text>
-          </View>
+          <Text style={styles.quickLabel}>TRY THIS</Text>
           <Text style={styles.title}>{activity.title}</Text>
           <Text style={styles.promise}>{activity.oneLinePromise}</Text>
+          <TouchableOpacity style={styles.inlineSave} onPress={toggleSave}>
+            <SymbolView
+              name={isSaved ? "heart.fill" : "heart"}
+              style={styles.saveIcon}
+              tintColor={colors.cobalt}
+            />
+            <Text style={styles.inlineSaveText}>{isSaved ? "Saved" : "Save"}</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Plain-language activity concept */}
@@ -208,24 +316,6 @@ export default function ActivityDetailScreen() {
 
         <View style={styles.spacer} />
       </ScrollView>
-
-      {/* Bottom actions */}
-      <View style={styles.bottomBar}>
-        <TouchableOpacity
-          style={styles.saveButton}
-          onPress={toggleSave}
-        >
-          <Text style={styles.saveButtonText}>
-            {isSaved ? "♥ Saved" : "♡ Save"}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.startButton}
-          onPress={handleStartTogether}
-        >
-          <Text style={styles.startButtonText}>Start Together Mode</Text>
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 }
@@ -236,8 +326,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   scroll: {
-    padding: spacing.md,
-    paddingBottom: 100,
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.xxl,
+  },
+  artFrame: {
+    overflow: "hidden",
+    borderRadius: borderRadius.xl,
+    borderWidth: 2,
+    borderColor: colors.text,
+    marginBottom: spacing.lg,
+    boxShadow: "5px 6px 0 rgba(24,34,59,0.95)",
   },
   errorContainer: {
     flex: 1,
@@ -254,34 +353,55 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   header: {
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xl,
   },
-  modeBadge: {
-    alignSelf: "flex-start",
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 2,
-    borderRadius: borderRadius.sm,
+  quickLabel: {
+    ...typography.caption,
+    color: colors.cobalt,
+    fontWeight: "900",
+    letterSpacing: 1.5,
     marginBottom: spacing.sm,
   },
-  modeBadgeText: {
-    ...typography.caption,
-    fontWeight: "700",
-    letterSpacing: 1,
-  },
   title: {
-    ...typography.largeTitle,
+    fontSize: 38,
+    lineHeight: 41,
+    fontWeight: "900",
+    letterSpacing: -1.5,
     color: colors.text,
-    marginBottom: spacing.xs,
+    marginBottom: spacing.sm,
   },
   promise: {
-    ...typography.body,
+    fontSize: 18,
+    lineHeight: 25,
     color: colors.textSecondary,
   },
+  inlineSave: {
+    alignSelf: "flex-start",
+    minHeight: 42,
+    paddingHorizontal: spacing.md,
+    marginTop: spacing.md,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+    borderRadius: borderRadius.full,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    backgroundColor: colors.surface,
+  },
+  saveIcon: { width: 17, height: 17 },
+  inlineSaveText: {
+    ...typography.callout,
+    color: colors.primary,
+    fontWeight: "600",
+  },
   section: {
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xl,
   },
   sectionTitle: {
-    ...typography.headline,
+    fontSize: 22,
+    lineHeight: 27,
+    fontWeight: "900",
+    letterSpacing: -0.5,
     color: colors.text,
     marginBottom: spacing.sm,
   },
@@ -297,6 +417,49 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: colors.warning,
   },
+  sourceCard: {
+    backgroundColor: colors.cobalt,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+    marginBottom: spacing.xl,
+    borderWidth: 2,
+    borderColor: colors.text,
+  },
+  sourceEyebrow: {
+    ...typography.caption,
+    color: "#DCE4FF",
+    fontWeight: "900",
+    letterSpacing: 1.2,
+    marginBottom: spacing.xs,
+  },
+  sourceTitle: {
+    fontSize: 24,
+    lineHeight: 29,
+    fontWeight: "900",
+    color: colors.surface,
+    marginBottom: spacing.sm,
+  },
+  sourceText: {
+    ...typography.body,
+    color: "#DCE4FF",
+    marginBottom: spacing.md,
+  },
+  sourceButton: {
+    minHeight: 52,
+    borderRadius: borderRadius.md,
+    backgroundColor: colors.text,
+    paddingHorizontal: spacing.md,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.sm,
+  },
+  sourceButtonText: {
+    ...typography.headline,
+    color: colors.surface,
+    fontWeight: "800",
+  },
+  sourceIcon: { width: 17, height: 17 },
   warningTitle: {
     ...typography.headline,
     color: colors.text,
@@ -358,11 +521,11 @@ const styles = StyleSheet.create({
   },
   roleCard: {
     flex: 1,
-    backgroundColor: colors.surface,
+    backgroundColor: colors.surfaceWarm,
     borderRadius: borderRadius.md,
     padding: spacing.md,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderWidth: 1.5,
+    borderColor: colors.text,
   },
   roleLabel: {
     ...typography.caption,
@@ -380,19 +543,21 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   stepNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: colors.primary,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: colors.sun,
+    borderWidth: 1.5,
+    borderColor: colors.text,
     justifyContent: "center",
     alignItems: "center",
     marginRight: spacing.sm,
     marginTop: 2,
   },
   stepNumberText: {
-    color: "#FFFFFF",
-    fontSize: 12,
-    fontWeight: "700",
+    color: colors.text,
+    fontSize: 13,
+    fontWeight: "900",
   },
   stepText: {
     ...typography.body,
@@ -415,41 +580,5 @@ const styles = StyleSheet.create({
   },
   spacer: {
     height: spacing.xl,
-  },
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    flexDirection: "row",
-    padding: spacing.md,
-    backgroundColor: colors.surface,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
-    gap: spacing.sm,
-  },
-  saveButton: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
-    borderRadius: borderRadius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    justifyContent: "center",
-  },
-  saveButtonText: {
-    ...typography.body,
-    color: colors.text,
-    fontWeight: "500",
-  },
-  startButton: {
-    flex: 1,
-    backgroundColor: colors.primary,
-    borderRadius: borderRadius.md,
-    paddingVertical: spacing.md,
-    alignItems: "center",
-  },
-  startButtonText: {
-    ...typography.headline,
-    color: "#FFFFFF",
   },
 });

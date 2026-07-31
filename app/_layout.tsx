@@ -92,24 +92,8 @@ export default function RootLayout() {
         <Stack.Screen
           name="activity/[id]"
           options={{
-            title: "Activity",
+            title: "Try This",
             presentation: "card",
-          }}
-        />
-        <Stack.Screen
-          name="talk-now"
-          options={{
-            title: "Talk Now",
-            presentation: "card",
-          }}
-        />
-        <Stack.Screen
-          name="together/[sessionId]"
-          options={{
-            title: "Together",
-            presentation: "fullScreenModal",
-            headerShown: false,
-            gestureEnabled: false,
           }}
         />
         <Stack.Screen

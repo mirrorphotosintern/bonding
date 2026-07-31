@@ -1,6 +1,7 @@
-import type { Activity, ConversationGame, Moment, DurationBucket, Energy, Place } from "../types";
+import type { Activity, ConversationGame, Moment, DurationBucket, Energy, Place, AgeBand } from "../types";
 import { activities } from "../data/activities";
 import { conversationGames } from "../data/conversation-games";
+import { activityToIdea, conversationToIdea, type IdeaSummary } from "../data/ideas";
 
 // Deterministic local scoring matcher (TECHNICAL_SPEC §9)
 // No LLM — pure constraint satisfaction + scoring
@@ -127,6 +128,83 @@ export function matchActivities(moment: Moment): ScoredActivity[] {
   // Sort by score descending
   scored.sort((a, b) => b.score - a.score);
   return scored;
+}
+
+export interface ScoredIdea {
+  idea: IdeaSummary;
+  score: number;
+  reasons: string[];
+}
+
+function conversationSituationsForPlace(place: Place): string[] {
+  switch (place) {
+    case "travel":
+      return ["car"];
+    case "waiting":
+      return ["queue", "restaurant"];
+    case "bedtime":
+      return ["bedtime"];
+    case "home":
+      return ["dinner", "bedtime"];
+    default:
+      return [];
+  }
+}
+
+/**
+ * One matcher for every idea. Conversation is an implementation detail, not a
+ * separate choice the parent has to make.
+ */
+export function matchIdeas(
+  moment: Moment,
+  ageBands: AgeBand[] = [],
+): ScoredIdea[] {
+  const results: ScoredIdea[] = matchActivities(moment).map((match) => ({
+    idea: activityToIdea(match.activity),
+    score: match.score,
+    reasons: match.reasons,
+  }));
+
+  const situations = conversationSituationsForPlace(moment.place);
+  if (situations.length > 0) {
+    for (const game of conversationGames) {
+      const situationMatch = game.fit.situations.some((situation) =>
+        situations.includes(situation)
+      );
+      if (!situationMatch) continue;
+
+      const hasAgeMatch =
+        ageBands.length === 0 ||
+        ageBands.some((band) => game.ageBands.includes(band));
+      if (!hasAgeMatch) continue;
+
+      let score = 28;
+      const reasons = ["right for this moment", "no materials needed"];
+
+      const dScore = durationMatches(
+        moment,
+        game.durationMinutes[0],
+        game.durationMinutes[1],
+      );
+      score += dScore;
+      if (dScore >= 10) reasons.unshift("fits your time");
+
+      if (game.fit.volume === "quiet") {
+        score += 6;
+        if (moment.noiseTolerance === "quiet") reasons.push("keeps things quiet");
+      }
+      if (game.fit.cognitiveLoad === "low") score += 4;
+      if (moment.place === "travel" && game.fit.driverSafe) score += 8;
+
+      results.push({
+        idea: conversationToIdea(game),
+        score,
+        reasons,
+      });
+    }
+  }
+
+  return results.sort((a, b) => b.score - a.score);
 }
 
 // Conversation game matching

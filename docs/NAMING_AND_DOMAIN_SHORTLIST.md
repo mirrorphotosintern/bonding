@@ -1,13 +1,16 @@
 # Naming and Domain Shortlist
 
 **Checked:** July 27, 2026  
-**Status:** Working recommendation, not legal clearance
+**Status:** Try This selected; normal legal clearance still required
 
 ## Decision
 
-Keep **Bonding** as the repository/folder codename. Do not use it as the consumer brand.
+Keep **Bonding** as the repository/folder codename. The selected consumer name
+is **Try This**, and the public domain is **trythis.fun**.
 
-No consumer name is currently recommended. **Jothe has been rejected.** It came from Kannada-specific company context that does not apply to this project, is not self-explanatory to a global audience, and should not appear in future product or brand work.
+**Jothe has been rejected.** It came from Kannada-specific company context that
+does not apply to this project, is not self-explanatory to a global audience,
+and should not appear in future product or brand work.
 
 ## Global naming round — July 27, 2026
 
@@ -49,7 +52,7 @@ That premium price does not solve the underlying brand problem. It is not recomm
 | Rank | Name | Why it works | Main concern | Domain finding |
 |---:|---|---|---|---|
 | 1 | **Our Turn** | Encodes shared participation and the phone-handoff interaction | More generic; may imply turn-taking rather than the full activity system | Exact `.com` and `.app` are registered; `ourturn.family` available at $30.20 |
-| 2 | **Handful** | Friendly, tactile, and fits “a handful of minutes/materials” | An unrelated App Store product already uses the name; exact domains are registered | Not recommended without an unusually favorable legal review |
+| Selected | **Try This** | The app's one-idea handoff becomes a natural call to action | Common phrase; requires normal trademark and store-name review | **trythis.fun** selected |
 | 3 | **Playloom** | Suggests weaving small moments into family rituals | Slightly invented/abstract and needs explanation | Exact `.com` and `.app` are registered |
 | 4 | **Kinloop** | Suggests repeatable family rituals and retention loops | Sounds more technical and less emotionally warm | Exact `.com` and `.app` are registered |
 
@@ -92,10 +95,10 @@ Domain availability and prices can change until checkout. Cloudflare availabilit
 
 ## Naming implication for the existing specs
 
-The current documents use **Handful** as a working name. Until the user approves the change, treat:
+The current documents use **Try This** as a working name. Until the user approves the change, treat:
 
 - `Bonding` as the internal codename;
-- `Handful` as the previous working name;
+- `Try This` as the previous working name;
 - no name as the approved consumer brand.
 
 Once approved, update the product, content, technical, research, and design documents in one controlled pass so the old name does not leak into code identifiers or public copy.

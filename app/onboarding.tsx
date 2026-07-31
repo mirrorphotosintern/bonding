@@ -41,7 +41,7 @@ export default function OnboardingScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.header}>
-          <Text style={styles.logo}>Handful</Text>
+          <Text style={styles.logo}>Try This</Text>
           <Text style={styles.tagline}>
             One good thing to do together, right now.
           </Text>

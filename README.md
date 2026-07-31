@@ -1,8 +1,7 @@
 # Bonding
 
-Private implementation repository for a globally oriented family activity app.
-
-The consumer name is not final. **Bonding** is the internal codename, and **Handful** appears in early planning documents as a provisional working name.
+Private implementation repository for **Try This**, a globally oriented family
+activity app at **trythis.fun**. Bonding remains the internal repository codename.
 
 ## Status
 
@@ -38,4 +37,4 @@ Bonding/
 - Use the Cloudflare-first architecture described in `docs/TECHNICAL_SPEC.md`.
 - Treat activities as reviewed editorial content, not raw social-media imports.
 - Protect children's and family data by default.
-- Do not select or publish a consumer name until collision and trademark checks are complete.
+- Use **Try This** as the consumer-facing name and **trythis.fun** as the public domain.

@@ -1,40 +1,37 @@
-// Handful theme — "compact family field kit"
-// Light-first, tactile, warm paper tones, mode-separated colors
+// Try This theme — a bright family field deck.
 
 export const colors = {
-  // Base paper tones
-  background: "#FAF7F2",
-  surface: "#FFFFFF",
-  surfaceWarm: "#F5F0E8",
-  border: "#E0D8CC",
+  background: "#F2F1E8",
+  surface: "#FFFDF7",
+  surfaceWarm: "#E7E5D8",
+  border: "#D7D4C5",
 
-  // Text
-  text: "#2D2A26",
-  textSecondary: "#6B655D",
-  textTertiary: "#9B948A",
+  text: "#18223B",
+  textSecondary: "#536078",
+  textTertiary: "#868B92",
 
-  // Mode colors
-  make: "#D4652A",    // warm orange — crafting
-  move: "#2D8B46",    // field green — physical
-  think: "#4A6FA5",   // slate blue — puzzles
-  talk: "#8B5E83",    // warm plum — conversation
-  help: "#B8860B",    // dark goldenrod — contributing
-  perform: "#C73E5A", // warm red — showing off
+  cobalt: "#3157D5",
+  cobaltDark: "#22398D",
+  sun: "#FFD452",
+  coral: "#FF6B5E",
+  mint: "#69D3A7",
+  lavender: "#A88BE8",
 
-  // Semantic
-  primary: "#D4652A",
-  primaryLight: "#F0D4C2",
-  accent: "#2D8B46",
-  accentLight: "#D4EDDA",
-  warning: "#E6A817",
-  warningLight: "#FFF3CD",
-  danger: "#C73E3E",
-  dangerLight: "#F8D7DA",
+  make: "#FF6B5E",
+  move: "#36A56B",
+  think: "#3157D5",
+  talk: "#A88BE8",
+  help: "#D49213",
+  perform: "#E64268",
 
-  // Together Mode
-  togetherBg: "#2D2A26",
-  togetherText: "#FAF7F2",
-  togetherAccent: "#F0D4C2",
+  primary: "#3157D5",
+  primaryLight: "#DDE5FF",
+  accent: "#23845A",
+  accentLight: "#DDF5E9",
+  warning: "#D49213",
+  warningLight: "#FFF0BF",
+  danger: "#C93449",
+  dangerLight: "#FFE0E4",
 } as const;
 
 export const modeColor = (mode: string): string => {
@@ -51,12 +48,12 @@ export const modeColor = (mode: string): string => {
 
 export const modeBgColor = (mode: string): string => {
   switch (mode) {
-    case "make": return "#FDE8D8";
-    case "move": return "#D4EDDA";
-    case "think": return "#D6E4F0";
-    case "talk": return "#E8D5E0";
-    case "help": return "#FFF3CD";
-    case "perform": return "#F8D7DE";
+    case "make": return "#FFE0D8";
+    case "move": return "#DDF5E9";
+    case "think": return "#DDE5FF";
+    case "talk": return "#ECE3FF";
+    case "help": return "#FFF0BF";
+    case "perform": return "#FFE0E9";
     default: return colors.primaryLight;
   }
 };

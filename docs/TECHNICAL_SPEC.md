@@ -1,4 +1,4 @@
-# Handful — Technical Specification
+# Try This — Technical Specification
 
 **Status:** Proposed architecture  
 **Reference implementation:** `shaale-app`  
@@ -6,13 +6,13 @@
 
 ## 1. Architecture summary
 
-Handful should be a standalone Expo application in the `Bonding` product folder when implementation begins. It may reuse patterns and carefully extracted components from Shaale, but it must have its own package name, EAS project, Cloudflare resources, RevenueCat project or entitlement set, analytics namespace, privacy policy, and store listings.
+Try This should be a standalone Expo application in the `Bonding` product folder when implementation begins. It may reuse patterns and carefully extracted components from Shaale, but it must have its own package name, EAS project, Cloudflare resources, RevenueCat project or entitlement set, analytics namespace, privacy policy, and store listings.
 
-The sibling `/connectplay` directory is a static HTML/CSS/JavaScript prototype, not an Expo codebase. Preserve it as an independent source browser and acquisition snapshot. Do not import its JSON directly at runtime; use a validated editorial conversion to produce versioned Handful records. See `CONNECTPLAY_IMPLEMENTATION_AUDIT.md`.
+The sibling `/connectplay` directory is a static HTML/CSS/JavaScript prototype, not an Expo codebase. Preserve it as an independent source browser and acquisition snapshot. Do not import its JSON directly at runtime; use a validated editorial conversion to produce versioned Try This records. See `CONNECTPLAY_IMPLEMENTATION_AUDIT.md`.
 
-**Architecture decision:** all application-owned backend services live in Handful's existing Cloudflare account. Supabase and Clerk are not dependencies. “All Cloudflare” does not include platform utilities that Cloudflare cannot replace: Apple/Google identity attestation, App Store/Play Store billing, APNs/FCM push delivery, or EAS native builds.
+**Architecture decision:** all application-owned backend services live in Try This's existing Cloudflare account. Supabase and Clerk are not dependencies. “All Cloudflare” does not include platform utilities that Cloudflare cannot replace: Apple/Google identity attestation, App Store/Play Store billing, APNs/FCM push delivery, or EAS native builds.
 
-The defining technical requirement is **local-first activity delivery**. A parent must be able to open a saved or recently matched activity, enter Together Mode, hear cues, complete it, and record a result without a network connection.
+The defining technical requirement is **local-first activity delivery**. A parent must be able to open a saved or recently matched activity, enter the playable idea page, hear cues, complete it, and record a result without a network connection.
 
 ```mermaid
 flowchart TB
@@ -21,10 +21,10 @@ flowchart TB
       Match["Local matcher"]
       Cache["SQLite / file cache"]
       Queue["Offline mutation queue"]
-      Audio["Together Mode audio"]
+      Audio["the playable idea page audio"]
     end
 
-    subgraph Cloud["Handful Cloudflare backend"]
+    subgraph Cloud["Try This Cloudflare backend"]
       API["Workers API + auth"]
       D1["D1 relational database"]
       DO["Durable Objects realtime rooms"]
@@ -58,9 +58,9 @@ flowchart TB
 | Framework | Expo SDK 54 | Matches Shaale's current production baseline |
 | UI runtime | React Native 0.81.5, React 19.1 | Matches Shaale; reduces unfamiliar build risk |
 | Language | TypeScript 5.9, strict mode | Shared engineering practices and safer content models |
-| Navigation | Expo Router 6 | File-based routing, deep links, modal/full-screen Together Mode |
+| Navigation | Expo Router 6 | File-based routing, deep links, modal/full-screen the playable idea page |
 | Styling | React Native `StyleSheet` + typed tokens | Matches Shaale's implementation; no NativeWind dependency required |
-| Auth | Handful Workers auth service | Verifies Apple/Google identity tokens, issues rotating Handful sessions, and stores only server-side token hashes in D1 |
+| Auth | Try This Workers auth service | Verifies Apple/Google identity tokens, issues rotating Try This sessions, and stores only server-side token hashes in D1 |
 | Database | Cloudflare D1 + Drizzle ORM | Relational content, families, profiles, outcomes, invitations, and entitlement mirror |
 | Realtime coordination | SQLite-backed Durable Objects | One object per active family/invite/session room; hibernating WebSockets only where realtime is actually needed |
 | Storage | Cloudflare R2 | Original diagrams, short demo loops, downloadable audio, exports, and optional encrypted memories |
@@ -72,7 +72,7 @@ flowchart TB
 | Media | `expo-audio`, `expo-video`, `expo-file-system` | Downloadable audio cues and short demonstrations |
 | Notifications | `expo-notifications` | User-controlled activity windows |
 | Purchases | RevenueCat | iOS/Android subscription handling and family entitlement |
-| Error isolation | React Error Boundaries by route and Together Mode | A failed activity must not blank the app |
+| Error isolation | React Error Boundaries by route and the playable idea page | A failed activity must not blank the app |
 | Testing | Jest + React Native Testing Library + Maestro/Detox decision spike | Unit, component, and critical-flow tests |
 
 ### Important Shaale invariant
@@ -87,7 +87,7 @@ Shaale currently requires:
 }
 ```
 
-Its production notes state that React Native 0.81.5 with iOS 26 crashes under the new architecture and depends on a patch-package fix. If Handful pins the same React Native baseline, it must begin with `newArchEnabled: false` and copy the verified patch only after reviewing its applicability. This is not a permanent product requirement: reassess when upgrading Expo/React Native, and do not blindly carry the workaround to an unaffected version.
+Its production notes state that React Native 0.81.5 with iOS 26 crashes under the new architecture and depends on a patch-package fix. If Try This pins the same React Native baseline, it must begin with `newArchEnabled: false` and copy the verified patch only after reviewing its applicability. This is not a permanent product requirement: reassess when upgrading Expo/React Native, and do not blindly carry the workaround to an unaffected version.
 
 ### Backend
 
@@ -104,7 +104,7 @@ This architecture deliberately avoids KV as a source of truth. KV may later cach
 
 ### Is the Cloudflare-only backend practical?
 
-Yes, for this workload. Handful is read-heavy, local-first, has modest relational data, and does not require arbitrary SQL access from the client. That is a good fit for Workers + D1.
+Yes, for this workload. Try This is read-heavy, local-first, has modest relational data, and does not require arbitrary SQL access from the client. That is a good fit for Workers + D1.
 
 | Need | Cloudflare service | Fit and constraint |
 | --- | --- | --- |
@@ -139,13 +139,10 @@ Bonding/
 │   ├── _layout.tsx
 │   ├── onboarding.tsx
 │   ├── activity/[id].tsx
-│   ├── talk-now.tsx
-│   ├── together/[sessionId].tsx
 │   ├── sign-in.tsx
 │   └── (tabs)/
 │       ├── _layout.tsx
 │       ├── index.tsx
-│       ├── explore.tsx
 │       ├── our-things.tsx
 │       └── grown-ups.tsx
 ├── src/
@@ -188,18 +185,17 @@ All implementation files for this product should remain under `Bonding/`.
 | Route | Purpose |
 | --- | --- |
 | `/onboarding` | Local-first setup and first moment |
-| `/(tabs)` | Shell for Today, Explore, Our Things, Grown-ups |
-| `/(tabs)/index` | One current recommendation |
-| `/activity/[id]` | Prep, materials, safety, variants |
-| `/talk-now` | Two-tap, zero-prop conversation-game selection |
-| `/together/[sessionId]` | Full-screen offline Together Mode |
+| `/(tabs)` | Shell for Today, Saved, and Profile |
+| `/(tabs)/index` | Moment questions followed by one recommendation |
+| `/activity/[id]` | Complete playable idea: start, materials, steps, safety, variants |
 | `/sign-in` | Deferred adult account creation |
 | `/family/invite/[token]` | Adult caregiver invitation |
 | `/guest/activity/[token]` | Redacted, time-limited guest activity |
 | `/subscription` | RevenueCat paywall |
 | `/privacy` | Data controls, export, deletion |
 
-Together Mode should use `presentation: "fullScreenModal"` and be wrapped in its own Error Boundary.
+The activity route is the complete playable experience and should be wrapped in
+its own Error Boundary. It must not introduce a second “start” route.
 
 ## 5. Domain model
 
@@ -421,7 +417,7 @@ Optional, separate from session analytics:
 
 ## 7. Authorization boundary
 
-D1 does not provide Supabase-style database Row Level Security. Therefore, the mobile app never receives database credentials and never queries D1 directly. Every request passes through the Worker, which verifies the Handful session and applies authorization before executing a prepared query.
+D1 does not provide Supabase-style database Row Level Security. Therefore, the mobile app never receives database credentials and never queries D1 directly. Every request passes through the Worker, which verifies the Try This session and applies authorization before executing a prepared query.
 
 Policy principles:
 
@@ -463,7 +459,7 @@ Store only small values:
 
 ### SecureStore
 
-- rotating Handful access/refresh session
+- rotating Try This access/refresh session
 - device installation secret
 - encryption key material for optional local private notes
 
@@ -523,7 +519,7 @@ The matcher returns:
 - hard constraints used;
 - model/rules version.
 
-Talk Now uses a smaller deterministic path: hard-filter by situation, driver safety, volume, age, language, access needs, and recent repetition; then rank by family mechanic preference and novelty. It must return locally in under 50 ms and never require a network call.
+The unified matcher includes conversation-specific constraints—situation, driver safety, volume, language, access needs, and interruptibility—without exposing a separate product route. It ranks every eligible idea together and must return locally in under 50 ms without a network call.
 
 ### Later: learned ranking
 
@@ -571,32 +567,12 @@ Build should fail when:
 
 For source-first alpha activities, publication also fails unless the record has a current link check, user-visible source credit where known, an adult-gated external-link label, and enough first-party material/safety context to explain what the family is about to attempt. Removed, blank, ambiguous, or unsafe demonstrations cannot be the instruction fallback.
 
-## 11. Together Mode implementation
+## 11. Playable idea-page implementation
 
-### State machine
-
-```text
-PREPARED
-  → READY
-  → ACTIVE(step, elapsed)
-  → PAUSED
-  → END_CHOICE
-  → COMPLETED
-  → CLOSED
-```
-
-State snapshots are persisted locally so a phone call or app backgrounding does not lose the activity.
-
-Conversation games use a simplified branch:
-
-```text
-PROMPT
-  → PHONE_DOWN
-  → RETURNED
-  → PLAYED | SAVED | NOT_FOR_US
-```
-
-They have no default timer and no forced completion prompt.
+The `/activity/[id]` route renders either a hands-on activity or conversation
+game through the unified catalog adapter. It is intentionally stateless beyond
+the optional saved flag. There is no active-session state machine, second start
+route, forced completion prompt, or background/resume workflow.
 
 ### Audio
 
@@ -608,10 +584,10 @@ They have no default timer and no forced completion prompt.
 
 ### App lifecycle
 
-- Backgrounding pauses screen-dependent timers but preserves elapsed wall time where the activity calls for it.
-- An incoming phone call should not mark the activity abandoned.
-- Resume screen asks “Still doing it?” with Continue / Wrap up.
-- Screen wake lock is enabled only for glance-required activities.
+- Backgrounding and returning leaves the idea page where it was.
+- An incoming phone call does not create or abandon a session.
+- Optional timers, if introduced for a specific idea later, must remain inline
+  and must not recreate a global play mode.
 
 ## 12. Authentication
 
@@ -628,7 +604,7 @@ On first launch:
 When the adult chooses sync, family sharing, cloud memories, or subscription restore:
 
 - use native Sign in with Apple and Google Sign-In;
-- send the resulting identity token and PKCE/nonce proof to the Handful Worker;
+- send the resulting identity token and PKCE/nonce proof to the Try This Worker;
 - verify issuer, audience, signature, nonce, and expiry against the provider's published keys;
 - upsert the provider identity in D1 and issue a short-lived access token plus rotating opaque refresh token;
 - store only a hash of each refresh token in D1, bind it to an installation, rotate on every use, and revoke the token family on reuse;
@@ -645,7 +621,7 @@ The product is adult-operated. Add a simple adult gate before subscription, exte
 
 RevenueCat configuration:
 
-- entitlement: `handful_plus`
+- entitlement: `try_this_plus`
 - offerings: monthly, annual
 - one family entitlement mapped to the adult purchaser
 - RevenueCat webhook reaches a dedicated Worker route, is signature-verified, deduplicated, queued, and mirrors entitlement state to D1
@@ -667,7 +643,7 @@ Subscription must not gate safety details, already downloaded activities, data e
 
 ### Separation
 
-Handful must use a new analytics table or project namespace. Do not write to Shaale's `analytics_events`, and never combine Handful telemetry with Shaale web or native metrics.
+Try This must use a new analytics table or project namespace. Do not write to Shaale's `analytics_events`, and never combine Try This telemetry with Shaale web or native metrics.
 
 ### Event envelope
 
@@ -692,7 +668,7 @@ Handful must use a new analytics table or project namespace. Do not write to Sha
 - accessibility narrative;
 - precise location;
 - raw guest token;
-- identity-provider tokens or Handful session tokens.
+- identity-provider tokens or Try This session tokens.
 
 ### Reliability
 
@@ -820,7 +796,7 @@ Backups follow a documented expiry schedule.
 6. Guest link with valid, expired, and revoked token
 7. Family A cannot access Family B
 8. Delete child profile and verify storage cleanup
-9. Background and resume Together Mode
+9. Background and resume the playable idea page
 10. Notification deep link to activity prep
 
 ### Content QA
@@ -869,7 +845,7 @@ Backups follow a documented expiry schedule.
 - Warm app-to-Today interactive: under 1 second on a mid-tier device
 - Cold app-to-Today interactive: under 2.5 seconds with local catalog
 - Recommendation computation: under 50 ms for cached catalog
-- Together Mode route transition: under 250 ms perceived
+- the playable idea page route transition: under 250 ms perceived
 - Base binary target: under 45 MB before optional downloads
 - Starter offline catalog: under 15 MB
 - Individual activity media bundle: generally under 2 MB
@@ -891,7 +867,7 @@ Backups follow a documented expiry schedule.
 - onboarding
 - Today
 - prep
-- Together Mode
+- the playable idea page
 - local close/fit signal
 - offline persistence
 
@@ -905,7 +881,7 @@ Backups follow a documented expiry schedule.
 
 ### Milestone 4 — accounts and business
 
-- Handful Workers auth
+- Try This Workers auth
 - D1 sync and authorization policy layer
 - R2 private media
 - Queues/Workflows for webhooks, export, and deletion
@@ -925,8 +901,8 @@ Backups follow a documented expiry schedule.
 ## 22. Technical decisions to validate
 
 1. SQLite package choice compatible with Expo SDK 54 and content-delta needs.
-2. Whether Handful should use one D1 database per environment or a shared database with environment columns. Recommendation: separate development, preview, and production databases.
+2. Whether Try This should use one D1 database per environment or a shared database with environment columns. Recommendation: separate development, preview, and production databases.
 3. Whether private memories belong in v1. Recommendation: local-only photo support at most.
 4. Whether accounts are needed before family sharing. Recommendation: defer all authentication until sync, sharing, restore, or cloud memories creates clear value.
 5. Whether audio should use authored recordings or on-device TTS. Recommendation: authored cues for launch packs, with text fallback.
-6. Whether the unrelated “Handful” App Store listing makes the working name nonviable.
+6. Whether the unrelated “Try This” App Store listing makes the working name nonviable.

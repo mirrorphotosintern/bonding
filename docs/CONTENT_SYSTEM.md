@@ -1,6 +1,6 @@
-# Handful — Content System
+# Try This — Content System
 
-Handful's long-term product quality depends more on its activity system than on the number of activities. A viral clip is not an activity specification. It usually omits setup, age fit, failure modes, accessibility, cleanup, supervision, and licensing.
+Try This's long-term product quality depends more on its activity system than on the number of activities. A viral clip is not an activity specification. It usually omits setup, age fit, failure modes, accessibility, cleanup, supervision, and licensing.
 
 This document turns inspiration into publishable, safe, reusable content.
 
@@ -305,7 +305,7 @@ For each social source:
 
 ### Source-first alpha behavior
 
-For the private alpha, a hands-on activity may ship before Handful has produced its own diagram or demonstration **only when the original source visibly demonstrates enough of the activity to reproduce it**.
+For the private alpha, a hands-on activity may ship before Try This has produced its own diagram or demonstration **only when the original source visibly demonstrates enough of the activity to reproduce it**.
 
 The activity detail screen then shows:
 
@@ -317,11 +317,11 @@ Product rules:
 - The source URL is a secondary action, never an autoplaying embed.
 - Show platform and creator handle when known.
 - Do not download, proxy, crop, transcribe, or rehost a creator's video without permission.
-- Handful must still supply its own title, material list, safety warning, and a one-line explanation of what the family will attempt.
+- Try This must still supply its own title, material list, safety warning, and a one-line explanation of what the family will attempt.
 - Mark `allowedAsInstructionFallback: false` when a post is removed, blank, ambiguous, unsafe as shown, or merely a parenting opinion.
 - Check link availability during publication and periodically afterward.
-- If a source disappears, keep the activity only when Handful's own reviewed instructions are sufficient; otherwise unpublish it.
-- Never send children directly to a social feed. Opening an external source requires an adult gate and leaves Together Mode.
+- If a source disappears, keep the activity only when Try This's own reviewed instructions are sufficient; otherwise unpublish it.
+- Never send children directly to a social feed. Opening an external source requires an adult gate and leaves the playable idea page.
 - A disclaimer cannot make an unsafe activity acceptable. Adapt or reject the activity before linking it.
 
 This is an alpha shortcut, not the long-term content strategy. Original tested instructions should replace source dependency for the strongest activities.
@@ -330,14 +330,14 @@ This is an alpha shortcut, not the long-term content strategy. Original tested i
 
 These candidate activities already have a recoverable original link in `ParentLinks.csv`. Link status reflects the research pass and must be rechecked before publication.
 
-| Handful activity | Original demonstration/source | Current use |
+| Try This activity | Original demonstration/source | Current use |
 | --- | --- | --- |
 | Family Bus Stop Dance | [X source](https://x.com/kumoriRaver/status/2058050360548237450?s=20) | Demonstration fallback |
 | Rubber-Band Reveal | [X source](https://x.com/QueenAnticommie/status/2058294143122579664?s=20) | Adult-led; elastic safety warning |
 | Secret Gift Wrap | [X source](https://x.com/mondaystufx/status/2056937661726904694?s=20) | Inspiration/demonstration |
 | Sock Knockdown | [Original slipper/bottle source](https://x.com/omoelerinjare1/status/2056023404512489628?s=20) | Link with a note that socks and paper cups replace the unsafe framing |
 | Hands-Faster-Than-Eyes Trick | [X source](https://x.com/jaamilaresti/status/2055901935979676066?s=20) | Demonstration fallback after reproducibility check |
-| Order for the Table | [X source](https://x.com/EstieMaddie/status/2055261185621074128?s=20) | Context source; Handful supplies role-play instructions |
+| Order for the Table | [X source](https://x.com/EstieMaddie/status/2055261185621074128?s=20) | Context source; Try This supplies role-play instructions |
 | Color Photo Hunt | [X source](https://x.com/vlucasrocha/status/2051344525969240364?s=20) | Demonstration fallback; camera optional |
 | Color Limb Callout | [X source](https://x.com/naw_AlRamah/status/2045924599003496825?s=20) | Demonstration fallback with mobility/color alternatives |
 | Shadow Doubles | [X source](https://x.com/Sarahhuniverse/status/2046102716712456320?s=20) | Demonstration fallback |
@@ -372,7 +372,7 @@ Example:
 Source: slipper hits bottle
 Do not copy: footwear throw, discipline framing
 Mechanic: familiar object + distant target + surprising family skill
-Handful version: Sock Knockdown
+Try This version: Sock Knockdown
 Materials: two rolled socks, three empty paper cups
 Safety: clear floor, throw below shoulder height, never aim at people
 Cooperative rule: family gets six throws to knock down all cups
@@ -561,7 +561,7 @@ Conversation-game rules:
 
 ## 10. Skill paths
 
-Handful should not become a curriculum, but related activities can build visible competence.
+Try This should not become a curriculum, but related activities can build visible competence.
 
 ### Example: Family magician
 

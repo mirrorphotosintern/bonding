@@ -1,7 +1,7 @@
-# Handful — Playable Conversation Game Cards
+# Try This — Playable Conversation Game Cards
 
 **Status:** implementation-ready rules; cultural-language games still require fluent review before public release  
-**Purpose:** provide enough exact content for an engineer to build Talk Now without guessing what any game means.
+**Purpose:** provide enough exact content for an engineer to include every conversation game in the unified catalog without guessing what it means.
 
 ## How the app uses these cards
 
@@ -14,7 +14,7 @@ Each card contains:
 - a cooperative recovery rule;
 - source or provenance notes.
 
-The app displays **How to play**, not the research description. Traditional games retain their names and cultural context. Handful does not reproduce copyrighted lyrics, poems, or recordings.
+The app displays **How to play**, not the research description. Traditional games retain their names and cultural context. Try This does not reproduce copyrighted lyrics, poems, or recordings.
 
 ## Observe and deduce
 
@@ -49,7 +49,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Search for any five chosen letters. **Harder:** Objects only, no printed letters; or use a category such as foods.
 - **Recovery:** Skip difficult letters without penalty and remember the skipped letters as a bonus hunt.
 - **Safety/access:** Passengers search outside; drivers contribute remembered words rather than scanning signs.
-- **Source:** Common travel-game format; original Handful cooperative rules.
+- **Source:** Common travel-game format; original Try This cooperative rules.
 
 ### 4. Find Something That…
 
@@ -60,7 +60,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Colors and shapes. **Harder:** Relational clues such as “useful in two different ways.”
 - **Recovery:** Multiple answers are valid if the player can explain the connection.
 - **Safety/access:** Players may describe rather than touch; never handle restaurant equipment or strangers’ belongings.
-- **Source:** Original Handful adaptation of environmental scavenger games.
+- **Source:** Original Try This adaptation of environmental scavenger games.
 
 ### 5. Twenty Questions
 
@@ -82,7 +82,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** 1–10 with a visible finger number. **Harder:** 1–100 with at most seven guesses.
 - **Recovery:** If an impossible clue is given, rewind to the last correct clue and continue.
 - **Safety/access:** Fully audio-playable.
-- **Source:** Common number-guessing game; original Handful wording.
+- **Source:** Common number-guessing game; original Try This wording.
 
 ### 7. Family Guess Who
 
@@ -93,7 +93,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Choose from three named people. **Harder:** Include family friends or ancestors known through stories.
 - **Recovery:** The chooser may say “I don’t know” and replace a question.
 - **Privacy:** Do not use this in public if answers expose sensitive family information.
-- **Source:** Original Handful family adaptation of Guess Who/Twenty Questions.
+- **Source:** Original Try This family adaptation of Guess Who/Twenty Questions.
 
 ### 8. Secret Rule
 
@@ -103,7 +103,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **End:** Someone states the rule, or the leader reveals it after three helpful paired examples.
 - **Easier:** Visible rules—red things, animals, round objects. **Harder:** Word patterns or two-part rules.
 - **Recovery:** If the rule has accidental exceptions, accept the discovery and repair the rule together.
-- **Source:** Common induction-game format; original Handful examples.
+- **Source:** Common induction-game format; original Try This examples.
 
 ## Collaborative stories and memory
 
@@ -115,7 +115,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **End:** After two turns each, everyone contributes one final “Fortunately” ending.
 - **Easier:** Adult supplies the sentence stem. **Harder:** Each turn must reuse an object from two turns earlier.
 - **Recovery:** If the sequence gets confused, laugh, name the next frame, and continue.
-- **Source:** Established improvisational storytelling game; original Handful cooperative ending.
+- **Source:** Established improvisational storytelling game; original Try This cooperative ending.
 
 ### 10. Pass-a-Story
 
@@ -146,7 +146,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Adult offers two alternative decisions. **Harder:** Keep every character’s motivation believable.
 - **Recovery:** Players may use a family story, folktale, or public-domain tale; nobody must remember an exact original.
 - **Copyright:** The app supplies no copyrighted story text.
-- **Source:** Common alternate-ending prompt; original Handful structure.
+- **Source:** Common alternate-ending prompt; original Try This structure.
 
 ### 13. I’m Going on a Picnic
 
@@ -177,7 +177,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Each player repeats only the previous sound before adding. **Harder:** Preserve rhythm as well as order.
 - **Recovery:** Rebuild slowly together after a miss.
 - **Safety/access:** No startling screams; provide visible gestures or taps for hard-of-hearing players.
-- **Source:** Original Handful no-prop accumulation game.
+- **Source:** Original Try This no-prop accumulation game.
 
 ### 16. Movement Chain
 
@@ -188,7 +188,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Seated finger and face movements. **Harder:** Perform the sequence backward.
 - **Recovery:** Group reconstruction, no elimination.
 - **Safety/access:** Caller names the available movement range first; no jumping in vehicles, restaurants, or queues.
-- **Source:** Common movement-memory mechanic; original Handful constrained-space rules.
+- **Source:** Common movement-memory mechanic; original Try This constrained-space rules.
 
 ## Word, song, and poetry chains
 
@@ -208,7 +208,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **First round:** さくら (*sakura*, cherry blossom) → らじお (*rajio*, radio) → おに (*oni*, ogre).
 - **Turns:** One Japanese noun per turn; no repeats. Kana, not English spelling, determines the link.
 - **Traditional end:** A word ending in ん loses because standard Japanese words do not begin with that mora.
-- **Handful default:** Instead of elimination, the group says “ん reset,” chooses a new starter, and continues.
+- **Try This default:** Instead of elimination, the group says “ん reset,” chooses a new starter, and continues.
 - **Easier:** Show or speak three valid options. **Harder:** Use one semantic category.
 - **Release requirement:** A fluent Japanese reviewer must verify every in-app example and edge rule.
 - **Sources:** [Shiritori overview](https://en.wikipedia.org/wiki/Shiritori) and the supplied report.
@@ -232,7 +232,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **End:** Everyone sings twice or the family agrees on a final chorus.
 - **Easier:** Any language, humming allowed, group help allowed. **Harder:** One language or genre and a 20-second turn.
 - **Recovery:** If nobody knows a song, choose a fresh starting sound; no team is eliminated.
-- **Copyright:** Handful stores rules and starting letters only—not lyrics, recordings, or an unlicensed song database.
+- **Copyright:** Try This stores rules and starting letters only—not lyrics, recordings, or an unlicensed song database.
 - **Source:** [Antakshari rules](https://anthakshari.ai/how-to-play) and the supplied report.
 
 ### 21. Bait Bazi — بیت بازی
@@ -241,7 +241,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Say:** “Recite an Urdu *sher* or verse you know. The next person recites a different verse beginning with the final pronounced letter of yours.”
 - **First round:** The app does **not** invent or quote a poem. A participating adult recites a verse from memory, says the final linking letter aloud, and takes the first response so children can see the pattern.
 - **Turns:** One previously learned verse per player or team. Agree before play whether a *sher*, stanza, or single line counts. A verse may not repeat in the same session.
-- **End:** For family mode, complete one turn each or six linked verses. Traditional competitive events may end when a team cannot respond, but Handful defaults to collaboration.
+- **End:** For family mode, complete one turn each or six linked verses. Traditional competitive events may end when a team cannot respond, but Try This defaults to collaboration.
 - **Easier:** “Poetry Circle”—drop the letter chain; each person shares any remembered two-line poem, nursery rhyme, or family verse. This is the correct beginner mode when the family does not already have an Urdu poetry repertoire.
 - **Harder:** Restrict play to one poet, theme, or poetic form.
 - **Recovery:** Ask the group for a hint, choose a new linking letter, or switch to Poetry Circle. Never fabricate a verse and attribute it to a poet.
@@ -267,7 +267,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **First round:** “Chidiya udd” (bird—lift), “patang udd” (kite—lift), “haathi udd” (elephant—stay).
 - **Turns:** One caller gives 8–12 prompts, mixing flying and non-flying things; then choose a new caller.
 - **Traditional rule:** Players making the wrong movement may be out.
-- **Handful default:** Nobody is eliminated. A mismatch earns a funny “grounded!” reset, and everyone returns their finger to the table.
+- **Try This default:** Nobody is eliminated. A mismatch earns a funny “grounded!” reset, and everyone returns their finger to the table.
 - **Easier:** Slow pace and obvious animals. **Harder:** Include airplanes, balloons, penguins, ostriches, bats, and ambiguous items agreed on in advance.
 - **Safety/access:** Finger movement may be replaced by saying “fly/ground” or using two gestures.
 - **Source:** [IIT Bombay D’source Indian Games](https://dsource.in/resource/indian-games/indoor-games/chidiya-udd).
@@ -291,7 +291,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Use a frequent object word during a short imaginary conversation. **Harder:** Ban both “yes” and “no.”
 - **Recovery:** Saying the word triggers a group sound and immediate continuation, not a penalty.
 - **Privacy:** Personal questions may always be passed.
-- **Source:** Common forbidden-word parlor game; original Handful non-eliminating rules.
+- **Source:** Common forbidden-word parlor game; original Try This non-eliminating rules.
 
 ### 26. This Is Not a Spoon
 
@@ -313,7 +313,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Three-letter words and group suggestions. **Harder:** The phrase must describe the object or tell a tiny story.
 - **Recovery:** Grammar may be silly; the letter order is the only firm constraint.
 - **Safety/access:** A driver does not read signs; another player supplies the letters.
-- **Source:** Common backronym wordplay; original Handful rules.
+- **Source:** Common backronym wordplay; original Try This rules.
 
 ## Questions and reflection
 
@@ -336,7 +336,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **End:** Everyone who wants to speak gets one turn.
 - **Easier:** Use objects or preferences rather than past events. **Harder:** Make all three equally plausible.
 - **Recovery:** “Pass” is always valid; nobody must prove a true statement.
-- **Source:** Child-friendly Handful adaptation of Two Truths and a Lie.
+- **Source:** Child-friendly Try This adaptation of Two Truths and a Lie.
 
 ### 30. Pits, Cherries, and Seeds
 
@@ -380,7 +380,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Clap only; no words required. **Harder:** Add both-hands clap or a family-created verse.
 - **Recovery:** If hands miss, freeze, laugh, and restart at half speed.
 - **Consent/access:** Ask before hand contact. Use mirrored air-claps or tabletop taps as no-touch alternatives.
-- **Cultural/copyright note:** Wording varies orally. Handful should not declare one lyric canonical; any supplied text needs fluent cultural review.
+- **Cultural/copyright note:** Wording varies orally. Try This should not declare one lyric canonical; any supplied text needs fluent cultural review.
 - **Source:** [IIT Bombay D’source Indian Games collection](https://dsource.in/resource/indian-games) and [demonstration cited in the report](https://www.youtube.com/watch?v=yn_IqJ-FlFI).
 
 ### 34. Tongue-Twister Ladder
@@ -403,7 +403,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Copy one movement. **Harder:** Left and right hands perform different patterns.
 - **Recovery:** Any movement counts; there is no synchronization score.
 - **Safety/access:** Keep hands away from food, hot dishes, and other people’s space.
-- **Source:** Quiet-movement idea from the supplied conversation-games report; original Handful sequence.
+- **Source:** Quiet-movement idea from the supplied conversation-games report; original Try This sequence.
 
 ### 36. Air Drawing
 
@@ -414,7 +414,7 @@ The app displays **How to play**, not the research description. Traditional game
 - **Easier:** Shapes and letters. **Harder:** Objects, actions, or two-part scenes.
 - **Recovery:** Drawer may restart larger or use the tabletop without touching it.
 - **Accessibility:** For low vision, describe an imaginary object one line at a time; for limited movement, eye direction or verbal tracing can replace finger motion.
-- **Source:** No-touch Handful adaptation of back drawing described in the supplied report.
+- **Source:** No-touch Try This adaptation of back drawing described in the supplied report.
 
 ## Release classification
 

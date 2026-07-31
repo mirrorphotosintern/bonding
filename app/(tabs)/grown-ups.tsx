@@ -17,10 +17,10 @@ export default function GrownUpsScreen() {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>About Handful</Text>
+          <Text style={styles.sectionTitle}>About Try This</Text>
           <View style={styles.card}>
             <Text style={styles.cardText}>
-              Handful helps families find one good thing to do together — right now, with what you already have.
+              Try This helps families find one good thing to do together — right now, with what you already have.
             </Text>
             <Text style={styles.cardText}>
               No accounts required. Your data stays on your phone. No ads, no tracking, no feed.
@@ -83,7 +83,8 @@ export default function GrownUpsScreen() {
         </View>
 
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Handful v1.0.0</Text>
+          <Text style={styles.footerText}>Try This v1.0.0</Text>
+          <Text style={styles.footerText}>trythis.fun</Text>
           <Text style={styles.footerText}>by Mirror Photos LLC</Text>
         </View>
       </ScrollView>

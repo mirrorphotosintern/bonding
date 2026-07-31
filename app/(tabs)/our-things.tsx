@@ -10,13 +10,11 @@ import {
 import { useRouter, useFocusEffect } from "expo-router";
 import { colors, spacing, typography, borderRadius, modeColor, modeBgColor } from "../../src/theme";
 import { getJSON, STORAGE_KEYS } from "../../src/lib/storage";
-import { getActivityById } from "../../src/data/activities";
-import { getGameById } from "../../src/data/conversation-games";
-import type { Activity, ConversationGame } from "../../src/types";
+import { getIdeaById, type IdeaSummary } from "../../src/data/ideas";
 
 export default function OurThingsScreen() {
   const router = useRouter();
-  const [savedItems, setSavedItems] = useState<(Activity | ConversationGame)[]>([]);
+  const [savedItems, setSavedItems] = useState<IdeaSummary[]>([]);
   const [recentIds, setRecentIds] = useState<string[]>([]);
 
   useFocusEffect(
@@ -30,22 +28,16 @@ export default function OurThingsScreen() {
     const savedGames = await getJSON<string[]>(STORAGE_KEYS.savedGameIds) || [];
     const recent = await getJSON<string[]>(STORAGE_KEYS.recentActivityIds) || [];
 
-    const items: (Activity | ConversationGame)[] = [];
-    for (const id of savedActs) {
-      const act = getActivityById(id);
-      if (act) items.push(act);
-    }
-    for (const id of savedGames) {
-      const game = getGameById(id);
-      if (game) items.push(game);
-    }
+    const items = [...new Set([...savedActs, ...savedGames])]
+      .map((id) => getIdeaById(id))
+      .filter((item): item is IdeaSummary => Boolean(item));
 
     setSavedItems(items);
     setRecentIds(recent);
   }
 
   const recentItems = recentIds
-    .map((id) => getActivityById(id) || getGameById(id))
+    .map((id) => getIdeaById(id))
     .filter(Boolean)
     .slice(0, 5);
 
@@ -60,14 +52,14 @@ export default function OurThingsScreen() {
                 key={item.id}
                 style={styles.card}
                 onPress={() => {
-                  if (item.mode) {
-                    router.push(`/activity/${item.id}`);
-                  }
+                  router.push(`/activity/${item.id}`);
                 }}
               >
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardSubtitle}>
-                  {item.mode ? item.mode.toUpperCase() : "TALK"}
+                  {item.materialCount === 0
+                    ? "NO MATERIALS"
+                    : `${item.durationMin}–${item.durationMax} MIN`}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -84,14 +76,12 @@ export default function OurThingsScreen() {
               </Text>
             </View>
           ) : (
-            savedItems.map((item: any) => (
+            savedItems.map((item) => (
               <TouchableOpacity
                 key={item.id}
                 style={styles.card}
                 onPress={() => {
-                  if (item.mode) {
-                    router.push(`/activity/${item.id}`);
-                  }
+                  router.push(`/activity/${item.id}`);
                 }}
               >
                 <View style={styles.cardHeader}>
@@ -106,7 +96,7 @@ export default function OurThingsScreen() {
                 </View>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardPromise} numberOfLines={1}>
-                  {item.oneLinePromise || item.oneBreathRule}
+                  {item.promise}
                 </Text>
               </TouchableOpacity>
             ))

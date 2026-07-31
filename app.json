@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Handful",
-    "slug": "handful",
+    "name": "Try This",
+    "slug": "try-this",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "handful",
+    "scheme": "trythis",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
     "ios": {

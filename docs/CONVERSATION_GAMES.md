@@ -1,4 +1,4 @@
-# Handful — Conversation Games System
+# Try This — Conversation Games System
 
 **Source:** `Family Conversation Games Report.pdf`  
 **Purpose:** Turn the report's strongest oral-game research into a product-ready, zero-prop content system.
@@ -7,7 +7,7 @@
 
 ## 1. What the report changes
 
-The original Handful concept treated conversation as one of six equal activity modes. The report shows that zero-prop oral play is strong enough to become the **fastest entry point and initial product wedge**:
+The original Try This concept treated conversation as one of six equal activity modes. The report shows that zero-prop oral play is strong enough to become the **fastest entry point and initial product wedge**:
 
 - it works when the family did not plan ahead;
 - it needs no inventory, downloads, cleanup, or camera;
@@ -16,11 +16,11 @@ The original Handful concept treated conversation as one of six equal activity m
 - the same game mechanic can be adapted across ages, languages, and cultures;
 - success comes from participation, not producing a polished object.
 
-The revised MVP should therefore launch with **Talk Now** as the quickest path from app open to play:
+The revised MVP should let these games become the quickest path from app open to play whenever the moment calls for them:
 
-> Open app → choose the situation → hear one line → put the phone down → play.
+> Open app → choose the situation → read one line → begin.
 
-Hands-on Make, Move, Think, Help, and Perform activities remain important, but conversation games provide the cleanest way to validate whether parents repeatedly return to Handful during unstructured micro-moments.
+Hands-on Make, Move, Think, Help, and Perform activities remain important, but conversation games provide the cleanest way to validate whether parents repeatedly return to Try This during unstructured micro-moments.
 
 ## 2. Product rules for oral games
 
@@ -129,7 +129,7 @@ Best mechanics:
 - slow imitation;
 - quiet sensory prompts with explicit consent.
 
-Handful must never claim that a game will “defuse a tantrum.” The adult can offer it after safety and connection are established.
+Try This must never claim that a game will “defuse a tantrum.” The adult can offer it after safety and connection are established.
 
 ## 4. Core mechanic families
 
@@ -201,7 +201,7 @@ Examples:
 
 Design strength: a clear shared state and natural escalating challenge.
 
-Failure mode: elimination punishes younger children and working-memory differences. Handful's default is cooperative: the family helps rebuild the chain.
+Failure mode: elimination punishes younger children and working-memory differences. Try This's default is cooperative: the family helps rebuild the chain.
 
 ### 4.5 Transform
 
@@ -383,13 +383,13 @@ close:
   line: "Which question helped us most?"
 ```
 
-## 7. Interaction design: Talk Now
+## 7. Interaction design inside the unified catalog
 
 ### Entry
 
 Today screen gains a persistent secondary action:
 
-**Talk Now — no materials**
+**Matched idea — no materials**
 
 Tap opens three large situation choices:
 
@@ -471,7 +471,7 @@ Requirements:
 - credit the traditional name and cultural context;
 - involve fluent reviewers;
 - never machine-translate word lists and assume the mechanic still works;
-- avoid presenting a living tradition as a Handful invention;
+- avoid presenting a living tradition as a Try This invention;
 - support family-created house rules.
 
 ## 10. Report claims that require caution

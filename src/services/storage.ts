@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { OnboardingState, MomentDefaults, TogetherSession } from "../types";
 
+// Preserve the original namespace so existing TestFlight installs keep data.
 const KEYS = {
   onboarding: "@handful/onboarding",
   momentDefaults: "@handful/moment-defaults",

@@ -1,11 +1,11 @@
-# ConnectPlay Implementation Audit and Handful Handoff
+# ConnectPlay Implementation Audit and Try This Handoff
 
 **Audited:** 2026-07-26  
 **Implementation:** `/Users/lavanya/github/connectplay`
 
 ## Conclusion
 
-ConnectPlay is a functioning static **idea-bank prototype**, not an implementation of the proposed Handful mobile product.
+ConnectPlay is a functioning static **idea-bank prototype**, not an implementation of the proposed Try This mobile product.
 
 Preserve and reuse:
 
@@ -15,17 +15,17 @@ Preserve and reuse:
 - its 44 original URLs and 43-message audit trail;
 - its source, age, category, and search controls as an editorial/research view.
 
-Do not treat it as the foundation for local-first sessions, Talk Now, Together Mode, safety-reviewed publication, family sync, subscriptions, or the Cloudflare backend.
+Do not treat it as the foundation for local-first sessions, unified contextual matching, the playable idea page, safety-reviewed publication, family sync, subscriptions, or the Cloudflare backend.
 
 ```text
 ConnectPlay static idea bank
         ↓ curate and validate
-Handful content records
+Try This content records
         ↓ publish versioned catalog
-Handful Expo app + Cloudflare backend
+Try This Expo app + Cloudflare backend
 ```
 
-Do not import `connectplay/data/ideas.json` directly into production. Accepted entries must be converted through Handful's content schema and safety workflow.
+Do not import `connectplay/data/ideas.json` directly into production. Accepted entries must be converted through Try This's content schema and safety workflow.
 
 ## Verified implementation
 
@@ -114,14 +114,14 @@ Keep `connectplay/data/sources.json`, existing `origin.yourNote`, existing `orig
 
 ### Editorial exploration
 
-The current grid and filters are useful for a private source browser. They should not replace Handful's one-match Today experience.
+The current grid and filters are useful for a private source browser. They should not replace Try This's one-match Today experience.
 
 ## Gap matrix
 
-| Area | ConnectPlay | Handful | Decision |
+| Area | ConnectPlay | Try This | Decision |
 | --- | --- | --- | --- |
 | Product form | Static idea bank | Native local-first companion | Keep prototype independent |
-| Primary experience | Many-card grid | One match plus Talk Now | Do not port grid as Today |
+| Primary experience | Many-card grid | One context-matched idea | Do not port grid as Today |
 | Content depth | Short `howTo` | Exact steps, variants, ending, safety, access | Enrich before release |
 | Conversation games | A few classics/prompts | 36 complete cards | Use `PLAYABLE_GAME_CARDS.md` |
 | Ages | 0–1 through 6+ | Initial focus 3–10 | Map accepted records; archive infant entries |
@@ -146,8 +146,8 @@ The newer Bonding audit also identifies risks the old JSON does not model: unsaf
 1. **Freeze the acquisition snapshot.** Preserve raw messages, URLs, founder notes, and saved text.
 2. **Classify all 74 cards:** `convert-now`, `needs-source-review`, `research-only`, `reject-safety`, `duplicate-mechanic`, or `later-age-range`.
 3. **Import the 37 additional ParentLinks URLs as a distinct batch.** Do not rewrite the old corpus history.
-4. **Convert accepted entries:** preserve provenance; assign Handful ID; map age; add promise, materials, exact steps or allowed source fallback, safety, accessibility, variants, testing, and immutable version.
-5. **Import conversation games separately.** Their complete rules do not fit ConnectPlay's shallow `{ howTo, why }` structure.
+4. **Convert accepted entries:** preserve provenance; assign Try This ID; map age; add promise, materials, exact steps or allowed source fallback, safety, accessibility, variants, testing, and immutable version.
+5. **Convert conversation games through the unified catalog adapter.** Preserve their specialized rule, opening-prompt, language, driver-safety, and interruptibility fields without creating a separate user-facing product lane.
 6. **Retain ConnectPlay as an editorial/source browser.** It must never expose private notes, child data, or editorial credentials from the production backend.
 
 ## Changes to the Bonding plan
@@ -156,7 +156,7 @@ The newer Bonding audit also identifies risks the old JSON does not model: unsaf
 2. Provenance has a concrete legacy model that must be migrated rather than reinvented.
 3. The first hands-on corpus should come from qualified ConnectPlay entries plus the 37 newer ParentLinks—not an entirely invented list of 84 titles.
 4. ConnectPlay's grid is an editorial tool; Today remains one recommendation.
-5. Source-first alpha cards remain viable only when reproducible, available, adult-gated, and accompanied by Handful safety context.
+5. Source-first alpha cards remain viable only when reproducible, available, adult-gated, and accompanied by Try This safety context.
 
 ## Verification performed
 
