@@ -8,8 +8,9 @@ export default function PrivacyPage() {
       <p className="eyebrow blue">LAST UPDATED JULY 31, 2026</p>
       <h1>Privacy Policy</h1>
       <p>
-        Try This is designed to work without an account. Family preferences,
-        saved activities, and setup choices are stored on your device.
+        Try This Fun is designed to work without an account. Family
+        preferences, saved activities, and setup choices are stored on your
+        device.
       </p>
       <h2>Information we collect</h2>
       <p>
@@ -17,10 +18,24 @@ export default function PrivacyPage() {
         addresses, precise locations, photographs, contacts, or advertising
         identifiers.
       </p>
-      <h2>TestFlight</h2>
+      <p>
+        We do not receive or store your family’s activity choices, saved ideas,
+        or on-device settings. If you follow an optional link to an original
+        public source, that destination has its own privacy practices.
+      </p>
+      <h2>App distribution</h2>
       <p>
         Apple may collect diagnostic and beta-testing information when you use
-        TestFlight. Apple handles that information under its own privacy policy.
+        TestFlight. Google may collect information related to installing,
+        updating, or operating an app distributed through Google Play. Apple
+        and Google handle that information under their own privacy policies.
+      </p>
+      <h2>Permissions</h2>
+      <p>
+        The current beta does not use your camera, contacts, photos, or precise
+        location. It does not record or transmit audio. If a future feature
+        needs a new permission or changes how information is handled, we will
+        update this policy before enabling it.
       </p>
       <h2>External links</h2>
       <p>

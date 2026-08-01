@@ -20,6 +20,8 @@ ios/
 # Tests and generated output
 coverage/
 *.log
+.tmp/
+*.inspect.ndjson
 **/.next/
 **/out/
 **/*.tsbuildinfo
