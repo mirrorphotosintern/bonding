@@ -105,6 +105,8 @@ h1, h2, h3 { margin: 0; font-family: "Figtree", sans-serif; }
 }
 .button:hover { transform: translate(3px,3px); box-shadow: 2px 3px 0 var(--ink); }
 .button-sun { background: var(--sun); }
+.button-paper { background: var(--paper); }
+.store-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 .button-note { margin: 15px 0 0 3px; color: rgba(255,255,255,.65); font-size: 13px; }
 
 .picker { position: relative; min-height: 570px; }
@@ -238,6 +240,7 @@ h1, h2, h3 { margin: 0; font-family: "Figtree", sans-serif; }
   background: var(--ink);
 }
 .closing h2 { font-size: clamp(48px, 6vw, 80px); font-weight: 900; line-height: .94; letter-spacing: -.06em; }
+.closing-actions { justify-content: flex-end; }
 
 .legal {
   max-width: 780px;
@@ -285,6 +288,7 @@ footer small { grid-column: 1 / -1; color: var(--quiet); }
   .principle-strip { align-items: stretch; flex-direction: column; }
   .principle-strip span + span { border-top: var(--line); border-left: 0; }
   .closing { align-items: flex-start; flex-direction: column; margin: 14px; padding: 46px 24px; }
+  .closing-actions { width: 100%; }
   .closing .button { width: 100%; min-width: 0; }
   footer { grid-template-columns: 1fr; }
   .footer-links { flex-wrap: wrap; }

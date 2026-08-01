@@ -4,6 +4,7 @@ export const site = {
   description:
     "One playful, genuinely doable thing for families to try together right now.",
   testFlightUrl: "https://testflight.apple.com/join/WTFUxxpm",
+  androidTestUrl: "https://play.google.com/apps/internaltest/4701245455831244623",
   supportEmail: "support@mirror.photos",
   company: "Mirror Photos LLC"
 } as const

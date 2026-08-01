@@ -14,7 +14,7 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "MobileApplication",
     name: site.name,
-    operatingSystem: "iOS",
+    operatingSystem: "iOS, Android",
     applicationCategory: "LifestyleApplication",
     description: site.description,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
@@ -39,10 +39,17 @@ export default function Home() {
             Tell us what kind of moment you have. We’ll hand you one playful,
             genuinely doable thing to try together.
           </p>
-          <a className="button button-sun" href={site.testFlightUrl}>
-            Join the iPhone beta <span>↗</span>
-          </a>
-          <p className="button-note">Free during beta · Opens in Apple TestFlight</p>
+          <div className="store-actions" aria-label="Try the mobile app">
+            <a className="button button-sun" href={site.testFlightUrl}>
+              Join the iPhone beta <span>↗</span>
+            </a>
+            <a className="button button-paper" href={site.androidTestUrl}>
+              Try the Android beta <span>↗</span>
+            </a>
+          </div>
+          <p className="button-note">
+            Free during beta · Android currently requires a tester invite
+          </p>
         </div>
 
         <div className="picker" aria-label="A preview of the Try This app">
@@ -119,9 +126,14 @@ export default function Home() {
           <p className="eyebrow">YOUR NEXT GOOD MEMORY CAN START SMALL</p>
           <h2>Got five minutes?</h2>
         </div>
-        <a className="button button-sun" href={site.testFlightUrl}>
-          Try This on iPhone <span>↗</span>
-        </a>
+        <div className="store-actions closing-actions">
+          <a className="button button-sun" href={site.testFlightUrl}>
+            Try This on iPhone <span>↗</span>
+          </a>
+          <a className="button button-paper" href={site.androidTestUrl}>
+            Try This on Android <span>↗</span>
+          </a>
+        </div>
       </section>
     </>
   )
