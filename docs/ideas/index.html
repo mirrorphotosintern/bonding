@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Try This — Idea Tracker</title>
+<style>
+  :root{
+    --ink:#1a1f2e; --mut:#6b7280; --line:#e5e7eb; --bg:#f8fafc; --card:#fff;
+    --acc:#4f46e5; --new:#047857; --ex:#b45309;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg);color:var(--ink);}
+  header{background:linear-gradient(120deg,#4f46e5,#7c3aed);color:#fff;padding:22px 20px 18px;}
+  header h1{margin:0;font-size:22px}
+  header p{margin:6px 0 0;opacity:.92;font-size:13px}
+  .wrap{max-width:1100px;margin:0 auto;padding:14px 16px 60px}
+  .counts{font-size:13px;color:var(--mut);margin:12px 2px}
+  .counts b{color:var(--ink)}
+  .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--card);
+         border:1px solid var(--line);border-radius:10px;padding:12px;position:sticky;top:8px;z-index:5;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .tools input[type=search]{flex:1;min-width:200px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+  label.f{font-size:11px;color:var(--mut);display:flex;flex-direction:column;gap:3px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+  .pill{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--mut)}
+  .pill.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+  main{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;margin-top:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;
+        transition:box-shadow .15s,transform .05s}
+  .card:hover{box-shadow:0 6px 18px rgba(79,70,229,.12)}
+  .card.open{box-shadow:0 8px 24px rgba(79,70,229,.18);border-color:#c7d2fe}
+  .row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .mode{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:6px;color:#fff}
+  .m-talk{background:#0891b2}.m-make{background:#7c3aed}.m-move{background:#16a34a}
+  .m-think{background:#ea580c}.m-help{background:#0d9488}.m-perform{background:#db2777}
+  .src{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px}
+  .src-new{background:#ecfdf5;color:var(--new);border:1px solid #a7f3d0}
+  .src-ex{background:#fffbeb;color:var(--ex);border:1px solid #fde68a}
+  .vc{font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px}
+  .vc-y{background:#eef2ff;color:var(--acc);border:1px solid #c7d2fe}.vc-n{background:#f3f4f6;color:var(--mut);border:1px solid var(--line)}
+  h2.title{margin:8px 0 4px;font-size:16px}
+  p.one{margin:0 0 8px;font-size:13px;color:#374151}
+  .meta{display:flex;flex-wrap:wrap;gap:6px;font-size:11px;color:var(--mut)}
+  .meta span{background:#f3f4f6;border:1px solid var(--line);padding:3px 7px;border-radius:6px}
+  .detail{display:none;margin-top:10px;border-top:1px dashed var(--line);padding-top:10px;font-size:12.5px;color:#374151}
+  .card.open .detail{display:block}
+  .detail h3{margin:6px 0 4px;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}
+  .detail ul{margin:2px 0 0;padding-left:18px}
+  .med{display:flex;gap:14px;flex-wrap:wrap;font-size:12px}
+  .med b{color:var(--ink)}
+  .hpsec{border:1px solid #e0e7ff;background:#f5f7ff;border-radius:8px;padding:8px 10px;margin-bottom:6px}
+  .hp{display:flex;gap:8px;padding:4px 0;font-size:12.5px;line-height:1.45}
+  .hp+.hp{border-top:1px dashed #e0e7ff}
+  .hpk{flex:0 0 96px;font-weight:700;color:var(--acc)}
+  .hpv{flex:1;color:#334155}
+  .empty{grid-column:1/-1;text-align:center;color:var(--mut);padding:40px 0;font-size:14px}
+  footer{margin-top:24px;font-size:11px;color:var(--mut);text-align:center}
+  .swatches{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--mut);margin-top:2px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Try This — Idea Tracker</h1>
+  <p>Every activity and conversation-game idea (existing + new), categorized for the app. Local HTML viewer — data lives in <code>ideas.json</code>.</p>
+</header>
+<div class="wrap">
+  <div class="counts" id="counts"></div>
+
+  <div class="tools">
+    <input type="search" id="q" placeholder="Search titles, tags, one-liners…" />
+    <label class="f">Source
+      <select id="fSource">
+        <option value="all">All</option><option value="new">New (+50)</option><option value="existing">Existing</option>
+      </select></label>
+    <label class="f">Mode
+      <select id="fMode">
+        <option value="all">All modes</option>
+        <option>talk</option><option>make</option><option>move</option>
+        <option>think</option><option>help</option><option>perform</option>
+      </select></label>
+    <label class="f">Video call
+      <select id="fVc">
+        <option value="all">Either</option><option value="yes">Playable over video call</option><option value="no">In-person only</option>
+      </select></label>
+    <label class="f">Situation
+      <select id="fSit">
+        <option value="all">Anywhere</option>
+      </select></label>
+  </div>
+
+  <div class="badges" id="ageBadges"></div>
+  <main id="grid"></main>
+  <footer>Edit ideas in <code>existing_data.py</code> / <code>new_data.py</code>, run <code>python3 build.py</code>, refresh. Photos, videos, and source links will be added to each idea as they arrive.</footer>
+</div>
+
+<script src="ideas-data.js"></script>
+<script>
+(function(){
+  var D = window.IDEA_DATA;
+  var ideas = D.ideas;
+  var SITUATIONS = D.taxonomy.situations;
+  var AGEBANDS = D.taxonomy.ageBands;
+
+  var state = { q:"", source:"all", mode:"all", vc:"all", sit:"all", ages:[] };
+
+  // situation select options
+  var sel = document.getElementById("fSit");
+  SITUATIONS.forEach(function(s){ var o=document.createElement("option"); o.value=s; o.textContent=s; sel.appendChild(o); });
+
+  // age filter pills
+  var ab = document.getElementById("ageBadges");
+  AGEBANDS.forEach(function(a){
+    var p=document.createElement("span"); p.className="pill"; p.textContent="Ages "+a;
+    p.onclick=function(){ toggleAge(a,p); }; ab.appendChild(p);
+  });
+  function toggleAge(a,p){
+    var k=state.ages.indexOf(a);
+    if(k>=0){state.ages.splice(k,1);p.classList.remove("on");}else{state.ages.push(a);p.classList.add("on");}
+    render();
+  }
+
+  function matches(idea){
+    if(state.q){ var hay=(idea.title+" "+idea.oneLiner+" "+idea.tags.join(" ")).toLowerCase();
+      if(!hay.includes(state.q.toLowerCase())) return false; }
+    if(state.source!=="all" && idea.source!==state.source) return false;
+    if(state.mode!=="all" && idea.mode!==state.mode) return false;
+    if(state.vc==="yes" && !idea.videoCall) return false;
+    if(state.vc==="no" && idea.videoCall) return false;
+    if(state.sit!=="all" && idea.situations.indexOf(state.sit)<0) return false;
+    if(state.ages.length && !state.ages.every(function(a){return idea.ages.indexOf(a)>=0;})) return false;
+    return true;
+  }
+
+  function countVc(list){return list.filter(function(i){return i.videoCall;}).length;}
+
+  function render(){
+    var list=ideas.filter(matches);
+    var grid=document.getElementById("grid");
+    grid.innerHTML="";
+    oncounts(list.length);
+    if(!list.length){var e=document.createElement("div");e.className="empty";e.textContent="No ideas match those filters.";grid.appendChild(e);return;}
+    list.forEach(function(idea){
+      grid.appendChild(card(idea));
+    });
+  }
+
+  function howToPlayHtml(hp){
+    if(!hp) return "";
+    var labels={say:"You say",first_round:"First round",steps:"How to play",setup:"You'll need",
+      turns:"Turns",end:"To end",easier:"Easier",harder:"Harder",recovery:"Recovery",
+      coop:"Cooperative rule",child:"Child's choice",safety:"Safety / access",
+      safety_access:"Safety / access",consent_access:"Consent / access",
+      source:"Source",sources:"Sources",what_it_is:"What it is",privacy:"Privacy",copyright:"Copyright",
+      cultural_copyright_note:"Cultural / copyright",copyright_localization:"Copyright / localization",
+      release_requirement:"Release requirement",audience:"Audience",traditional_end:"Traditional end",
+      try_this_default:"Try This default",traditional_rule:"Traditional rule",
+      accessibility:"Accessibility"};
+    var out="";
+    Object.keys(hp).forEach(function(k){
+      if(!hp[k]) return;
+      var lab=labels[k]||k.replace(/_/g," ");
+      out+='<div class="hp"><span class="hpk">'+lab+'</span><span class="hpv">'+hp[k]+'</span></div>';
+    });
+    return out;
+  }
+
+  function card(idea){
+    var el=document.createElement("article"); el.className="card";
+    var ages=idea.ages.join(", ");
+    var src=idea.source==="new" ? '<span class="src src-new">NEW</span>' : '<span class="src src-ex">EXISTING</span>';
+    var vc=idea.videoCall ? '<span class="vc vc-y">📹 video-call OK</span>' : '<span class="vc vc-n">in-person</span>';
+    var sit=idea.situations.map(function(s){return "<span>"+s+"</span>";}).join("");
+    var tags=idea.tags.map(function(t){return "<span>#"+t+"</span>";}).join("");
+    var htp=howToPlayHtml(idea.howToPlay);
+    var media= (idea.links.length||idea.photos.length||idea.videos.length)
+      ? '<h3>Media</h3><div class="med">'
+        +(idea.links.length?"<span><b>🔗</b> "+idea.links.length+"</span>":"")
+        +(idea.photos.length?"<span><b>🖼</b> "+idea.photos.length+"</span>":"")
+        +(idea.videos.length?"<span><b>🎬</b> "+idea.videos.length+"</span>":"")
+        +"</div>" : '<div class="med"><span style="color:var(--mut)">no media yet — 🔗 photos &amp; videos coming</span></div>';
+    var srcFile=idea.sourceFile?"<span>docs: "+idea.sourceFile+"</span>":"";
+    var htpSection=htp ? '<div class="hpsec">'+htp+'</div>' : '';
+    el.innerHTML =
+      '<div class="row1"><span class="mode m-'+idea.mode+'">'+idea.mode+'</span>'+src+'</div>'+
+      '<h2 class="title">'+idea.title+'</h2>'+
+      '<p class="one">'+idea.description+'</p>'+
+      '<div class="meta"><span>🧒 '+ages+'</span>'+vc+'<span>⏱ '+idea.duration[0]+'–'+idea.duration[1]+' min</span><span>🧰 '+idea.materials+'</span></div>'+
+      '<div class="detail">'+
+        (htpSection?'<h3>How to play</h3>'+htpSection:'')+
+        '<h3>Where it fits</h3><div class="meta">'+sit+'</div>'+
+        '<h3>Mechanics</h3><div class="meta">'+tags+'</div>'+
+        media+srcFile+
+      '</div>';
+    el.onclick=function(){el.classList.toggle("open");};
+    return el;
+  }
+
+  function oncounts(n){
+    var vc=newCount=0, exNew=0;
+    var filt=ideas.filter(matches);
+    vc=countVc(filt);
+    document.getElementById("counts").innerHTML=
+      "Showing <b>"+n+"</b> of <b>"+ideas.length+"</b> ideas · "+
+      "<b>"+ideas.filter(function(i){return i.source==="new";}).length+"</b> new ("+countVc(ideas.filter(function(i){return i.source==="new";}))+" over video call) · "+
+      "<b>"+ideas.filter(function(i){return i.source==="existing";}).length+"</b> existing · "+
+      "in this view <b>"+vc+"</b> work over a video call";
+  }
+
+  document.getElementById("q").addEventListener("input",function(e){state.q=e.target.value;render();});
+  document.getElementById("fSource").addEventListener("change",function(e){state.source=e.target.value;render();});
+  document.getElementById("fMode").addEventListener("change",function(e){state.mode=e.target.value;render();});
+  document.getElementById("fVc").addEventListener("change",function(e){state.vc=e.target.value;render();});
+  document.getElementById("fSit").addEventListener("change",function(e){state.sit=e.target.value;render();});
+
+  render();
+})();
+</script>
+</body>
+</html>
