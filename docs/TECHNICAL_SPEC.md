@@ -71,7 +71,7 @@ flowchart TB
 | Network state | `@react-native-community/netinfo` | Offline banner and sync behavior |
 | Media | `expo-audio`, `expo-video`, `expo-file-system` | Downloadable audio cues and short demonstrations |
 | Notifications | `expo-notifications` | User-controlled activity windows |
-| Purchases | RevenueCat | iOS/Android subscription handling and family entitlement |
+| Purchases | RevenueCat | iOS/Android one-time purchase handling and permanent entitlement |
 | Error isolation | React Error Boundaries by route and the playable idea page | A failed activity must not blank the app |
 | Testing | Jest + React Native Testing Library + Maestro/Detox decision spike | Unit, component, and critical-flow tests |
 
@@ -191,7 +191,7 @@ All implementation files for this product should remain under `Bonding/`.
 | `/sign-in` | Deferred adult account creation |
 | `/family/invite/[token]` | Adult caregiver invitation |
 | `/guest/activity/[token]` | Redacted, time-limited guest activity |
-| `/subscription` | RevenueCat paywall |
+| `/unlock` | RevenueCat-backed lifetime unlock and purchase restore |
 | `/privacy` | Data controls, export, deletion |
 
 The activity route is the complete playable experience and should be wrapped in
@@ -263,7 +263,7 @@ Use UUIDv7 text primary keys, integer Unix timestamps, SQLite-compatible JSON te
 - `owner_user_id`
 - `display_name` nullable
 - `timezone`
-- `subscription_tier`
+- `access_tier`: `starter | lifetime`
 - `created_at`
 - `deleted_at`
 
@@ -601,7 +601,7 @@ On first launch:
 
 ### Account upgrade
 
-When the adult chooses sync, family sharing, cloud memories, or subscription restore:
+When the adult chooses sync, family sharing, or cloud memories:
 
 - use native Sign in with Apple and Google Sign-In;
 - send the resulting identity token and PKCE/nonce proof to the Try This Worker;
@@ -615,29 +615,30 @@ Do not build passwords or an email-delivery system for v1. Apple is required on 
 
 ### Adult assurance
 
-The product is adult-operated. Add a simple adult gate before subscription, external links, family invitations, data export/deletion, or cloud photo enablement. Avoid knowledge questions children can trivially answer; use platform authentication where appropriate.
+The product is adult-operated. Add a simple adult gate before purchase, external links, family invitations, data export/deletion, or cloud photo enablement. Avoid knowledge questions children can trivially answer; use platform authentication where appropriate.
 
 ## 13. Purchases
 
 RevenueCat configuration:
 
-- entitlement: `try_this_plus`
-- offerings: monthly, annual
-- one family entitlement mapped to the adult purchaser
-- RevenueCat webhook reaches a dedicated Worker route, is signature-verified, deduplicated, queued, and mirrors entitlement state to D1
-- app trusts current RevenueCat state for immediate UI and the mirrored state for backend authorization
+- entitlement: `try_this_full_access`
+- one current offering containing a lifetime package
+- store product: non-consumable on Apple and one-time product on Google Play; recommended identifier `try_this_lifetime`
+- localized store price with a $19.99 USD launch target
+- anonymous RevenueCat purchaser ID by default; no account or email is required
+- app trusts current RevenueCat customer information for immediate local-library access
+- a webhook mirror is required only if a future cloud feature needs server-side entitlement enforcement; if added, signature-verify and deduplicate every event
 
 Required states:
 
 - free;
-- trial;
-- active;
-- grace period;
-- billing issue;
-- expired;
+- purchasing;
+- lifetime unlocked;
+- restoring;
+- purchase or restore error;
 - VIP/test entitlement.
 
-Subscription must not gate safety details, already downloaded activities, data export, or deletion.
+The unlock must not gate safety details for a visible idea, the starter collection, already downloaded activities, data export, or deletion.
 
 ## 14. Analytics and telemetry
 
@@ -655,7 +656,7 @@ Try This must use a new analytics table or project namespace. Do not write to Sh
 - anonymous installation hash;
 - adult user ID nullable;
 - family ID hash nullable;
-- subscription tier;
+- access tier (`starter` or `lifetime`);
 - matcher version;
 - structured properties allowlist.
 
@@ -772,7 +773,7 @@ Backups follow a documented expiry schedule.
 - age/multi-child variants;
 - schema validation;
 - offline queue and idempotency;
-- subscription state;
+- lifetime-entitlement state;
 - event property allowlists;
 - timer/background state machine.
 

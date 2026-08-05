@@ -2,10 +2,10 @@
 window.IDEA_DATA = {
   "generated": "Try This (Bonding) — Idea Tracker",
   "counts": {
-    "total": 200,
-    "existing": 150,
+    "total": 195,
+    "existing": 145,
     "new": 50,
-    "withHowToPlay": 200
+    "withHowToPlay": 195
   },
   "taxonomy": {
     "ageBands": [
@@ -78,51 +78,6 @@ window.IDEA_DATA = {
         "recovery": "If nobody finds it, reveal it and let the group choose a better clue together.",
         "safety_access": "A driver does not search. Use “I hear” or “I’m thinking of” when sight is unavailable.",
         "source": "Traditional game; rules summarized in the supplied conversation-games report."
-      }
-    },
-    {
-      "id": "talk_veo_veo",
-      "title": "Veo Veo",
-      "source": "existing",
-      "sourceFile": "PLAYABLE_GAME_CARDS.md",
-      "mode": "talk",
-      "oneLiner": "Spanish call-and-response riddle game: 'Veo veo… una cosita…'",
-      "ages": [
-        "3-4",
-        "5-6",
-        "7-8"
-      ],
-      "videoCall": true,
-      "situations": [
-        "car",
-        "restaurant",
-        "virtual",
-        "waiting"
-      ],
-      "duration": [
-        3,
-        10
-      ],
-      "materials": "none",
-      "tags": [
-        "observe",
-        "rhythm",
-        "rhyme"
-      ],
-      "links": [],
-      "photos": [],
-      "videos": [],
-      "description": "You say: One player says, “Veo, veo.” Everyone answers, “¿Qué ves?” The player says, “Una cosita…,” then gives its starting sound or color. Others guess. First round: “Veo, veo.” / “¿Qué ves?” / “Una cosita que empieza con /m/.” Choose something obvious such as *mesa*.",
-      "howToPlay": {
-        "say": "One player says, “Veo, veo.” Everyone answers, “¿Qué ves?” The player says, “Una cosita…,” then gives its starting sound or color. Others guess.",
-        "first_round": "“Veo, veo.” / “¿Qué ves?” / “Una cosita que empieza con /m/.” Choose something obvious such as *mesa*.",
-        "turns": "One guess per person in rotation. The correct guesser leads next.",
-        "end": "Everyone leads once.",
-        "easier": "Give color plus first sound.",
-        "harder": "Give only a first sound or descriptive riddle.",
-        "recovery": "Add a second clue after a full round; reveal after three clues.",
-        "safety_access": "Use objects inside the vehicle only if the driver is playing.",
-        "source": "Traditional Spanish-language call-and-response form documented in `Family Conversation Games Report.pdf`."
       }
     },
     {
@@ -770,181 +725,6 @@ window.IDEA_DATA = {
         "harder": "Choose one category and ban repeats.",
         "recovery": "If no word appears in five seconds, everyone offers options and the current player chooses one.",
         "source": "Generic English adaptation; language-specific traditions below remain separate games."
-      }
-    },
-    {
-      "id": "talk_shiritori",
-      "title": "Shiritori",
-      "source": "existing",
-      "sourceFile": "PLAYABLE_GAME_CARDS.md",
-      "mode": "talk",
-      "oneLiner": "Japanese syllable-chain game; avoid words ending in the n mora.",
-      "ages": [
-        "7-8",
-        "9-10"
-      ],
-      "videoCall": true,
-      "situations": [
-        "car",
-        "home",
-        "virtual",
-        "waiting"
-      ],
-      "duration": [
-        5,
-        15
-      ],
-      "materials": "none",
-      "tags": [
-        "chain",
-        "language",
-        "culture"
-      ],
-      "links": [],
-      "photos": [],
-      "videos": [],
-      "description": "You say: “Say a Japanese noun beginning with the final kana sound of the previous noun. Avoid words ending in ん.” First round: さくら (*sakura*, cherry blossom) → らじお (*rajio*, radio) → おに (*oni*, ogre).",
-      "howToPlay": {
-        "say": "“Say a Japanese noun beginning with the final kana sound of the previous noun. Avoid words ending in ん.”",
-        "first_round": "さくら (*sakura*, cherry blossom) → らじお (*rajio*, radio) → おに (*oni*, ogre).",
-        "turns": "One Japanese noun per turn; no repeats. Kana, not English spelling, determines the link.",
-        "traditional_end": "A word ending in ん loses because standard Japanese words do not begin with that mora.",
-        "try_this_default": "Instead of elimination, the group says “ん reset,” chooses a new starter, and continues.",
-        "easier": "Show or speak three valid options.",
-        "harder": "Use one semantic category.",
-        "release_requirement": "A fluent Japanese reviewer must verify every in-app example and edge rule.",
-        "sources": "[Shiritori overview](https://en.wikipedia.org/wiki/Shiritori) and the supplied report."
-      }
-    },
-    {
-      "id": "talk_jielong",
-      "title": "Jielong",
-      "source": "existing",
-      "sourceFile": "PLAYABLE_GAME_CARDS.md",
-      "mode": "talk",
-      "oneLiner": "Chinese connecting game linking words by a shared character or ending sound.",
-      "ages": [
-        "7-8",
-        "9-10"
-      ],
-      "videoCall": true,
-      "situations": [
-        "home",
-        "virtual",
-        "waiting"
-      ],
-      "duration": [
-        5,
-        15
-      ],
-      "materials": "none",
-      "tags": [
-        "chain",
-        "language",
-        "culture"
-      ],
-      "links": [],
-      "photos": [],
-      "videos": [],
-      "description": "You say: “Say a Chinese word or phrase whose first character matches the final character of the previous one.” First round: For a simplified child mode, the fluent reviewer supplies a verified chain and audio examples; players may also agree to chain by ending and beginning sound.",
-      "howToPlay": {
-        "say": "“Say a Chinese word or phrase whose first character matches the final character of the previous one.”",
-        "first_round": "For a simplified child mode, the fluent reviewer supplies a verified chain and audio examples; players may also agree to chain by ending and beginning sound.",
-        "turns": "One item per player; no repeats within the round.",
-        "end": "Reach 12 links or stop when the group needs a hint.",
-        "easier": "Match pinyin syllables and provide three options.",
-        "harder": "Exact-character linking.",
-        "recovery": "A fluent player may repair tone or character gently; learners are not eliminated.",
-        "release_requirement": "Do not generate examples by machine translation. Publish only after fluent review determines character, pinyin, tone, and regional house rules.",
-        "source": "[SmileTutor description cited by the report](https://smiletutor.sg/6-games-to-play-to-improve-your-chinese/) and `Family Conversation Games Report.pdf`."
-      }
-    },
-    {
-      "id": "talk_antakshari",
-      "title": "Antakshari",
-      "source": "existing",
-      "sourceFile": "PLAYABLE_GAME_CARDS.md",
-      "mode": "talk",
-      "oneLiner": "Sing a line, then the next song must start with the last sound of yours.",
-      "ages": [
-        "5-6",
-        "7-8",
-        "9-10"
-      ],
-      "videoCall": true,
-      "situations": [
-        "car",
-        "home",
-        "travel",
-        "virtual"
-      ],
-      "duration": [
-        5,
-        20
-      ],
-      "materials": "none",
-      "tags": [
-        "chain",
-        "music",
-        "culture"
-      ],
-      "links": [],
-      "photos": [],
-      "videos": [],
-      "description": "You say: “Sing a recognizable song line. The next person starts a different song with the final pronounced consonant or sound.” First round: The family chooses any song they already know; after it ends, the adult names the linking sound aloud so everyone understands the next prompt.",
-      "howToPlay": {
-        "say": "“Sing a recognizable song line. The next person starts a different song with the final pronounced consonant or sound.”",
-        "first_round": "The family chooses any song they already know; after it ends, the adult names the linking sound aloud so everyone understands the next prompt.",
-        "turns": "One short excerpt per person or team; no song repeats in the same game.",
-        "end": "Everyone sings twice or the family agrees on a final chorus.",
-        "easier": "Any language, humming allowed, group help allowed.",
-        "harder": "One language or genre and a 20-second turn.",
-        "recovery": "If nobody knows a song, choose a fresh starting sound; no team is eliminated.",
-        "copyright": "Try This stores rules and starting letters only—not lyrics, recordings, or an unlicensed song database.",
-        "source": "[Antakshari rules](https://anthakshari.ai/how-to-play) and the supplied report."
-      }
-    },
-    {
-      "id": "talk_bait_bazi",
-      "title": "Bait Bazi",
-      "source": "existing",
-      "sourceFile": "PLAYABLE_GAME_CARDS.md",
-      "mode": "talk",
-      "oneLiner": "Urdu poetry-game: link verses by their final pronounced letter.",
-      "ages": [
-        "9-10"
-      ],
-      "videoCall": true,
-      "situations": [
-        "home",
-        "waiting"
-      ],
-      "duration": [
-        5,
-        15
-      ],
-      "materials": "none",
-      "tags": [
-        "chain",
-        "poetry",
-        "culture"
-      ],
-      "links": [],
-      "photos": [],
-      "videos": [],
-      "description": "An Urdu poetry-chain game, often played by people who already know Urdu couplets or verses. It is closer to “Antakshari with poetry” than to composing a new poem on the spot. You say: “Recite an Urdu *sher* or verse you know. The next person recites a different verse beginning with the final pronounced letter of yours.” First round: The app does **not** invent or quote a poem. A participating adult recites a verse from memory, says the final linking letter aloud, and takes the first response so children can see the pattern.",
-      "howToPlay": {
-        "what_it_is": "An Urdu poetry-chain game, often played by people who already know Urdu couplets or verses. It is closer to “Antakshari with poetry” than to composing a new poem on the spot.",
-        "say": "“Recite an Urdu *sher* or verse you know. The next person recites a different verse beginning with the final pronounced letter of yours.”",
-        "first_round": "The app does **not** invent or quote a poem. A participating adult recites a verse from memory, says the final linking letter aloud, and takes the first response so children can see the pattern.",
-        "turns": "One previously learned verse per player or team. Agree before play whether a *sher*, stanza, or single line counts. A verse may not repeat in the same session.",
-        "end": "For family mode, complete one turn each or six linked verses. Traditional competitive events may end when a team cannot respond, but Try This defaults to collaboration.",
-        "easier": "“Poetry Circle”—drop the letter chain; each person shares any remembered two-line poem, nursery rhyme, or family verse. This is the correct beginner mode when the family does not already have an Urdu poetry repertoire.",
-        "harder": "Restrict play to one poet, theme, or poetic form.",
-        "recovery": "Ask the group for a hint, choose a new linking letter, or switch to Poetry Circle. Never fabricate a verse and attribute it to a poet.",
-        "audience": "Recommended for fluent Urdu-speaking families and older children who know verses; it should not be offered as a default English game.",
-        "copyright": "Use public-domain poetry, family-recited material, or properly licensed excerpts. The product can explain the mechanic without distributing a verse library.",
-        "sources": "[Bait Bazi rules and context](https://en.wikipedia.org/wiki/Bait_bazi), [Rekhta Baitbaazi event](https://cdn.rekhta.org/events/baitbaazi?lang=ur), and the supplied report."
       }
     },
     {
@@ -6462,7 +6242,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "talk",
       "oneLiner": "One player makes a sound; others name what they think it is.",
-      "description": "One player makes a sound; others name what they think it is.",
+      "description": "Make a mystery sound with your voice, hands, or a safe object. Everyone guesses before the reveal.",
       "ages": [
         "3-4",
         "5-6",
@@ -6676,7 +6456,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "talk",
       "oneLiner": "Describe a person or object with exactly three clues before the reveal.",
-      "description": "Describe a person or object with exactly three clues before the reveal.",
+      "description": "Describe a person, place, or thing with exactly three clues, then let everyone guess.",
       "ages": [
         "5-6",
         "7-8"
@@ -6761,7 +6541,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "talk",
       "oneLiner": "Use yes/no questions to guess someone's favorite thing this week.",
-      "description": "Use yes/no questions to guess someone's favorite thing this week.",
+      "description": "Use yes-or-no questions to discover someone's favorite thing this week.",
       "ages": [
         "5-6",
         "7-8"
@@ -7524,7 +7304,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "make",
       "oneLiner": "Place leaves under paper and rub crayon over them to reveal the veins.",
-      "description": "Place leaves under paper and rub crayon over them to reveal the veins.",
+      "description": "Put a leaf under paper and rub the side of a crayon over it to reveal the hidden pattern.",
       "ages": [
         "5-6",
         "7-8",
@@ -7787,7 +7567,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "move",
       "oneLiner": "Shape your whole body into letters or numbers and guess them.",
-      "description": "Shape your whole body into letters or numbers and guess them.",
+      "description": "Shape your whole body into letters or numbers and let everyone guess.",
       "ages": [
         "3-4",
         "5-6",
@@ -8044,7 +7824,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "think",
       "oneLiner": "Build a paper bridge that holds the most small objects, then improve it.",
-      "description": "Build a paper bridge that holds the most small objects, then improve it.",
+      "description": "Build a paper bridge between two books, test its strength, then improve the design.",
       "ages": [
         "7-8",
         "9-10"
@@ -8086,7 +7866,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "think",
       "oneLiner": "Watch a short sequence of colors or gestures and copy it from memory.",
-      "description": "Watch a short sequence of colors or gestures and copy it from memory.",
+      "description": "Copy a short sequence of gestures, then add one new step for the next player.",
       "ages": [
         "5-6",
         "7-8"
@@ -8128,7 +7908,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "help",
       "oneLiner": "Turn making the bed into a cooperative tidy-up mission.",
-      "description": "Turn making the bed into a cooperative tidy-up mission.",
+      "description": "Turn making the bed into a quick cooperative mission with one job for each person.",
       "ages": [
         "3-4",
         "5-6",
@@ -8258,7 +8038,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "help",
       "oneLiner": "Make and decorate a thank-you card for someone who helped you.",
-      "description": "Make and decorate a thank-you card for someone who helped you.",
+      "description": "Make a quick card for someone who helped your family and deliver it together.",
       "ages": [
         "5-6",
         "7-8",
@@ -8385,7 +8165,7 @@ window.IDEA_DATA = {
       "sourceFile": null,
       "mode": "talk",
       "oneLiner": "Ask a grandparent how one everyday thing was different when they were young.",
-      "description": "Ask a grandparent how one everyday thing was different when they were young.",
+      "description": "Ask how one everyday thing was different when a grandparent was young, then compare it with today.",
       "ages": [
         "5-6",
         "7-8",

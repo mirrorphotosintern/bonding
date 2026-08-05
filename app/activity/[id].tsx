@@ -19,6 +19,8 @@ import {
 } from "../../src/data/source-ideas";
 import { setJSON, getJSON, STORAGE_KEYS } from "../../src/lib/storage";
 import { IdeaArtwork } from "../../src/components/idea-artwork";
+import { isStarterIdea } from "../../src/data/access";
+import { getLifetimeStatus } from "../../src/services/purchases";
 
 export default function ActivityDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -30,9 +32,22 @@ export default function ActivityDetailScreen() {
     ? getSourceIdeaPlaybook(sourceIdea)
     : null;
   const [isSaved, setIsSaved] = useState(false);
+  const [accessLoaded, setAccessLoaded] = useState(false);
+  const [hasLifetimeAccess, setHasLifetimeAccess] = useState(false);
 
   useEffect(() => {
     checkSaved();
+  }, [id]);
+
+  useEffect(() => {
+    if (isStarterIdea(id || "")) {
+      setAccessLoaded(true);
+      return;
+    }
+    getLifetimeStatus()
+      .then((status) => setHasLifetimeAccess(status.unlocked))
+      .catch(() => setHasLifetimeAccess(false))
+      .finally(() => setAccessLoaded(true));
   }, [id]);
 
   async function checkSaved() {
@@ -62,6 +77,40 @@ export default function ActivityDetailScreen() {
           <TouchableOpacity onPress={() => router.back()}>
             <Text style={styles.errorLink}>Go back</Text>
           </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!isStarterIdea(id || "") && (!accessLoaded || !hasLifetimeAccess)) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.lockedContainer}>
+          {!accessLoaded ? (
+            <Text style={styles.lockedEyebrow}>CHECKING ACCESS…</Text>
+          ) : (
+            <>
+              <View style={styles.lockedArt}>
+                <IdeaArtwork
+                  id={id || "locked-idea"}
+                  title={activity?.title ?? game?.title ?? sourceIdea?.title ?? "Try This"}
+                />
+              </View>
+              <Text style={styles.lockedEyebrow}>PART OF THE FULL LIBRARY</Text>
+              <Text style={styles.lockedTitle}>
+                {activity?.title ?? game?.title ?? sourceIdea?.title}
+              </Text>
+              <Text style={styles.lockedText}>
+                Unlock every current and future idea with one purchase. No subscription or account.
+              </Text>
+              <TouchableOpacity
+                style={styles.unlockButton}
+                onPress={() => router.push("/unlock" as never)}
+              >
+                <Text style={styles.unlockButtonText}>See lifetime unlock</Text>
+              </TouchableOpacity>
+            </>
+          )}
         </View>
       </SafeAreaView>
     );
@@ -577,6 +626,47 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.text,
     flex: 1,
+  },
+  lockedContainer: {
+    flex: 1,
+    justifyContent: "center",
+    padding: spacing.xl,
+  },
+  lockedArt: {
+    height: 190,
+    borderRadius: borderRadius.xl,
+    overflow: "hidden",
+    marginBottom: spacing.xl,
+  },
+  lockedEyebrow: {
+    ...typography.caption,
+    color: colors.cobalt,
+    fontWeight: "900",
+    letterSpacing: 1.2,
+    marginBottom: spacing.sm,
+  },
+  lockedTitle: {
+    ...typography.largeTitle,
+    color: colors.text,
+    marginBottom: spacing.sm,
+  },
+  lockedText: {
+    ...typography.body,
+    color: colors.textSecondary,
+    fontSize: 17,
+    lineHeight: 25,
+    marginBottom: spacing.lg,
+  },
+  unlockButton: {
+    minHeight: 56,
+    borderRadius: borderRadius.md,
+    backgroundColor: colors.text,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  unlockButtonText: {
+    ...typography.headline,
+    color: colors.surface,
   },
   spacer: {
     height: spacing.xl,

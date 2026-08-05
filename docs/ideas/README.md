@@ -1,7 +1,8 @@
 # Try This — Idea Tracker
 
 A local, data-driven index of every activity & conversation-game idea for the
-Try This (Bonding) app. **150 ideas already in the docs + 50 new ones = 200.**
+Try This (Bonding) app. The catalog currently contains **195 reviewed ideas:**
+145 retained from the original docs plus 50 new ones.
 
 ## Files
 
@@ -11,7 +12,7 @@ Try This (Bonding) app. **150 ideas already in the docs + 50 new ones = 200.**
 | `ideas.json` | Canonical data file (all ideas + taxonomy). This is the file to hand to a web/app build. |
 | `ideas-data.js` | Same data wrapped for the viewer (`window.IDEA_DATA`). Generated — don't edit by hand. |
 | `build.py` | Builder: reads the two data modules and writes `ideas.json` + `ideas-data.js`. |
-| `existing_data.py` | Authoring source for all 150 existing ideas. |
+| `existing_data.py` | Authoring source for the retained existing ideas. |
 | `new_data.py` | Authoring source for the 50 new ideas. |
 
 ## Add / edit an idea
@@ -41,7 +42,7 @@ arrays on every idea — fill them in `ideas.json` as media arrives.
 - **duration**, **materials**, **tags** (mechanics), and media placeholders
 
 How the builder (`build.py`) assembles each idea:
-- 36 conversation games → `howToPlay` pulled verbatim from `PLAYABLE_GAME_CARDS.md`
+- retained conversation games → `howToPlay` pulled verbatim from `PLAYABLE_GAME_CARDS.md`
 - every other idea → `howToPlay` from the hand-authored `play_*.py` modules
 - `description` → from the card (conversation games), the app's `source-ideas.ts` /
   `activities.ts` where a title matches, else the hand-authored description
@@ -58,3 +59,11 @@ Add or edit cards in the matching `play_*.py` module (keyed by idea id), never i
 All follow the docs' content rules: cooperative > elimination, a pass is always
 allowed, consent before touch, safe materials, no copyrighted lyrics, and no
 age-inappropriate hazards.
+
+## Retired from the global app catalog
+
+`Veo Veo`, `Shiritori`, `Jielong`, `Antakshari`, and `Bait Bazi` remain useful
+cultural games in the research notes, but are not app-ready global cards. They
+depend on Spanish phrasing, Japanese mora rules, Chinese character/sound rules,
+Indian song repertoire, or Urdu poetry knowledge. They should only return as
+clearly labeled, language-specific packs reviewed by fluent cultural editors.

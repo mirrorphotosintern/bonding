@@ -29,17 +29,19 @@ export default function GrownUpsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Family</Text>
+          <Text style={styles.sectionTitle}>Try This Fun</Text>
           <TouchableOpacity
-            style={styles.menuItem}
-            onPress={() => router.push("/sign-in")}
+            style={styles.unlockCard}
+            onPress={() => router.push("/unlock" as never)}
           >
-            <Text style={styles.menuText}>Sign in / Create account</Text>
-            <Text style={styles.menuArrow}>→</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuText}>Invite a caregiver</Text>
-            <Text style={styles.menuArrow}>→</Text>
+            <View style={styles.unlockCopy}>
+              <Text style={styles.unlockEyebrow}>ONE PURCHASE · YOURS FOR GOOD</Text>
+              <Text style={styles.unlockTitle}>Unlock every idea</Text>
+              <Text style={styles.unlockText}>
+                Pay once for the complete family library. No subscription and no account required.
+              </Text>
+            </View>
+            <Text style={styles.unlockArrow}>→</Text>
           </TouchableOpacity>
         </View>
 
@@ -133,6 +135,37 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
+  },
+  unlockCard: {
+    backgroundColor: colors.sun,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+    borderWidth: 2,
+    borderColor: colors.text,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  unlockCopy: { flex: 1 },
+  unlockEyebrow: {
+    ...typography.caption,
+    color: colors.cobalt,
+    fontWeight: "800",
+    letterSpacing: 1,
+    marginBottom: spacing.xs,
+  },
+  unlockTitle: {
+    ...typography.title,
+    color: colors.text,
+    marginBottom: spacing.xs,
+  },
+  unlockText: {
+    ...typography.body,
+    color: colors.textSecondary,
+  },
+  unlockArrow: {
+    fontSize: 28,
+    color: colors.text,
+    marginLeft: spacing.sm,
   },
   menuText: {
     ...typography.body,

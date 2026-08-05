@@ -15,6 +15,7 @@ export interface SourceIdea {
   howTo: string;
   category: SourceIdeaCategory;
   sourceUrl: string | null;
+  playbook?: SourceIdeaPlaybook;
 }
 
 export interface SourceIdeaPlaybook {
@@ -80,6 +81,167 @@ export const sourceIdeas: SourceIdea[] = [
   { id: "source_c-mutual-gaze", title: "I Never Noticed That!", howTo: "Look closely at each other for twenty seconds, then reveal one tiny thing you have somehow never noticed before.", category: "connection-question", sourceUrl: null },
   { id: "source_c-secret-handshake", title: "Invent a Secret Handshake", howTo: "Create a three-step greeting such as high-five, clap, thumbs-up. Practise it slowly, then use it whenever you reunite.", category: "ritual", sourceUrl: null },
   { id: "source_c-special-time", title: "Child-Leads Five", howTo: "Set aside five minutes where the child chooses the play and the adult follows, notices, and enjoys without directing or teaching.", category: "ritual", sourceUrl: null },
+  {
+    id: "new_sound_detective",
+    title: "Sound Detective",
+    howTo: "Make a mystery sound with your voice, hands, or a safe object. Everyone guesses before the reveal.",
+    category: "connection-question",
+    sourceUrl: null,
+    playbook: {
+      summary: "Close your eyes, listen closely, and solve a tiny sound mystery.",
+      steps: [
+        "Say, “Detectives, close your eyes. What made this sound?”",
+        "Make a sound with your voice, hands, or a safe nearby object—try a zipper, crinkly paper, tapping a cup, or a squeaky chair.",
+        "Let everyone guess, then reveal the answer. The first correct guesser makes the next mystery sound.",
+        "If nobody gets it, give one clue about where the sound came from.",
+      ],
+      remix: "Combine two sounds and challenge everyone to identify both of them.",
+    },
+  },
+  {
+    id: "new_three_clues",
+    title: "Three Clues to Guess",
+    howTo: "Describe a person, place, or thing with exactly three clues, then let everyone guess.",
+    category: "connection-question",
+    sourceUrl: null,
+    playbook: {
+      summary: "Give exactly three clues about a mystery person, place, or thing before the guesses begin.",
+      steps: [
+        "Choose something everyone knows and say, “I have a mystery. Wait until clue three to guess.”",
+        "Give three clues from broad to specific: “It is in our kitchen. It is cold. It holds the milk.”",
+        "Everyone guesses. The person who solves it chooses the next mystery.",
+      ],
+      remix: "Make the clues harder each round, or choose only funny family memories as mysteries.",
+    },
+  },
+  {
+    id: "new_guess_my_favorite",
+    title: "Guess My Favorite",
+    howTo: "Use yes-or-no questions to discover someone's favorite thing this week.",
+    category: "connection-question",
+    sourceUrl: null,
+    playbook: {
+      summary: "Find out what someone loved this week by asking smart yes-or-no questions.",
+      steps: [
+        "Think of your favorite thing from this week—a food, moment, game, place, or person.",
+        "Everyone asks yes-or-no questions: “Did it happen outside?” “Could we do it again?”",
+        "Reveal it when someone guesses, then tell one quick reason it became your favorite.",
+      ],
+      remix: "Play “Guess My Least Favorite” and end by inventing a way to improve it.",
+    },
+  },
+  {
+    id: "new_body_letter_shapes",
+    title: "Body-Letter Shapes",
+    howTo: "Shape your whole body into letters or numbers and let everyone guess.",
+    category: "active-game",
+    sourceUrl: null,
+    playbook: {
+      summary: "Twist, stretch, and team up to turn your bodies into giant letters.",
+      steps: [
+        "Clear a little space and choose an easy letter such as T, O, I, or X.",
+        "Make the letter with your whole body while everyone else guesses.",
+        "Take turns posing. Two people can team up for bendy letters or a short word.",
+      ],
+      remix: "Spell a family name one letter at a time, or make numbers and solve a body-math problem.",
+    },
+  },
+  {
+    id: "new_leaf_rubbings",
+    title: "Leaf & Texture Rubbings",
+    howTo: "Put a leaf under paper and rub the side of a crayon over it to reveal the hidden pattern.",
+    category: "craft",
+    sourceUrl: null,
+    playbook: {
+      summary: "Reveal the secret veins and textures hiding under paper with a sideways crayon.",
+      steps: [
+        "Collect a few clean fallen leaves with different shapes. Get paper and peeled crayons.",
+        "Place one leaf vein-side up under the paper and hold everything still.",
+        "Rub with the long side of a crayon until the pattern appears. Layer several colors and leaves into one picture.",
+      ],
+      remix: "Try coins, tree bark, baskets, or other safe textured surfaces and make a mystery texture gallery.",
+    },
+  },
+  {
+    id: "new_build_a_bridge",
+    title: "Build a Bridge Challenge",
+    howTo: "Build a paper bridge between two books, test its strength, then improve the design.",
+    category: "science",
+    sourceUrl: null,
+    playbook: {
+      summary: "Turn one sheet of paper into a bridge strong enough to carry a surprising load.",
+      steps: [
+        "Set two books a short distance apart. Lay one sheet of paper across the gap.",
+        "Add small blocks or coins one at a time and count how many the flat bridge holds.",
+        "Fold, roll, arch, or layer the paper, then test again. Look at where it bends when it falls.",
+      ],
+      remix: "Limit everyone to three folds, or build the longest bridge that can carry one toy car.",
+    },
+  },
+  {
+    id: "new_pattern_memory",
+    title: "Pattern Memory",
+    howTo: "Copy a short sequence of gestures, then add one new step for the next player.",
+    category: "active-game",
+    sourceUrl: null,
+    playbook: {
+      summary: "Build a growing chain of claps, taps, faces, or colors and remember the whole thing together.",
+      steps: [
+        "Start with two actions, such as clap then tap your head. Everyone copies them.",
+        "The next person repeats the pattern and adds one action.",
+        "Keep growing it. If someone forgets, the whole team reconstructs the pattern together.",
+      ],
+      remix: "Perform the finished pattern backward, silently, or in slow motion.",
+    },
+  },
+  {
+    id: "new_make_bed_mission",
+    title: "Make-Bed Mission",
+    howTo: "Turn making the bed into a quick cooperative mission with one job for each person.",
+    category: "life-skill",
+    sourceUrl: null,
+    playbook: {
+      summary: "Team up on corners, pillows, and smoothing until a messy bed passes mission inspection.",
+      steps: [
+        "Announce, “Secret mission: make this bed as a team!” and let everyone claim a job.",
+        "Pull opposite corners together, smooth out the blanket, and launch the pillows into place.",
+        "Do a dramatic mission inspection and fix one last lumpy spot together.",
+      ],
+      remix: "Give every job a spy name, or try to finish before one favorite song ends.",
+    },
+  },
+  {
+    id: "new_thank_you_card",
+    title: "Thank-You Card Maker",
+    howTo: "Make a quick card for someone who helped your family and deliver it together.",
+    category: "craft",
+    sourceUrl: null,
+    playbook: {
+      summary: "Turn one real thank-you into a small piece of mail someone will want to keep.",
+      steps: [
+        "Think of someone who helped recently—a teacher, neighbor, grandparent, friend, or delivery person.",
+        "Fold paper into a card. Add a drawing and one specific sentence: “Thank you for…”",
+        "Sign it as a family, then hand it over, mail it, or photograph it to send.",
+      ],
+      remix: "Make a tiny award, coupon, comic strip, or secret thank-you delivery instead of a card.",
+    },
+  },
+  {
+    id: "new_grandparent_then_now",
+    title: "Grandparent: Then & Now",
+    howTo: "Ask how one everyday thing was different when a grandparent was young, then compare it with today.",
+    category: "connection-question",
+    sourceUrl: null,
+    playbook: {
+      summary: "Ask a grandparent about school, games, treats, or travel and uncover a piece of family history.",
+      steps: [
+        "Ask one “then and now” question: “What did recess look like?” or “How did you call your friends?”",
+        "Listen for one surprising detail and ask a follow-up: “Did you like it?” or “What happened next?”",
+        "Compare it with today, then let the grandparent ask the child a question about life now.",
+      ],
+      remix: "Choose one old game, snack, song, or family tradition to recreate together.",
+    },
+  },
 ];
 
 export function getSourceIdeaById(id: string): SourceIdea | undefined {
@@ -208,6 +370,8 @@ const stepOverrides: Partial<Record<string, string[]>> = {
 };
 
 export function getSourceIdeaPlaybook(idea: SourceIdea): SourceIdeaPlaybook {
+  if (idea.playbook) return idea.playbook;
+
   return {
     summary:
       summaries[idea.id] ??

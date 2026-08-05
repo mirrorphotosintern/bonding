@@ -195,7 +195,7 @@ The loop must work without sign-in. An adult can complete onboarding and the fir
 
 1. **Today** — answer two lightweight moment questions, then receive one matched activity.
 2. **Saved** — favorites and reliable family hits.
-3. **Profile** — family setup, preferences, subscription, privacy, and help.
+3. **Profile** — family setup, preferences, lifetime unlock, privacy, and help.
 
 The idea detail page is a normal stack route outside the tab hierarchy.
 The catalog browser remains an internal editorial/testing route, not primary
@@ -650,32 +650,31 @@ Before beta:
 
 ### Free
 
-- One child profile
-- Daily match
-- 25 starter activities
-- Basic filters
-- Favorites
-- Five offline downloads
+- Daily matching with a rotating set of 12–15 excellent starter ideas
+- Basic moment and player-count matching
+- Favorites and recent history
+- Complete instructions and safety information for every visible idea
+- Offline access to the starter collection
 
-### Try This Plus
+### Lifetime Family Unlock
 
 - Full activity library
-- Multiple child profiles
 - Multi-age matching
 - Situation packs
 - Unlimited downloads
-- Co-caregiver sync
-- Family-made variants and private memories
-- Audio-led the playable idea page
+- Every future activity-library update included
+- Multiple child profiles and family-made variants when those features ship
 
-### Recommended pricing hypothesis
+### Launch pricing hypothesis
 
-- $5.99/month
-- $39.99/year
-- 14-day trial or a meaningful free tier; do not use a three-day trial for a family habit product
-- One subscription covers the family space
+- **$19.99 USD one time**, localized by Apple and Google
+- Apple non-consumable in-app purchase and Google Play one-time product
+- One permanent RevenueCat entitlement: `try_this_full_access`
+- No trial, renewal, account, or email address required
+- Restore Purchases is always available from Profile
+- The purchase follows the buyer's Apple or Google store account; cross-platform transfer is not promised without a future account-linking system
 
-Pricing is a hypothesis requiring willingness-to-pay testing. Do not copy Hearty's mandatory subscription gate.
+Pricing remains a hypothesis requiring ad-to-install and free-to-paid conversion testing. Do not copy Hearty's mandatory subscription gate: families must be able to experience several complete, high-quality ideas before deciding.
 
 ### No monetization through
 
@@ -721,7 +720,8 @@ This is a proxy, not proof of relationship quality.
 - Week-1 and week-4 active family retention
 - MTS per retained family
 - Percentage of activity starts that occur from Today vs Explore
-- Family subscription retention
+- Free-to-lifetime-unlock conversion
+- Refund rate and purchase-restore success rate
 
 ### Guardrails
 
@@ -752,9 +752,10 @@ Minimum taxonomy:
 - `ritual_created`
 - `download_started`
 - `download_completed`
-- `subscription_viewed`
-- `trial_started`
-- `subscription_started`
+- `paywall_viewed`
+- `lifetime_purchase_started`
+- `lifetime_purchase_completed`
+- `purchase_restored`
 - `safety_reported`
 
 Never attach child names, free-text reflections, photo identifiers, precise location, or raw accessibility notes to analytics.
@@ -779,7 +780,7 @@ Never attach child names, free-text reflections, photo identifiers, precise loca
 - Favorites and recent history
 - Offline activity bundle
 - Adult account and cross-device sync
-- RevenueCat subscription
+- RevenueCat lifetime entitlement
 - Analytics and crash reporting designed for child privacy
 - Safety reporting
 - Accessibility baseline
