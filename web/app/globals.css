@@ -334,6 +334,7 @@ footer small { grid-column: 1 / -1; color: var(--quiet); }
   color: var(--ink);
   background: var(--paper);
   rotate: -.5deg;
+  scroll-margin-top: 24px;
 }
 .moment-picker::before {
   position: absolute;

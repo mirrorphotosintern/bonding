@@ -133,7 +133,7 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
           <div className="privacy-note"><span>✓</span> Nothing leaves your browser</div>
         </div>
 
-        <div className="moment-picker" aria-label="Choose a family activity">
+        <div className="moment-picker" id="choose" aria-label="Choose a family activity">
           <fieldset>
             <legend>Pick a mood</legend>
             <div className="web-mode-grid">
