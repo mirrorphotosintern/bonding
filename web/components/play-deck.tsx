@@ -254,6 +254,16 @@ function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boo
           <h2 id="idea-title">{idea.title}</h2>
           <p className="sheet-lede">{idea.description || idea.oneLiner}</p>
           <button className={`sheet-save ${saved ? "saved" : ""}`} onClick={onSave} type="button">{saved ? "♥ Saved in this browser" : "♡ Save in this browser"}</button>
+          {idea.sourceUrl && (
+            <aside className="source-demo">
+              <div>
+                <span>ORIGINAL DEMONSTRATION</span>
+                <strong>See the idea in action</strong>
+                <p>Some techniques make more sense when you can watch the original creator do them.</p>
+              </div>
+              <a href={idea.sourceUrl} target="_blank" rel="noreferrer">Watch original ↗</a>
+            </aside>
+          )}
           <div className="instructions">
             {instructions.map(([key, value], index) => (
               <section className={key === "say" ? "starter-instruction" : ""} key={key}>

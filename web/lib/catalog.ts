@@ -18,9 +18,15 @@ export type WebIdea = {
   materials: "none" | "household" | "special"
   tags: string[]
   howToPlay: HowToPlay
+  sourceUrl?: string | null
 }
 
-const reviewedIdeas = catalog.ideas as unknown as WebIdea[]
+type ReviewedIdea = WebIdea & { links?: string[] }
+
+const reviewedIdeas = (catalog.ideas as unknown as ReviewedIdea[]).map((idea) => ({
+  ...idea,
+  sourceUrl: idea.sourceUrl ?? idea.links?.[0] ?? null
+}))
 
 function normalizeTitle(title: string): string {
   return title.toLowerCase().replace(/[^a-z0-9]/g, "")
@@ -48,7 +54,8 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
         easier: activity.saferVariant || activity.ifItFlops,
         recovery: activity.ifItFlops,
         end: activity.endingPrompt
-      }
+      },
+      sourceUrl: activity.sourceDemoUrl
     }
   }
 
@@ -74,7 +81,8 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
         mixed_ages: game.mixedAges,
         recovery: game.childRemix,
         end: game.closeLine
-      }
+      },
+      sourceUrl: null
     }
   }
 
@@ -94,7 +102,8 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
     howToPlay: {
       steps: playbook.steps.join(" "),
       recovery: playbook.remix
-    }
+    },
+    sourceUrl: source.sourceUrl
   }
 })
 

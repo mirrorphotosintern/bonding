@@ -481,6 +481,12 @@ legend { margin-bottom: 13px; font: 900 15px/1 "Figtree", sans-serif; }
 .sheet-lede { margin: 21px 0; color: var(--quiet); font-size: 19px; line-height: 1.55; }
 .sheet-save { padding: 11px 14px; border: 2px solid var(--ink); border-radius: 11px; color: var(--ink); background: transparent; font: 900 13px/1 "Figtree", sans-serif; cursor: pointer; }
 .sheet-save.saved { color: #b92848; background: #ffe2e9; }
+.source-demo { display: flex; gap: 22px; align-items: center; justify-content: space-between; margin-top: 28px; padding: 21px; border: var(--line); border-radius: 17px; color: white; background: var(--cobalt); }
+.source-demo span { display: block; margin-bottom: 5px; color: #dce4ff; font: 900 10px/1 "Figtree", sans-serif; letter-spacing: .12em; }
+.source-demo strong { display: block; font: 900 20px/1.1 "Figtree", sans-serif; }
+.source-demo p { max-width: 430px; margin: 7px 0 0; color: #dce4ff; font-size: 13px; line-height: 1.45; }
+.source-demo a { flex: 0 0 auto; padding: 12px 14px; border: 2px solid white; border-radius: 11px; color: white; font: 900 12px/1 "Figtree", sans-serif; text-decoration: none; }
+.source-demo a:hover { color: var(--ink); background: var(--sun); }
 .instructions { margin-top: 42px; border-top: var(--line); }
 .instructions section { display: grid; grid-template-columns: 50px 1fr; gap: 14px; padding: 24px 0; border-bottom: 2px solid #d8d6cb; }
 .instruction-number { display: grid; width: 38px; height: 38px; place-items: center; border: 2px solid var(--ink); border-radius: 11px; background: var(--sun); font: 900 11px/1 "Figtree", sans-serif; }
@@ -510,6 +516,7 @@ legend { margin-bottom: 13px; font: 900 15px/1 "Figtree", sans-serif; }
   .dealt-topline { flex-direction: row; align-items: center; }.dealt-actions { grid-column: 1; flex-direction: column; align-items: stretch; }.play-button { max-width: none; }.again-button { width: 100%; }
   .browser-section { padding: 85px 16px 100px; }.library-tools { top: 4px; }.web-idea-grid { grid-template-columns: 1fr; }.card-main { min-height: 285px; }
   .idea-modal { align-items: end; padding: 0; }.idea-sheet { max-height: 94vh; border-radius: 25px 25px 0 0; border-bottom: 0; }.sheet-banner { height: 135px; }.sheet-content { padding: 27px 21px 45px; }
+  .source-demo { align-items: flex-start; flex-direction: column; }.source-demo a { width: 100%; text-align: center; }
 }
 @media (prefers-reduced-motion: reduce) {
   .dealt-card { animation: none; }.web-idea-card { transition: none; }
