@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { examples, site } from "../lib/site"
 
 const intentions = [
@@ -12,9 +13,10 @@ const intentions = [
 export default function Home() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "MobileApplication",
+    "@type": "WebApplication",
     name: site.name,
-    operatingSystem: "iOS, Android",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript. No account required.",
     applicationCategory: "LifestyleApplication",
     description: site.description,
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" }
@@ -39,16 +41,16 @@ export default function Home() {
             Tell us what kind of moment you have. We’ll hand you one playful,
             genuinely doable thing to try together.
           </p>
-          <div className="store-actions" aria-label="Try the mobile app">
-            <a className="button button-sun" href={site.testFlightUrl}>
-              Join the iPhone beta <span>↗</span>
-            </a>
-            <a className="button button-paper" href={site.androidTestUrl}>
-              Try the Android beta <span>↗</span>
+          <div className="store-actions" aria-label="Try This now">
+            <Link className="button button-sun" href="/play/">
+              Play in your browser <span>→</span>
+            </Link>
+            <a className="button button-paper" href={site.testFlightUrl}>
+              Get the iPhone beta <span>↗</span>
             </a>
           </div>
           <p className="button-note">
-            Free during beta · Android currently requires a tester invite
+            No account. No download. Works on phones, tablets, and computers.
           </p>
         </div>
 
@@ -127,12 +129,9 @@ export default function Home() {
           <h2>Got five minutes?</h2>
         </div>
         <div className="store-actions closing-actions">
-          <a className="button button-sun" href={site.testFlightUrl}>
-            Try This on iPhone <span>↗</span>
-          </a>
-          <a className="button button-paper" href={site.androidTestUrl}>
-            Try This on Android <span>↗</span>
-          </a>
+          <Link className="button button-sun" href="/play/">
+            Find something to do <span>→</span>
+          </Link>
         </div>
       </section>
     </>

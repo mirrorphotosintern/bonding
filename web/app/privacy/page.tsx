@@ -23,6 +23,11 @@ export default function PrivacyPage() {
         or on-device settings. If you follow an optional link to an original
         public source, that destination has its own privacy practices.
       </p>
+      <p>
+        The browser version can store saved-idea identifiers in your browser’s
+        local storage. They remain on that device and can be cleared through
+        your browser settings. Playing and browsing do not require an account.
+      </p>
       <h2>App distribution</h2>
       <p>
         Apple may collect diagnostic and beta-testing information when you use

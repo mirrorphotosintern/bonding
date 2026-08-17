@@ -9,10 +9,8 @@ export function Header() {
       </Link>
       <nav aria-label="Main navigation">
         <Link href="/#how-it-works">How it works</Link>
-        <Link href="/#ideas">Sample ideas</Link>
-        <a className="nav-cta" href={site.testFlightUrl}>
-          Join the beta ↗
-        </a>
+        <Link href="/play/#all-ideas">All ideas</Link>
+        <Link className="nav-cta" href="/play/">Play now →</Link>
       </nav>
     </header>
   )
