@@ -18,7 +18,7 @@
     },
     "android": {
       "package": "com.mirrorphotos.handful",
-      "versionCode": 3
+      "versionCode": 4
     },
     "plugins": [
       "expo-router",
