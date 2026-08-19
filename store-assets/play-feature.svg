@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <rect width="1024" height="500" rx="0" fill="#355CDE"/>
+  <circle cx="92" cy="74" r="20" fill="#FFD45A" opacity=".8"/>
+  <circle cx="930" cy="414" r="28" fill="#65D3B0" opacity=".8"/>
+  <rect x="70" y="58" width="884" height="384" rx="48" fill="#FFFDF5" stroke="#14213D" stroke-width="8"/>
+  <g transform="translate(112 118)">
+    <rect x="0" y="0" width="124" height="124" rx="30" fill="#FFD45A" stroke="#14213D" stroke-width="7"/>
+    <path d="M62 28l7 21 21 7-21 7-7 21-7-21-21-7 21-7z" fill="#14213D"/>
+    <circle cx="91" cy="91" r="10" fill="#355CDE"/>
+  </g>
+  <text x="276" y="160" fill="#355CDE" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800" letter-spacing="5">TRY THIS FUN</text>
+  <text x="276" y="230" fill="#14213D" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900">One good thing</text>
+  <text x="276" y="294" fill="#14213D" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="900">to do together.</text>
+  <text x="276" y="354" fill="#5D6B86" font-family="Arial, Helvetica, sans-serif" font-size="28">Free · No account · Ready in a minute</text>
+</svg>
