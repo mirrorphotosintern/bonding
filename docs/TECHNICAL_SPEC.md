@@ -6,7 +6,7 @@
 
 ## 1. Architecture summary
 
-Try This should be a standalone Expo application in the `Bonding` product folder when implementation begins. It may reuse patterns and carefully extracted components from Shaale, but it must have its own package name, EAS project, Cloudflare resources, RevenueCat project or entitlement set, analytics namespace, privacy policy, and store listings.
+Try This is a standalone Expo application in the `Bonding` product folder. It may reuse patterns and carefully extracted components from Shaale, but it has its own package name, EAS project, privacy policy, and store listings. The public beta is local-first and has no authentication, purchase, advertising, or analytics SDK.
 
 The sibling `/connectplay` directory is a static HTML/CSS/JavaScript prototype, not an Expo codebase. Preserve it as an independent source browser and acquisition snapshot. Do not import its JSON directly at runtime; use a validated editorial conversion to produce versioned Try This records. See `CONNECTPLAY_IMPLEMENTATION_AUDIT.md`.
 
@@ -21,7 +21,6 @@ flowchart TB
       Match["Local matcher"]
       Cache["SQLite / file cache"]
       Queue["Offline mutation queue"]
-      Audio["the playable idea page audio"]
     end
 
     subgraph Cloud["Try This Cloudflare backend"]
@@ -31,13 +30,11 @@ flowchart TB
       R2["R2 private media"]
       Q["Queues + Workflows"]
       AE["Analytics Engine"]
-      RC["RevenueCat"]
       Admin["Private editorial studio"]
     end
 
     UI --> Match
     Match --> Cache
-    UI --> Audio
     UI --> Queue
     Queue <--> API
     API <--> D1
@@ -45,7 +42,6 @@ flowchart TB
     API <--> R2
     API --> Q
     API --> AE
-    App <--> RC
     Admin --> API
 ```
 
@@ -60,18 +56,17 @@ flowchart TB
 | Language | TypeScript 5.9, strict mode | Shared engineering practices and safer content models |
 | Navigation | Expo Router 6 | File-based routing, deep links, modal/full-screen the playable idea page |
 | Styling | React Native `StyleSheet` + typed tokens | Matches Shaale's implementation; no NativeWind dependency required |
-| Auth | Try This Workers auth service | Verifies Apple/Google identity tokens, issues rotating Try This sessions, and stores only server-side token hashes in D1 |
+| Auth | None in public beta | The adult can use the complete app without an account |
 | Database | Cloudflare D1 + Drizzle ORM | Relational content, families, profiles, outcomes, invitations, and entitlement mirror |
 | Realtime coordination | SQLite-backed Durable Objects | One object per active family/invite/session room; hibernating WebSockets only where realtime is actually needed |
 | Storage | Cloudflare R2 | Original diagrams, short demo loops, downloadable audio, exports, and optional encrypted memories |
 | Background work | Cloudflare Queues + Workflows | Idempotent analytics ingestion, catalog publication, export, deletion, and webhook processing |
-| Analytics | Cloudflare Analytics Engine + privacy-safe D1 rollups | High-volume operational events plus durable aggregate product metrics |
+| Analytics | App Store and Google Play aggregate reports | Demand, installs, active devices, and stability without an in-app tracking SDK |
 | Local persistence | SQLite for catalog/history; AsyncStorage for small preferences | Queryable offline catalog without overloading key-value storage |
-| Secure persistence | Expo SecureStore | Auth tokens and device-scoped secrets only |
+| Secure persistence | Expo SecureStore | Reserved for future device-scoped secrets; no auth token exists in the beta |
 | Network state | `@react-native-community/netinfo` | Offline banner and sync behavior |
-| Media | `expo-audio`, `expo-video`, `expo-file-system` | Downloadable audio cues and short demonstrations |
+| Media | Bundled Expo assets | Static illustrations and activity content available offline |
 | Notifications | `expo-notifications` | User-controlled activity windows |
-| Purchases | RevenueCat | iOS/Android one-time purchase handling and permanent entitlement |
 | Error isolation | React Error Boundaries by route and the playable idea page | A failed activity must not blank the app |
 | Testing | Jest + React Native Testing Library + Maestro/Detox decision spike | Unit, component, and critical-flow tests |
 
@@ -188,10 +183,8 @@ All implementation files for this product should remain under `Bonding/`.
 | `/(tabs)` | Shell for Today, Saved, and Profile |
 | `/(tabs)/index` | Moment questions followed by one recommendation |
 | `/activity/[id]` | Complete playable idea: start, materials, steps, safety, variants |
-| `/sign-in` | Deferred adult account creation |
 | `/family/invite/[token]` | Adult caregiver invitation |
 | `/guest/activity/[token]` | Redacted, time-limited guest activity |
-| `/unlock` | RevenueCat-backed lifetime unlock and purchase restore |
 | `/privacy` | Data controls, export, deletion |
 
 The activity route is the complete playable experience and should be wrapped in
@@ -617,28 +610,11 @@ Do not build passwords or an email-delivery system for v1. Apple is required on 
 
 The product is adult-operated. Add a simple adult gate before purchase, external links, family invitations, data export/deletion, or cloud photo enablement. Avoid knowledge questions children can trivially answer; use platform authentication where appropriate.
 
-## 13. Purchases
+## 13. Public beta distribution
 
-RevenueCat configuration:
+The Android public beta is distributed through Google Play Open Testing. Every activity is available for free and without an account. The beta build contains no purchase SDK, advertising SDK, or in-app analytics SDK. Google Play Console provides aggregated acquisition, install, active-device, and stability reporting for the first demand test.
 
-- entitlement: `try_this_full_access`
-- one current offering containing a lifetime package
-- store product: non-consumable on Apple and one-time product on Google Play; recommended identifier `try_this_lifetime`
-- localized store price with a $19.99 USD launch target
-- anonymous RevenueCat purchaser ID by default; no account or email is required
-- app trusts current RevenueCat customer information for immediate local-library access
-- a webhook mirror is required only if a future cloud feature needs server-side entitlement enforcement; if added, signature-verify and deduplicate every event
-
-Required states:
-
-- free;
-- purchasing;
-- lifetime unlocked;
-- restoring;
-- purchase or restore error;
-- VIP/test entitlement.
-
-The unlock must not gate safety details for a visible idea, the starter collection, already downloaded activities, data export, or deletion.
+The product may revisit a one-time store unlock after usage establishes repeat value. That experiment must be specified and reviewed separately; it is not present in the public-beta binary.
 
 ## 14. Analytics and telemetry
 
@@ -656,7 +632,7 @@ Try This must use a new analytics table or project namespace. Do not write to Sh
 - anonymous installation hash;
 - adult user ID nullable;
 - family ID hash nullable;
-- access tier (`starter` or `lifetime`);
+- release channel (`public_beta` or future production channel);
 - matcher version;
 - structured properties allowlist.
 
@@ -710,9 +686,9 @@ Follow root `SECURITY.md`.
 ### Non-negotiables
 
 - No secret in source, content, fixture, or markdown.
-- Only publishable identity-provider and RevenueCat identifiers may use `EXPO_PUBLIC_`.
+- Only non-secret, client-safe configuration may use `EXPO_PUBLIC_`.
 - Webhook, session-signing, OAuth-client, and R2 signing secrets live in Cloudflare secrets.
-- Paid endpoints require adult auth and server-side rate limits.
+- Any future account or paid endpoint requires adult auth and server-side rate limits.
 - Inputs validated server-side with Zod or equivalent.
 - CORS locked to explicit origins.
 - Generic client errors; detailed server logs without PII.
@@ -728,7 +704,6 @@ Follow root `SECURITY.md`.
 | Malicious content submission | No public publication; schema validation; review queue |
 | Unsafe AI output | No free-form activity generation; constrained approved graph |
 | Photo exposure | Local by default, private R2 bucket, opt-in cloud, metadata stripping |
-| Subscription spoofing | RevenueCat SDK plus webhook mirror |
 | Device theft | platform encryption, SecureStore, optional local app lock |
 | Analytics leakage | property allowlists and CI tests |
 
@@ -880,13 +855,12 @@ Backups follow a documented expiry schedule.
 - downloads
 - content QA pipeline
 
-### Milestone 4 — accounts and business
+### Milestone 4 — optional accounts and business experiments
 
 - Try This Workers auth
 - D1 sync and authorization policy layer
 - R2 private media
 - Queues/Workflows for webhooks, export, and deletion
-- RevenueCat
 - family members
 - privacy controls
 

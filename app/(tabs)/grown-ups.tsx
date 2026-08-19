@@ -7,12 +7,9 @@ import {
   SafeAreaView,
   Linking,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { colors, spacing, typography, borderRadius } from "../../src/theme";
 
 export default function GrownUpsScreen() {
-  const router = useRouter();
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -29,20 +26,14 @@ export default function GrownUpsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Try This Fun</Text>
-          <TouchableOpacity
-            style={styles.unlockCard}
-            onPress={() => router.push("/unlock" as never)}
-          >
-            <View style={styles.unlockCopy}>
-              <Text style={styles.unlockEyebrow}>ONE PURCHASE · YOURS FOR GOOD</Text>
-              <Text style={styles.unlockTitle}>Unlock every idea</Text>
-              <Text style={styles.unlockText}>
-                Pay once for the complete family library. No subscription and no account required.
-              </Text>
-            </View>
-            <Text style={styles.unlockArrow}>→</Text>
-          </TouchableOpacity>
+          <Text style={styles.sectionTitle}>Public beta</Text>
+          <View style={styles.betaCard}>
+            <Text style={styles.betaEyebrow}>EVERY IDEA IS INCLUDED</Text>
+            <Text style={styles.betaTitle}>Free while we learn</Text>
+            <Text style={styles.betaText}>
+              Try the complete library and tell us what your family actually enjoys. No purchase or account required.
+            </Text>
+          </View>
         </View>
 
         <View style={styles.section}>
@@ -136,36 +127,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
   },
-  unlockCard: {
+  betaCard: {
     backgroundColor: colors.sun,
     borderRadius: borderRadius.lg,
     padding: spacing.lg,
     borderWidth: 2,
     borderColor: colors.text,
-    flexDirection: "row",
-    alignItems: "center",
   },
-  unlockCopy: { flex: 1 },
-  unlockEyebrow: {
+  betaEyebrow: {
     ...typography.caption,
     color: colors.cobalt,
     fontWeight: "800",
     letterSpacing: 1,
     marginBottom: spacing.xs,
   },
-  unlockTitle: {
+  betaTitle: {
     ...typography.title,
     color: colors.text,
     marginBottom: spacing.xs,
   },
-  unlockText: {
+  betaText: {
     ...typography.body,
     color: colors.textSecondary,
-  },
-  unlockArrow: {
-    fontSize: 28,
-    color: colors.text,
-    marginLeft: spacing.sm,
   },
   menuText: {
     ...typography.body,

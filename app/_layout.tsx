@@ -4,17 +4,12 @@ import { StatusBar } from "expo-status-bar";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { getJSON, STORAGE_KEYS } from "../src/lib/storage";
 import { colors } from "../src/theme";
-import { configurePurchases } from "../src/services/purchases";
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
   const [onboarded, setOnboarded] = useState(false);
   const router = useRouter();
   const segments = useSegments();
-
-  useEffect(() => {
-    configurePurchases();
-  }, []);
 
   useEffect(() => {
     async function checkOnboarding() {
@@ -99,20 +94,6 @@ export default function RootLayout() {
           options={{
             title: "Try This",
             presentation: "card",
-          }}
-        />
-        <Stack.Screen
-          name="sign-in"
-          options={{
-            title: "Sign In",
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="unlock"
-          options={{
-            title: "Lifetime Unlock",
-            presentation: "modal",
           }}
         />
       </Stack>

@@ -187,7 +187,7 @@ flowchart LR
     F --> G["Optional save or feedback"]
 ```
 
-The loop must work without sign-in. An adult can complete onboarding and the first session locally; account creation appears only when cloud sync, family sharing, or a paid feature requires it.
+The public beta works entirely without sign-in. Onboarding, recommendations, saved ideas, and the complete activity library remain local to the device. Account creation and cloud sync are intentionally deferred.
 
 ## 8. Information architecture
 
@@ -195,7 +195,7 @@ The loop must work without sign-in. An adult can complete onboarding and the fir
 
 1. **Today** — answer two lightweight moment questions, then receive one matched activity.
 2. **Saved** — favorites and reliable family hits.
-3. **Profile** — family setup, preferences, lifetime unlock, privacy, and help.
+3. **Profile** — family setup, preferences, beta information, privacy, and help.
 
 The idea detail page is a normal stack route outside the tab hierarchy.
 The catalog browser remains an internal editorial/testing route, not primary
@@ -648,33 +648,14 @@ Before beta:
 
 ## 22. Monetization
 
-### Free
+### Public beta
 
-- Daily matching with a rotating set of 12–15 excellent starter ideas
-- Basic moment and player-count matching
-- Favorites and recent history
-- Complete instructions and safety information for every visible idea
-- Offline access to the starter collection
+- The complete activity library is free.
+- Matching, favorites, history, and instructions work without an account.
+- The bundled catalog works offline.
+- There are no ads, subscriptions, or in-app purchases.
 
-### Lifetime Family Unlock
-
-- Full activity library
-- Multi-age matching
-- Situation packs
-- Unlimited downloads
-- Every future activity-library update included
-- Multiple child profiles and family-made variants when those features ship
-
-### Launch pricing hypothesis
-
-- **$19.99 USD one time**, localized by Apple and Google
-- Apple non-consumable in-app purchase and Google Play one-time product
-- One permanent RevenueCat entitlement: `try_this_full_access`
-- No trial, renewal, account, or email address required
-- Restore Purchases is always available from Profile
-- The purchase follows the buyer's Apple or Google store account; cross-platform transfer is not promised without a future account-linking system
-
-Pricing remains a hypothesis requiring ad-to-install and free-to-paid conversion testing. Do not copy Hearty's mandatory subscription gate: families must be able to experience several complete, high-quality ideas before deciding.
+Pricing is deferred while we test whether families install, return, and find activities worth doing. A one-time unlock remains a future hypothesis, not part of the public-beta product.
 
 ### No monetization through
 
@@ -720,8 +701,8 @@ This is a proxy, not proof of relationship quality.
 - Week-1 and week-4 active family retention
 - MTS per retained family
 - Percentage of activity starts that occur from Today vs Explore
-- Free-to-lifetime-unlock conversion
-- Refund rate and purchase-restore success rate
+- Store-listing conversion and first-install volume
+- Active-device and retention trends reported by the app stores
 
 ### Guardrails
 
@@ -752,13 +733,13 @@ Minimum taxonomy:
 - `ritual_created`
 - `download_started`
 - `download_completed`
-- `paywall_viewed`
-- `lifetime_purchase_started`
-- `lifetime_purchase_completed`
-- `purchase_restored`
 - `safety_reported`
 
-Never attach child names, free-text reflections, photo identifiers, precise location, or raw accessibility notes to analytics.
+The initial public beta does not ship an in-app analytics SDK. Use aggregated App Store and Google Play install and active-device reporting to validate demand. If product analytics are added later, never attach child names, free-text reflections, photo identifiers, precise location, or raw accessibility notes.
+
+## 24.1 Public beta access
+
+Every activity is free and available without an account during the public beta. There is no paywall, subscription, advertising SDK, or purchase SDK in the app. A one-time unlock may be reconsidered only after the beta establishes repeat use and perceived value.
 
 ## 25. MVP scope
 
@@ -779,9 +760,8 @@ Never attach child names, free-text reflections, photo identifiers, precise loca
 - Explore with structured filters
 - Favorites and recent history
 - Offline activity bundle
-- Adult account and cross-device sync
-- RevenueCat lifetime entitlement
-- Analytics and crash reporting designed for child privacy
+- No-account, local-first use
+- Store-provided install, active-device, and stability reporting
 - Safety reporting
 - Accessibility baseline
 
@@ -837,16 +817,16 @@ Never attach child names, free-text reflections, photo identifiers, precise loca
 - No payments
 - 30–50 families
 
-### Phase 2 — paid beta, 8 weeks
+### Phase 2 — public free beta, 8 weeks
 
 - 120 activities
 - Cloudflare D1/R2 sync through a Try This Worker
-- Try This adult accounts using Apple/Google identity verification
-- RevenueCat
 - Multiple children
 - Downloads
 - Notifications and widget
 - 200–500 families
+
+Any account system or one-time purchase experiment comes after this phase and requires separate evidence and specification.
 
 ### Phase 3 — public v1
 

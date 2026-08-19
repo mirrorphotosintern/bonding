@@ -13,25 +13,17 @@
       "bundleIdentifier": "com.mirrorphotos.handful",
       "buildNumber": "4",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": [
-          "audio"
-        ]
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "package": "com.mirrorphotos.handful",
-      "versionCode": 2,
-      "permissions": [
-        "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ]
+      "versionCode": 3
     },
     "plugins": [
       "expo-router",
       "expo-secure-store",
       "expo-sqlite",
-      "expo-audio",
       "expo-asset"
     ],
     "experiments": {

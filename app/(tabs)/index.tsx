@@ -12,8 +12,6 @@ import { colors, spacing, typography, borderRadius } from "../../src/theme";
 import { getJSON, STORAGE_KEYS } from "../../src/lib/storage";
 import { IdeaArtwork } from "../../src/components/idea-artwork";
 import { ideas, type IdeaSummary } from "../../src/data/ideas";
-import { isStarterIdea } from "../../src/data/access";
-import { getLifetimeStatus } from "../../src/services/purchases";
 import type { ActivityMode, AgeBand } from "../../src/types";
 
 type Intent = "surprise" | "move" | "make" | "talk" | "imagine" | "help";
@@ -102,14 +100,10 @@ export default function TodayScreen() {
   const [showResult, setShowResult] = useState(false);
   const [recommendationOrder, setRecommendationOrder] = useState<string[]>([]);
   const [recommendationIndex, setRecommendationIndex] = useState(0);
-  const [hasLifetimeAccess, setHasLifetimeAccess] = useState(false);
 
   useFocusEffect(
     useCallback(() => {
       void loadFamily();
-      void getLifetimeStatus()
-        .then((status) => setHasLifetimeAccess(status.unlocked))
-        .catch(() => setHasLifetimeAccess(false));
     }, [])
   );
 
@@ -351,17 +345,9 @@ export default function TodayScreen() {
 
               <TouchableOpacity
                 style={styles.openButton}
-                onPress={() =>
-                  hasLifetimeAccess || isStarterIdea(recommendation.id)
-                    ? router.push(`/activity/${recommendation.id}`)
-                    : router.push("/unlock" as never)
-                }
+                onPress={() => router.push(`/activity/${recommendation.id}`)}
               >
-                <Text style={styles.openButtonText}>
-                  {hasLifetimeAccess || isStarterIdea(recommendation.id)
-                    ? "See how to play"
-                    : "Unlock this idea"}
-                </Text>
+                <Text style={styles.openButtonText}>See how to play</Text>
                 <SymbolView
                   name="arrow.right"
                   style={styles.openArrow}

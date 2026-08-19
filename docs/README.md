@@ -39,9 +39,9 @@ This folder is a planning package, not an implementation. It was created from:
 | Primary loop | Choose the moment → receive one match → open one complete playable page → begin naturally |
 | Differentiator | The app optimizes for leaving the app and completing a shared challenge, not consuming ideas |
 | Initial platforms | iOS and Android, portrait-first; tablet supported |
-| Stack | Expo SDK 54, React Native 0.81, React 19, TypeScript, Expo Router, Cloudflare Workers/D1/R2/Durable Objects/Queues, RevenueCat |
+| Stack | Expo SDK 54, React Native 0.81, React 19, TypeScript, Expo Router; local-first public beta with optional future Cloudflare services |
 | Content | Human-authored and safety-reviewed; AI may rank or adapt approved content but may not invent unsupervised activities |
-| Privacy | Adult account only; child profiles are pseudonymous; no child social graph, ads, location history, or biometric analysis |
+| Privacy | No account required; family preferences stay on-device; no child social graph, ads, location history, or biometric analysis |
 | MVP | One catalog with 36 zero-prop games plus 84 vetted hands-on activities, contextual matching, the playable idea page, favorites, and lightweight family recap |
 | North star | Meaningful Together Sessions per active family per week |
 
