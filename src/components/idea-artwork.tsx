@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, type LayoutChangeEvent } from "react-native";
+import { Image } from "expo-image";
 import { SymbolView } from "expo-symbols";
 import { colors, borderRadius } from "../theme";
+import { getGameArtworkIndex } from "../data/game-artwork-manifest";
 
 type Props = {
   id: string;
@@ -87,6 +90,18 @@ const artById: Record<
 };
 
 export function IdeaArtwork({ id, title, compact = false }: Props) {
+  const artworkIndex = getGameArtworkIndex(id);
+
+  if (artworkIndex !== undefined) {
+    return (
+      <GeneratedIdeaArtwork
+        index={artworkIndex}
+        title={title}
+        compact={compact}
+      />
+    );
+  }
+
   const art = artById[id] || {
     background: colors.sun,
     foreground: colors.text,
@@ -140,7 +155,80 @@ export function IdeaArtwork({ id, title, compact = false }: Props) {
   );
 }
 
+const artworkSheets = [
+  require("../../assets/game-art/original-games-01.webp"),
+  require("../../assets/game-art/original-games-02.webp"),
+  require("../../assets/game-art/original-games-03.webp"),
+] as const;
+
+function GeneratedIdeaArtwork({
+  index,
+  title,
+  compact,
+}: {
+  index: number;
+  title: string;
+  compact: boolean;
+}) {
+  const [size, setSize] = useState(0);
+  const sheet = Math.floor(index / 36);
+  const cell = index % 36;
+  const column = cell % 6;
+  const row = Math.floor(cell / 6);
+
+  function captureSize(event: LayoutChangeEvent) {
+    const nextSize = event.nativeEvent.layout.width;
+    if (nextSize !== size) setSize(nextSize);
+  }
+
+  return (
+    <View
+      accessible
+      accessibilityRole="image"
+      accessibilityLabel={`Illustration showing how to play ${title}`}
+      onLayout={captureSize}
+      style={[styles.generatedStage, compact && styles.generatedStageCompact]}
+    >
+      {size > 0 && (
+        <Image
+          source={artworkSheets[sheet]}
+          contentFit="fill"
+          cachePolicy="memory-disk"
+          recyclingKey={title}
+          style={[
+            styles.spriteSheet,
+            {
+              width: size * 6,
+              height: size * 6,
+              transform: [
+                { translateX: -column * size },
+                { translateY: -row * size },
+              ],
+            },
+          ]}
+        />
+      )}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
+  generatedStage: {
+    width: "100%",
+    aspectRatio: 1,
+    overflow: "hidden",
+    backgroundColor: colors.surface,
+  },
+  generatedStageCompact: {
+    height: 104,
+    aspectRatio: undefined,
+    borderRadius: borderRadius.md,
+  },
+  spriteSheet: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+  },
   stage: {
     height: 224,
     overflow: "hidden",

@@ -1,6 +1,6 @@
-import catalog from "../../docs/ideas/ideas.json"
 import { ideas as mobileIdeas } from "../../src/data/ideas"
 import { getSourceIdeaPlaybook } from "../../src/data/source-ideas"
+import { getGameArtworkIndex } from "../../src/data/game-artwork-manifest"
 
 export type IdeaMode = "make" | "move" | "think" | "talk" | "help" | "perform"
 
@@ -19,17 +19,6 @@ export type WebIdea = {
   tags: string[]
   howToPlay: HowToPlay
   sourceUrl?: string | null
-}
-
-type ReviewedIdea = WebIdea & { links?: string[] }
-
-const reviewedIdeas = (catalog.ideas as unknown as ReviewedIdea[]).map((idea) => ({
-  ...idea,
-  sourceUrl: idea.sourceUrl ?? idea.links?.[0] ?? null
-}))
-
-function normalizeTitle(title: string): string {
-  return title.toLowerCase().replace(/[^a-z0-9]/g, "")
 }
 
 const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
@@ -107,13 +96,12 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
   }
 })
 
-const mobileTitles = new Set(appIdeas.map((idea) => normalizeTitle(idea.title)))
+// Web and native deliberately share one reviewed 98-game catalog. New research
+// stays in docs until it is promoted into both products together.
+export const ideas: WebIdea[] = appIdeas
 
-// Mobile is the parity floor. Reviewed tracker ideas expand the browser catalog
-// without duplicating cards whose app and editorial IDs differ.
-export const ideas: WebIdea[] = [
-  ...appIdeas,
-  ...reviewedIdeas.filter((idea) => !mobileTitles.has(normalizeTitle(idea.title)))
-]
+export function getOriginalArtworkIndex(id: string): number {
+  return getGameArtworkIndex(id) ?? -1
+}
 
 export const catalogCount = ideas.length

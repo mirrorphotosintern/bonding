@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import type { IdeaMode, WebIdea } from "../lib/catalog"
+import { getOriginalArtworkIndex } from "../lib/catalog"
 
 const modes: Array<{ id: "all" | IdeaMode; label: string; note: string; icon: string }> = [
   { id: "all", label: "Surprise us", note: "Anything goes", icon: "✦" },
@@ -238,6 +239,11 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
 
 function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boolean; onClose: () => void; onSave: () => void }) {
   const instructions = Object.entries(idea.howToPlay).filter(([, value]) => Boolean(value))
+  const artworkIndex = getOriginalArtworkIndex(idea.id)
+  const artworkSheet = Math.floor(artworkIndex / 36) + 1
+  const artworkCell = artworkIndex % 36
+  const artworkColumn = artworkCell % 6
+  const artworkRow = Math.floor(artworkCell / 6)
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => { if (event.key === "Escape") onClose() }
@@ -248,7 +254,18 @@ function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boo
   return (
     <div className="idea-modal" role="dialog" aria-modal="true" aria-labelledby="idea-title" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
       <article className="idea-sheet">
-        <div className={`sheet-banner card-${idea.mode}`}><span className="giant-mark">{modeSymbol(idea.mode)}</span><button className="close-button" onClick={onClose} type="button" aria-label="Close activity">×</button></div>
+        <div className={`sheet-banner card-${idea.mode}`}>
+          <div
+            className="sheet-artwork"
+            role="img"
+            aria-label={`Illustration showing how to play ${idea.title}`}
+            style={{
+              backgroundImage: `url(/game-art/original-games-${String(artworkSheet).padStart(2, "0")}.webp)`,
+              backgroundPosition: `${artworkColumn * 20}% ${artworkRow * 20}%`
+            }}
+          />
+          <button className="close-button" onClick={onClose} type="button" aria-label="Close activity">×</button>
+        </div>
         <div className="sheet-content">
           <div className="sheet-meta"><span>{modeLabels[idea.mode]}</span><span>{idea.duration[0]}–{idea.duration[1]} min</span><span>{idea.materials === "none" ? "Nothing needed" : idea.materials === "household" ? "Household things" : "Special materials"}</span></div>
           <h2 id="idea-title">{idea.title}</h2>
