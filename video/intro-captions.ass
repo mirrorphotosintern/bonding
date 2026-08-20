@@ -1,0 +1,18 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 720
+PlayResY: 1280
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Caption,Arial,35,&H00FFFDF5,&H00FFFDF5,&H0018223B,&HC018223B,-1,0,0,0,100,100,0,0,3,2,0,2,42,42,92,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.30,0:00:05.10,Caption,,0,0,0,,Since we are celebrating 25 years\Nof AKKA celebrations,
+Dialogue: 0,0:00:05.10,0:00:10.20,Caption,,0,0,0,,here are some Karnataka classic games\Nthat you can play with your kids.
+Dialogue: 0,0:00:10.65,0:00:17.30,Caption,,0,0,0,,As a first-time parent, we did not know\Nwhat games would interest our kid,
+Dialogue: 0,0:00:17.30,0:00:24.15,Caption,,0,0,0,,what games would build meaningful connections\Nand how to spend quality time together.
+Dialogue: 0,0:00:24.55,0:00:32.00,Caption,,0,0,0,,We built an app called TryThis.fun\Nto have fun with your kids, nieces, and nephews.
+Dialogue: 0,0:00:32.25,0:00:39.35,Caption,,0,0,0,,It has 100-plus games you can play\Nwithout even using a cell phone.

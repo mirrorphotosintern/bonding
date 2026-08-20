@@ -1,0 +1,16 @@
+[0:v]trim=start=6.88:end=17.22,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v0];
+[0:a]atrim=start=6.88:end=17.22,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a0];
+[1:v]trim=start=15.16:end=29.10,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v1];
+[1:a]atrim=start=15.16:end=29.10,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a1];
+[2:v]trim=start=29.98:end=37.58,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v2];
+[2:a]atrim=start=29.98:end=37.58,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a2];
+[2:v]trim=start=40.82:end=48.46,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v3];
+[2:a]atrim=start=40.82:end=48.46,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a3];
+[3:v]trim=start=7:end=15.34,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v4];
+[3:a]atrim=start=7:end=15.34,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a4];
+[4:v]trim=start=3:end=11.33,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v5];
+[4:a]atrim=start=3:end=11.33,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a5];
+[5:v]trim=start=25:end=33.33,setpts=PTS-STARTPTS,fps=30,scale=720:1280,format=yuv420p[v6];
+[5:a]atrim=start=25:end=33.33,asetpts=PTS-STARTPTS,aresample=48000,dynaudnorm=f=150:g=7[a6];
+[v0][a0][v1][a1][v2][a2][v3][a3][v4][a4][v5][a5][v6][a6]concat=n=7:v=1:a=1[basev][outa];
+[basev]ass=video/intro-captions.ass,drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial Bold.ttf':text='TRY THIS.FUN':fontcolor=0xFFFDF5:fontsize=24:box=1:boxcolor=0x18223BCC:boxborderw=12:x=28:y=42:enable='lt(t,39.52)',drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial Bold.ttf':text='ELEPHANT RIDE':fontcolor=0x18223B:fontsize=30:box=1:boxcolor=0xFFD452E8:boxborderw=14:x=28:y=42:enable='between(t,39.52,47.86)',drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial Bold.ttf':text='FIVE FINGERS':fontcolor=0x18223B:fontsize=30:box=1:boxcolor=0x65D6B0E8:boxborderw=14:x=28:y=42:enable='between(t,47.86,56.19)',drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial Bold.ttf':text='OOTA YAARIGE':fontcolor=0x18223B:fontsize=30:box=1:boxcolor=0xFFD452E8:boxborderw=14:x=28:y=42:enable='between(t,56.19,64.52)',drawtext=fontfile='/System/Library/Fonts/Supplemental/Arial Bold.ttf':text='TRYTHIS.FUN':fontcolor=0xFFFDF5:fontsize=46:box=1:boxcolor=0x3157D5E8:boxborderw=20:x=(w-text_w)/2:y=h-text_h-105:enable='between(t,61.5,64.52)'[outv]
