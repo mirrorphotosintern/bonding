@@ -89,7 +89,28 @@ const artById: Record<
   },
 };
 
+const kannadaArtworkById: Readonly<Record<string, number>> = {
+  kn_aane_bantond_aane: require("../../assets/game-art/kannada/aane-bantond-aane.webp"),
+  kn_avalakki_pavalakki: require("../../assets/game-art/kannada/avalakki-pavalakki.webp"),
+  kn_hebberalanna: require("../../assets/game-art/kannada/hebberalanna.webp"),
+  kn_oota_yaarige: require("../../assets/game-art/kannada/oota-yaarige.webp"),
+};
+
 export function IdeaArtwork({ id, title, compact = false }: Props) {
+  const kannadaArtwork = kannadaArtworkById[id];
+
+  if (kannadaArtwork) {
+    return (
+      <Image
+        source={kannadaArtwork}
+        contentFit="cover"
+        accessible
+        accessibilityLabel={`Illustration showing how to play ${title}`}
+        style={[styles.kannadaArtwork, compact && styles.kannadaArtworkCompact]}
+      />
+    );
+  }
+
   const artworkIndex = getGameArtworkIndex(id);
 
   if (artworkIndex !== undefined) {
@@ -213,6 +234,16 @@ function GeneratedIdeaArtwork({
 }
 
 const styles = StyleSheet.create({
+  kannadaArtwork: {
+    width: "100%",
+    aspectRatio: 1,
+    backgroundColor: colors.surfaceWarm,
+  },
+  kannadaArtworkCompact: {
+    height: 104,
+    aspectRatio: undefined,
+    borderRadius: borderRadius.md,
+  },
   generatedStage: {
     width: "100%",
     aspectRatio: 1,

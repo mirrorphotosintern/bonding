@@ -9,6 +9,7 @@ import {
 import { SymbolView } from "expo-symbols";
 import { useRouter } from "expo-router";
 import { colors, spacing, typography, borderRadius } from "../../src/theme";
+import { IdeaArtwork } from "../../src/components/idea-artwork";
 import { ideas, type IdeaSummary } from "../../src/data/ideas";
 import type { ActivityMode } from "../../src/types";
 
@@ -19,7 +20,8 @@ type Filter =
   | "make"
   | "talk"
   | "imagine"
-  | "help";
+  | "help"
+  | "kannada";
 
 const FILTERS: {
   value: Filter;
@@ -57,6 +59,11 @@ const FILTERS: {
     label: "Do a family job",
     matches: (idea) => idea.mode === "help",
   },
+  {
+    value: "kannada",
+    label: "ಕನ್ನಡ · Kannada games",
+    matches: (idea) => idea.activity?.heritage?.collection === "kannada",
+  },
 ];
 
 const markerByMode: Record<ActivityMode, { color: string; symbol: string }> = {
@@ -84,17 +91,6 @@ function IdeaMarker({ mode }: { mode: ActivityMode }) {
 export default function ExploreScreen() {
   const router = useRouter();
   const [selectedFilter, setSelectedFilter] = useState<Filter>("all");
-
-  const counts = useMemo(
-    () =>
-      Object.fromEntries(
-        FILTERS.map((filter) => [
-          filter.value,
-          ideas.filter(filter.matches).length,
-        ])
-      ) as Record<Filter, number>,
-    []
-  );
 
   const filtered = useMemo(() => {
     const active = FILTERS.find((filter) => filter.value === selectedFilter);
@@ -124,22 +120,18 @@ export default function ExploreScreen() {
               <Text style={[styles.filterText, selected && styles.filterTextActive]}>
                 {filter.label}
               </Text>
-              <Text
-                style={[
-                  styles.filterCount,
-                  selected && styles.filterCountActive,
-                ]}
-              >
-                {counts[filter.value]}
-              </Text>
             </TouchableOpacity>
           );
         })}
       </View>
 
-      <Text style={styles.resultCount}>
-        {filtered.length} GOOD {filtered.length === 1 ? "IDEA" : "IDEAS"}
-      </Text>
+      {selectedFilter === "kannada" && (
+        <View style={styles.heritageIntro}>
+          <Text style={styles.heritageEyebrow}>FOR LITTLE HANDS · 18 MONTHS AND UP</Text>
+          <Text style={styles.heritageTitle}>ಕನ್ನಡ ಆಟಗಳು</Text>
+          <Text style={styles.heritageCopy}>Rhymes to carry, tap, wiggle, serve, and tickle—each with Kannada words and an easy reading guide.</Text>
+        </View>
+      )}
 
       {filtered.map((idea) => (
         <TouchableOpacity
@@ -148,7 +140,11 @@ export default function ExploreScreen() {
           style={styles.card}
           onPress={() => router.push(`/activity/${idea.id}`)}
         >
-          <IdeaMarker mode={idea.mode} />
+          {idea.activity?.heritage ? (
+            <View style={styles.heritageArt}><IdeaArtwork id={idea.id} title={idea.title} compact /></View>
+          ) : (
+            <IdeaMarker mode={idea.mode} />
+          )}
           <View style={styles.cardBody}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardDuration}>
@@ -241,6 +237,32 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginBottom: spacing.sm,
   },
+  heritageIntro: {
+    padding: spacing.lg,
+    marginBottom: spacing.lg,
+    borderRadius: borderRadius.lg,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+    backgroundColor: colors.sun,
+  },
+  heritageEyebrow: {
+    ...typography.caption,
+    color: "#9C281D",
+    fontWeight: "900",
+    letterSpacing: 1,
+    marginBottom: spacing.xs,
+  },
+  heritageTitle: {
+    fontSize: 32,
+    lineHeight: 39,
+    color: colors.text,
+    fontWeight: "900",
+    marginBottom: spacing.xs,
+  },
+  heritageCopy: {
+    ...typography.callout,
+    color: colors.text,
+  },
   card: {
     backgroundColor: colors.surface,
     borderRadius: borderRadius.lg,
@@ -263,6 +285,15 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "-3deg" }],
   },
   markerIcon: { width: 32, height: 32 },
+  heritageArt: {
+    width: 96,
+    height: 104,
+    overflow: "hidden",
+    borderRadius: borderRadius.md,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+    alignSelf: "center",
+  },
   cardBody: { flex: 1, paddingVertical: 5, paddingRight: 4 },
   cardHeader: {
     flexDirection: "row",

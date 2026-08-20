@@ -220,6 +220,26 @@ export default function ActivityDetailScreen() {
           <Text style={styles.bodyText}>{activity.theIdea}</Text>
         </View>
 
+        {activity.heritage && (
+          <View style={styles.heritageCard}>
+            {activity.heritage.demoVideoPath && (
+              <TouchableOpacity
+                style={styles.demoVideoButton}
+                onPress={() => Linking.openURL(`https://trythis.fun${activity.heritage?.demoVideoPath}`)}
+              >
+                <Text style={styles.demoVideoEyebrow}>WATCH IT ONCE</Text>
+                <Text style={styles.demoVideoButtonText}>See how this family plays it  ▶</Text>
+              </TouchableOpacity>
+            )}
+            <Text style={styles.heritageEyebrow}>THE KANNADA RHYME</Text>
+            <Text style={styles.kannadaLyrics}>{activity.heritage.lyricsKannada}</Text>
+            <View style={styles.heritageRule} />
+            <Text style={styles.heritageEyebrow}>SAY IT ALOUD</Text>
+            <Text style={styles.transliteration}>{activity.heritage.transliteration}</Text>
+            <Text style={styles.versionNote}>{activity.heritage.versionNote}</Text>
+          </View>
+        )}
+
         {/* Safety warning */}
         {activity.warning && (
           <View style={styles.warningCard}>
@@ -416,6 +436,64 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     borderLeftWidth: 3,
     borderLeftColor: colors.warning,
+  },
+  heritageCard: {
+    backgroundColor: colors.sun,
+    borderRadius: borderRadius.lg,
+    padding: spacing.lg,
+    marginBottom: spacing.xl,
+    borderWidth: 1.5,
+    borderColor: colors.text,
+  },
+  demoVideoButton: {
+    marginBottom: spacing.lg,
+    padding: spacing.md,
+    borderWidth: 2,
+    borderColor: colors.ink,
+    borderRadius: borderRadius.md,
+    backgroundColor: colors.sun,
+  },
+  demoVideoEyebrow: {
+    marginBottom: 6,
+    color: colors.cobalt,
+    fontSize: 11,
+    fontWeight: "900",
+    letterSpacing: 1.3,
+  },
+  demoVideoButtonText: {
+    color: colors.ink,
+    fontSize: 17,
+    fontWeight: "800",
+  },
+  heritageEyebrow: {
+    ...typography.caption,
+    color: "#9C281D",
+    fontWeight: "900",
+    letterSpacing: 1.1,
+    marginBottom: spacing.sm,
+  },
+  kannadaLyrics: {
+    fontSize: 20,
+    lineHeight: 31,
+    color: colors.text,
+    fontWeight: "700",
+  },
+  heritageRule: {
+    height: 1.5,
+    backgroundColor: colors.text,
+    opacity: 0.25,
+    marginVertical: spacing.lg,
+  },
+  transliteration: {
+    ...typography.body,
+    color: colors.text,
+    fontStyle: "italic",
+    lineHeight: 25,
+  },
+  versionNote: {
+    ...typography.caption,
+    color: colors.textSecondary,
+    marginTop: spacing.lg,
   },
   sourceCard: {
     backgroundColor: colors.cobalt,

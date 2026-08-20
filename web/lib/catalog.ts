@@ -19,6 +19,17 @@ export type WebIdea = {
   tags: string[]
   howToPlay: HowToPlay
   sourceUrl?: string | null
+  collection?: "kannada" | null
+  artworkUrl?: string | null
+  videoUrl?: string | null
+  videoPosterUrl?: string | null
+}
+
+const kannadaArtwork: Readonly<Record<string, string>> = {
+  kn_aane_bantond_aane: "/game-art/kannada/aane-bantond-aane.webp",
+  kn_avalakki_pavalakki: "/game-art/kannada/avalakki-pavalakki.webp",
+  kn_hebberalanna: "/game-art/kannada/hebberalanna.webp",
+  kn_oota_yaarige: "/game-art/kannada/oota-yaarige.webp"
 }
 
 const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
@@ -34,9 +45,14 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
       situations: activity.places,
       duration: [activity.durationPlayMin, activity.durationPlayMax],
       materials: activity.materials.length ? "household" : "none",
-      tags: [activity.mode, ...activity.places],
+      tags: [activity.mode, ...activity.places, ...activity.mechanics],
       howToPlay: {
         say: activity.introLine,
+        ...(activity.heritage ? {
+          lyrics: activity.heritage.lyricsKannada,
+          say_aloud: activity.heritage.transliteration,
+          family_version: activity.heritage.versionNote
+        } : {}),
         setup: activity.prepChecklist.join(" "),
         steps: activity.steps.map((step) => step.text).join(" "),
         turns: `${activity.adultRole} ${activity.childRole}`,
@@ -44,7 +60,11 @@ const appIdeas: WebIdea[] = mobileIdeas.map((idea): WebIdea => {
         recovery: activity.ifItFlops,
         end: activity.endingPrompt
       },
-      sourceUrl: activity.sourceDemoUrl
+      sourceUrl: activity.sourceDemoUrl,
+      collection: activity.heritage?.collection ?? null,
+      artworkUrl: kannadaArtwork[activity.id] ?? null,
+      videoUrl: activity.heritage?.demoVideoPath ?? null,
+      videoPosterUrl: activity.heritage?.demoPosterPath ?? null
     }
   }
 

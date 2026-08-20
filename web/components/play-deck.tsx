@@ -25,6 +25,9 @@ const modeLabels: Record<IdeaMode, string> = {
 
 const instructionLabels: Record<string, string> = {
   say: "How to start",
+  lyrics: "The Kannada rhyme",
+  say_aloud: "Say it aloud",
+  family_version: "About this version",
   setup: "Get ready",
   steps: "How to play",
   first_round: "First round",
@@ -69,7 +72,7 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
   const [selected, setSelected] = useState<WebIdea | null>(null)
   const [openIdea, setOpenIdea] = useState<WebIdea | null>(null)
   const [query, setQuery] = useState("")
-  const [libraryMode, setLibraryMode] = useState<"all" | IdeaMode>("all")
+  const [libraryMode, setLibraryMode] = useState<"all" | IdeaMode | "kannada">("all")
   const [visibleCount, setVisibleCount] = useState(18)
   const [saved, setSaved] = useState<string[]>([])
 
@@ -95,7 +98,7 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
   const library = useMemo(() => {
     const needle = query.trim().toLowerCase()
     return ideas.filter((idea) =>
-      (libraryMode === "all" || idea.mode === libraryMode) &&
+      (libraryMode === "all" || (libraryMode === "kannada" ? idea.collection === "kannada" : idea.mode === libraryMode)) &&
       (!needle || searchableText(idea).includes(needle))
     )
   }, [ideas, libraryMode, query])
@@ -208,16 +211,25 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
         <div className="library-tools">
           <label className="search-box"><span>⌕</span><input value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(18) }} placeholder="Search for drawing, car games, stories…" /></label>
           <div className="library-filters" aria-label="Filter ideas by type">
-            {modes.map((item) => <button type="button" key={item.id} className={libraryMode === item.id ? "active" : ""} onClick={() => { setLibraryMode(item.id); setVisibleCount(18) }}>{item.label}</button>)}
+            {modes.slice(0, 1).map((item) => <button type="button" key={item.id} className={libraryMode === item.id ? "active" : ""} onClick={() => { setLibraryMode(item.id); setVisibleCount(18) }}>{item.label}</button>)}
+            <button type="button" className={`kannada-filter ${libraryMode === "kannada" ? "active" : ""}`} onClick={() => { setLibraryMode("kannada"); setVisibleCount(18) }}>ಕನ್ನಡ · Kannada games</button>
+            {modes.slice(1).map((item) => <button type="button" key={item.id} className={libraryMode === item.id ? "active" : ""} onClick={() => { setLibraryMode(item.id); setVisibleCount(18) }}>{item.label}</button>)}
           </div>
         </div>
+        {libraryMode === "kannada" && (
+          <aside className="heritage-intro">
+            <span className="heritage-kicker">FOR LITTLE HANDS · 18 MONTHS AND UP</span>
+            <strong lang="kn">ಕನ್ನಡ ಆಟಗಳು</strong>
+            <p>Four rhymes carried through voice, fingers, movement, and one very sneaky tickle. Kannada script and an easy reading guide are included in every game.</p>
+          </aside>
+        )}
         {library.length ? (
           <>
             <div className="web-idea-grid">
               {library.slice(0, visibleCount).map((idea) => (
                 <article className={`web-idea-card card-${idea.mode}`} key={idea.id}>
-                  <button className="card-main" onClick={() => showIdea(idea)} type="button">
-                    <span className="activity-mark">{modeSymbol(idea.mode)}</span>
+                  <button className={`card-main ${idea.artworkUrl ? "has-artwork" : ""}`} onClick={() => showIdea(idea)} type="button">
+                    {idea.artworkUrl ? <img className="card-artwork" src={idea.artworkUrl} alt={`Illustration showing ${idea.title}`} /> : <span className="activity-mark">{modeSymbol(idea.mode)}</span>}
                     <span className="card-time">{idea.duration[0]}–{idea.duration[1]} min {idea.materials === "none" ? "· nothing needed" : ""}</span>
                     <strong>{idea.title}</strong>
                     <span className="card-copy">{idea.oneLiner}</span>
@@ -256,12 +268,13 @@ function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boo
       <article className="idea-sheet">
         <div className={`sheet-banner card-${idea.mode}`}>
           <div
-            className="sheet-artwork"
+            className={`sheet-artwork ${idea.artworkUrl ? "heritage-artwork" : ""}`}
             role="img"
             aria-label={`Illustration showing how to play ${idea.title}`}
             style={{
-              backgroundImage: `url(/game-art/original-games-${String(artworkSheet).padStart(2, "0")}.webp)`,
-              backgroundPosition: `${artworkColumn * 20}% ${artworkRow * 20}%`
+              backgroundImage: `url(${idea.artworkUrl ?? `/game-art/original-games-${String(artworkSheet).padStart(2, "0")}.webp`})`,
+              backgroundPosition: idea.artworkUrl ? "center" : `${artworkColumn * 20}% ${artworkRow * 20}%`,
+              backgroundSize: idea.artworkUrl ? "cover" : "600% 600%"
             }}
           />
           <button className="close-button" onClick={onClose} type="button" aria-label="Close activity">×</button>
@@ -271,6 +284,15 @@ function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boo
           <h2 id="idea-title">{idea.title}</h2>
           <p className="sheet-lede">{idea.description || idea.oneLiner}</p>
           <button className={`sheet-save ${saved ? "saved" : ""}`} onClick={onSave} type="button">{saved ? "♥ Saved in this browser" : "♡ Save in this browser"}</button>
+          {idea.videoUrl && (
+            <section className="game-demo-video">
+              <div className="game-demo-heading"><span>WATCH IT ONCE</span><strong>See how this family plays it</strong></div>
+              <video controls playsInline preload="metadata" poster={idea.videoPosterUrl ?? undefined}>
+                <source src={idea.videoUrl} type="video/mp4" />
+                Your browser cannot play this video.
+              </video>
+            </section>
+          )}
           {idea.sourceUrl && (
             <aside className="source-demo">
               <div>
@@ -283,9 +305,9 @@ function IdeaModal({ idea, saved, onClose, onSave }: { idea: WebIdea; saved: boo
           )}
           <div className="instructions">
             {instructions.map(([key, value], index) => (
-              <section className={key === "say" ? "starter-instruction" : ""} key={key}>
+              <section className={`${key === "say" ? "starter-instruction" : ""} instruction-${key}`} key={key}>
                 <span className="instruction-number">{String(index + 1).padStart(2, "0")}</span>
-                <div><h3>{instructionLabels[key] ?? key.replaceAll("_", " ")}</h3><p>{key === "say" ? `“${value.replace(/^['\"]|['\"]$/g, "") }”` : value}</p></div>
+                <div><h3>{instructionLabels[key] ?? key.replaceAll("_", " ")}</h3><p lang={key === "lyrics" ? "kn" : undefined}>{key === "say" ? `“${value.replace(/^['\"]|['\"]$/g, "") }”` : value}</p></div>
               </section>
             ))}
           </div>

@@ -1,6 +1,6 @@
 // Core domain types from TECHNICAL_SPEC.md section 5
 
-export type AgeBand = "3-4" | "5-6" | "7-8" | "9-10";
+export type AgeBand = "1-2" | "3-4" | "5-6" | "7-8" | "9-10";
 export type ActivityMode = "make" | "move" | "think" | "talk" | "help" | "perform";
 export type Energy = "empty" | "steady" | "energetic";
 export type ChildState = "calm" | "wiggly" | "frustrated" | "curious" | "unspecified";
@@ -145,6 +145,16 @@ export interface Activity {
   sourceDemoUrl: string | null;
   sourceDemoPlatform: string | null;
   sourceDemoCreator: string | null;
+
+  heritage?: {
+    collection: "kannada";
+    languageCode: "kn";
+    lyricsKannada: string;
+    transliteration: string;
+    versionNote: string;
+    demoVideoPath?: string;
+    demoPosterPath?: string;
+  };
 }
 
 // Session recording

@@ -13,6 +13,7 @@ import { setJSON, STORAGE_KEYS } from "../src/lib/storage";
 import type { AgeBand } from "../src/types";
 
 const AGE_BANDS: { value: AgeBand; label: string }[] = [
+  { value: "1-2", label: "1–2 years" },
   { value: "3-4", label: "3–4 years" },
   { value: "5-6", label: "5–6 years" },
   { value: "7-8", label: "7–8 years" },
