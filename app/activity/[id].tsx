@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     padding: spacing.md,
     borderWidth: 2,
-    borderColor: colors.ink,
+    borderColor: colors.text,
     borderRadius: borderRadius.md,
     backgroundColor: colors.sun,
   },
@@ -461,7 +461,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
   },
   demoVideoButtonText: {
-    color: colors.ink,
+    color: colors.text,
     fontSize: 17,
     fontWeight: "800",
   },
