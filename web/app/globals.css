@@ -303,6 +303,36 @@ footer small { grid-column: 1 / -1; color: var(--quiet); }
 /* Browser play experience — a tactile deck, not an app-store landing page. */
 .modal-open { overflow: hidden; }
 .play-page { min-height: 100vh; background: #f2f1e8; }
+.heritage-home-hero {
+  display: grid;
+  grid-template-columns: minmax(320px, .8fr) minmax(430px, 1.2fr);
+  gap: clamp(42px, 7vw, 100px);
+  align-items: center;
+  min-height: 100vh;
+  padding: 130px max(24px, calc((100vw - 1240px) / 2)) 90px;
+  color: white;
+  background: var(--ink);
+}
+.heritage-home-copy h1 { max-width: 650px; margin: 0; font-size: clamp(58px, 6.4vw, 96px); font-weight: 900; line-height: .88; letter-spacing: -.065em; }
+.heritage-home-copy > p:not(.eyebrow) { max-width: 590px; margin: 28px 0; color: #dce4ff; font-size: 19px; line-height: 1.55; }
+.heritage-jump { display: inline-flex; gap: 22px; align-items: center; min-height: 54px; padding: 0 19px; border: 2px solid white; border-radius: 13px; color: var(--ink); background: var(--sun); font: 900 15px/1 "Figtree", sans-serif; text-decoration: none; }
+.heritage-jump span { font-size: 21px; }
+.heritage-film-frame { position: relative; width: min(600px, 100%); margin-inline: auto; padding: 18px; border: var(--line); border-radius: 28px; box-shadow: 12px 13px 0 var(--cobalt); color: var(--ink); background: var(--sun); rotate: .7deg; }
+.heritage-film-frame::before { position: absolute; z-index: -1; inset: 14px -15px -17px 16px; border: var(--line); border-radius: 28px; background: var(--mint); content: ""; rotate: 1.2deg; }
+.heritage-film-label { display: flex; gap: 14px; align-items: baseline; justify-content: space-between; padding: 2px 3px 14px; }
+.heritage-film-label span { color: #9c281d; font: 900 10px/1 "Figtree", sans-serif; letter-spacing: .12em; }
+.heritage-film-label strong { font: 900 13px/1.2 "Figtree", sans-serif; text-align: right; }
+.heritage-film-frame video { display: block; width: 100%; max-height: 73vh; border: var(--line); border-radius: 18px; background: #000; object-fit: contain; }
+.sound-note { display: block; padding: 12px 4px 1px; color: var(--ink); font-size: 12px; font-weight: 800; text-align: center; }
+.heritage-featured { max-width: 1320px; margin: 0 auto; padding: 110px 32px 125px; scroll-margin-top: 20px; }
+.heritage-featured-heading { display: grid; grid-template-columns: 1fr minmax(280px, 420px); gap: 50px; align-items: end; margin-bottom: 48px; }
+.heritage-featured-heading h2 { margin: 0; font-size: clamp(54px, 7vw, 92px); font-weight: 900; line-height: .88; letter-spacing: -.065em; }
+.heritage-featured-heading > p { margin: 0; color: var(--quiet); font-size: 18px; line-height: 1.6; }
+.heritage-featured-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.heritage-featured-card { background: var(--paper); }
+.heritage-featured-card:nth-child(2n) { transform: translateY(18px); }
+.heritage-featured-card .card-main { min-height: 440px; }
+.mood-phase { border-top: var(--line); border-bottom: var(--line); }
 .play-hero {
   display: grid;
   grid-template-columns: minmax(300px, .75fr) minmax(560px, 1.25fr);
@@ -514,6 +544,11 @@ legend { margin-bottom: 13px; font: 900 15px/1 "Figtree", sans-serif; }
 .web-mode:focus-visible, .segmented button:focus-visible, .deal-button:focus-visible, .card-main:focus-visible, .save-button:focus-visible, .close-button:focus-visible, .sheet-save:focus-visible { outline: 4px solid white; outline-offset: 4px; box-shadow: 0 0 0 7px var(--cobalt); }
 
 @media (max-width: 960px) {
+  .heritage-home-hero { grid-template-columns: 1fr; padding-top: 145px; }
+  .heritage-home-copy { max-width: 760px; }
+  .heritage-film-frame { width: min(560px, 92%); }
+  .heritage-featured-grid { grid-template-columns: repeat(2, 1fr); }
+  .heritage-featured-heading { grid-template-columns: 1fr; }
   .play-hero { grid-template-columns: 1fr; }
   .play-intro { max-width: 680px; }
   .moment-picker { width: min(680px, 100%); }
@@ -521,6 +556,21 @@ legend { margin-bottom: 13px; font: 900 15px/1 "Figtree", sans-serif; }
   .browser-heading { grid-template-columns: 1fr; }
 }
 @media (max-width: 650px) {
+  .heritage-home-hero { gap: 52px; min-height: auto; padding: 130px 16px 78px; }
+  .heritage-home-copy h1 { font-size: clamp(54px, 16vw, 76px); }
+  .heritage-home-copy > p:not(.eyebrow) { font-size: 17px; }
+  .heritage-film-frame { width: calc(100% - 12px); padding: 10px; border-radius: 22px; box-shadow: 7px 8px 0 var(--cobalt); rotate: 0deg; }
+  .heritage-film-frame { order: -1; }
+  .heritage-film-frame::before { inset: 10px -9px -11px 10px; border-radius: 22px; }
+  .heritage-film-label { align-items: flex-start; flex-direction: column; }
+  .heritage-film-label strong { text-align: left; }
+  .heritage-film-frame video { max-height: 70vh; border-radius: 14px; }
+  .heritage-featured { padding: 78px 16px 95px; }
+  .heritage-featured-heading { gap: 20px; margin-bottom: 30px; }
+  .heritage-featured-heading h2 { font-size: clamp(52px, 15vw, 72px); }
+  .heritage-featured-grid { grid-template-columns: 1fr; }
+  .heritage-featured-card:nth-child(2n) { transform: none; }
+  .heritage-featured-card .card-main { min-height: 380px; }
   .play-hero { padding: 125px 16px 62px; }
   .play-intro h1 { font-size: clamp(54px, 16vw, 76px); }
   .moment-picker { padding: 21px 15px; border-radius: 23px; box-shadow: 7px 8px 0 var(--ink); }

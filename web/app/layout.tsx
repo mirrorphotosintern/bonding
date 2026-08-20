@@ -7,7 +7,7 @@ import "./globals.css"
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Try This — One good thing to do together",
+    default: "Try This — Family games worth passing on",
     template: "%s · Try This"
   },
   description: site.description,
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: site.url,
-    title: "Try This — Less deciding. More doing.",
+    title: "Try This — Family games worth passing on",
     description: site.description,
     siteName: site.name
   },
   twitter: {
     card: "summary_large_image",
-    title: "Try This — Less deciding. More doing.",
+    title: "Try This — Family games worth passing on",
     description: site.description
   },
   robots: { index: true, follow: true }

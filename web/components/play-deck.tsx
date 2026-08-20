@@ -72,7 +72,7 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
   const [selected, setSelected] = useState<WebIdea | null>(null)
   const [openIdea, setOpenIdea] = useState<WebIdea | null>(null)
   const [query, setQuery] = useState("")
-  const [libraryMode, setLibraryMode] = useState<"all" | IdeaMode | "kannada">("all")
+  const [libraryMode, setLibraryMode] = useState<"all" | IdeaMode | "kannada">("kannada")
   const [visibleCount, setVisibleCount] = useState(18)
   const [saved, setSaved] = useState<string[]>([])
 
@@ -103,6 +103,11 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
     )
   }, [ideas, libraryMode, query])
 
+  const heritageIdeas = useMemo(
+    () => ideas.filter((idea) => idea.collection === "kannada"),
+    [ideas]
+  )
+
   function pickIdea() {
     const next = shuffle(matches).find((idea) => idea.id !== selected?.id) ?? matches[0]
     setSelected(next ?? null)
@@ -129,15 +134,60 @@ export function PlayDeck({ ideas }: { ideas: WebIdea[] }) {
 
   return (
     <div className="play-page">
-      <section className="play-hero">
+      <section className="heritage-home-hero">
+        <div className="heritage-home-copy">
+          <p className="eyebrow">KARNATAKA PLAY · PASSED FORWARD</p>
+          <h1>The games that raised us can still raise a laugh.</h1>
+          <p>Rhymes, finger plays, elephant rides, and one very sneaky tickle—kept in Kannada, explained step by step, and ready for families everywhere.</p>
+          <a className="heritage-jump" href="#kannada-games">Meet the games <span>↓</span></a>
+        </div>
+        <div className="heritage-film-frame">
+          <div className="heritage-film-label"><span>WHY WE BUILT TRY THIS</span><strong>Our family. Our problem. Our first collection.</strong></div>
+          <video
+            controls
+            playsInline
+            preload="metadata"
+            poster="/videos/try-this-fun-akka-intro-poster.jpg"
+          >
+            <source src="/videos/try-this-fun-akka-intro.mp4" type="video/mp4" />
+            Your browser cannot play this video.
+          </video>
+          <span className="sound-note">Press play · Sound and captions included</span>
+        </div>
+      </section>
+
+      <section className="heritage-featured" id="kannada-games">
+        <div className="heritage-featured-heading">
+          <div>
+            <p className="eyebrow blue">ಕನ್ನಡ ಆಟಗಳು · KANNADA HERITAGE GAMES</p>
+            <h2>Watch once.<br />Play for years.</h2>
+          </div>
+          <p>These are not vague “bonding activities.” They are real family games with the words, movements, examples, and tiny details you need to begin.</p>
+        </div>
+        <div className="heritage-featured-grid">
+          {heritageIdeas.map((idea) => (
+            <article className={`web-idea-card heritage-featured-card card-${idea.mode}`} key={idea.id}>
+              <button className="card-main has-artwork" onClick={() => showIdea(idea)} type="button">
+                <img className="card-artwork" src={idea.artworkUrl ?? ""} alt={`Illustration showing ${idea.title}`} />
+                <span className="card-time">{idea.duration[0]}–{idea.duration[1]} min · family tradition</span>
+                <strong>{idea.title}</strong>
+                <span className="card-copy">{idea.oneLiner}</span>
+                <span className="card-link">Watch and learn the game →</span>
+              </button>
+              <button className={`save-button ${saved.includes(idea.id) ? "saved" : ""}`} onClick={() => toggleSave(idea.id)} type="button" aria-label={`${saved.includes(idea.id) ? "Remove" : "Save"} ${idea.title}`}>{saved.includes(idea.id) ? "♥" : "♡"}</button>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="play-hero mood-phase" id="choose">
         <div className="play-intro">
-          <p className="eyebrow">PLAY RIGHT HERE · NO SIGN-IN</p>
-          <h1>What sounds<br /><span>good right now?</span></h1>
-          <p>Choose the kind of moment you have. We’ll shuffle the deck and hand you one genuinely doable thing.</p>
-          <div className="privacy-note"><span>✓</span> Nothing leaves your browser</div>
+          <p className="eyebrow">NOW MAKE IT FIT YOUR FAMILY</p>
+          <h1>What kind of play<br /><span>do you need?</span></h1>
+          <p>Pick a mood, setup, and amount of time. We’ll deal one well-explained idea from the full collection.</p>
         </div>
 
-        <div className="moment-picker" id="choose" aria-label="Choose a family activity">
+        <div className="moment-picker" aria-label="Choose a family activity">
           <fieldset>
             <legend>Pick a mood</legend>
             <div className="web-mode-grid">

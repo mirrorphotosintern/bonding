@@ -2,7 +2,7 @@ export const site = {
   name: "Try This",
   url: "https://trythis.fun",
   description:
-    "Play genuinely doable family games and activities in any browser. No account or download required.",
+    "Rediscover family games worth passing on, with clear instructions and real demonstrations. Play free in any browser.",
   testFlightUrl: "https://testflight.apple.com/join/WTFUxxpm",
   androidTestUrl: "https://play.google.com/apps/internaltest/4701245455831244623",
   supportEmail: "support@mirror.photos",

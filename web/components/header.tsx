@@ -8,9 +8,9 @@ export function Header() {
         Try This<span>.</span>
       </Link>
       <nav aria-label="Main navigation">
-        <Link href="/#how-it-works">How it works</Link>
-        <Link href="/play/#all-ideas">All ideas</Link>
-        <Link className="nav-cta" href="/play/#choose">Play now →</Link>
+        <Link href="/#kannada-games">Kannada games</Link>
+        <Link href="/#all-ideas">All ideas</Link>
+        <Link className="nav-cta" href="/#choose">Play now →</Link>
       </nav>
     </header>
   )
